@@ -1,0 +1,261 @@
+<!doctype html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>이상형 월드컵</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/assets/styles/common.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/assets/styles/index.css}">
+    <script src="https://kit.fontawesome.com/0500497c40.js" crossorigin="anonymous"></script>
+</head>
+<body>
+<th:block th:replace="~{layouts/header.html :: header}"></th:block>
+    <main id="index-main">
+        <section class="search-container">
+            <form id="search-form" action="">
+                <label class="orderLabel">
+                    <select name="by" id="">
+                        <option value="latest">최신순</option>
+                        <option value="popular">인기순</option>
+                    </select>
+                </label>
+                <label class="searchLabel">
+                    <input name="keyword" minlength="1" maxlength="30" placeholder="월드컵 제목을 입력하세요." type="search">
+                </label>
+                <input value="검색" type="submit">
+            </form>
+        </section>
+
+        <section class="tournaments-container">
+            <div class="tournament-box">
+                <div class="tournament-info">
+                    <a class="thumbnail-box" href="#">
+                        <img class="thumbnail" src="https://newsimg.sedaily.com/2023/08/25/29TJLQF65Q_1.jpg" alt="">
+                    </a>
+                    <span class="tournament-title">가장 좋아하는 XXX는?</span>
+                    <span class="tournament-content">가장 좋아하는 XXX을 골라야 합니다.</span>
+                </div>
+                <div class="tournament-button">
+                    <a href="#">
+                        <i class="fa-solid fa-play"></i>
+                        <span>시작하기</span>
+                    </a>
+                    <a href="#">
+                        <i class="fa-solid fa-medal"></i>
+                        <span>랭킹보기</span>
+                    </a>
+                </div>
+            </div>
+            <div class="tournament-box">
+                <div class="tournament-info">
+                    <a class="thumbnail-box" href="#">
+                        <img class="thumbnail" src="https://i.namu.wiki/i/S7uvnBUJfd6-L_tsEjODzNPX8pXiBD1NtA8HZgYe024dpHG6kBSO1RY5ieGjTbvmVmdd9x41065-KMoYjGdzlQ.webp" alt="">
+                    </a>
+                    <span class="tournament-title">가장 좋아하는 XXX는?</span>
+                    <span class="tournament-content">가장 좋아하는 XXX을 골라야 합니다.</span>
+                </div>
+                <div class="tournament-button">
+                    <a href="#">
+                        <i class="fa-solid fa-play"></i>
+                        <span>시작하기</span>
+                    </a>
+                    <a href="#">
+                        <i class="fa-solid fa-medal"></i>
+                        <span>랭킹보기</span>
+                    </a>
+                </div>
+            </div>
+            <div class="tournament-box">
+                <div class="tournament-info">
+                    <a class="thumbnail-box" href="#">
+                        <img class="thumbnail" src="https://newsimg.sedaily.com/2023/08/25/29TJLQF65Q_1.jpg" alt="">
+                    </a>
+                    <span class="tournament-title">가장 좋아하는 XXX는?</span>
+                    <span class="tournament-content">가장 좋아하는 XXX을 골라야 합니다.</span>
+                </div>
+                <div class="tournament-button">
+                    <a href="#">
+                        <i class="fa-solid fa-play"></i>
+                        <span>시작하기</span>
+                    </a>
+                    <a href="#">
+                        <i class="fa-solid fa-medal"></i>
+                        <span>랭킹보기</span>
+                    </a>
+                </div>
+            </div>
+            <div class="tournament-box">
+                <div class="tournament-info">
+                    <a class="thumbnail-box" href="#">
+                        <img class="thumbnail" src="https://www.allurekorea.com/wp_data/allure/2023/08/style_64d0b9fd307d8-700x500-1691401288.jpg?ver=5.0.14" alt="">
+                    </a>
+                    <span class="tournament-title">가장 좋아하는 XXX는?</span>
+                    <span class="tournament-content">가장 좋아하는 XXX을 골라야 합니다.</span>
+                </div>
+                <div class="tournament-button">
+                    <a href="#">
+                        <i class="fa-solid fa-play"></i>
+                        <span>시작하기</span>
+                    </a>
+                    <a href="#">
+                        <i class="fa-solid fa-medal"></i>
+                        <span>랭킹보기</span>
+                    </a>
+                </div>
+            </div>
+            <div class="tournament-box">
+                <div class="tournament-info">
+                    <a class="thumbnail-box" href="#">
+                        <img class="thumbnail" src="https://newsimg.sedaily.com/2023/08/25/29TJLQF65Q_1.jpg" alt="">
+                    </a>
+                    <span class="tournament-title">가장 좋아하는 XXX는?</span>
+                    <span class="tournament-content">가장 좋아하는 XXX을 골라야 합니다.</span>
+                </div>
+                <div class="tournament-button">
+                    <a href="#">
+                        <i class="fa-solid fa-play"></i>
+                        <span>시작하기</span>
+                    </a>
+                    <a href="#">
+                        <i class="fa-solid fa-medal"></i>
+                        <span>랭킹보기</span>
+                    </a>
+                </div>
+            </div>
+            <div class="tournament-box">
+                <div class="tournament-info">
+                    <a class="thumbnail-box" href="#">
+                        <img class="thumbnail" src="https://newsimg.sedaily.com/2023/08/25/29TJLQF65Q_1.jpg" alt="">
+                    </a>
+                    <span class="tournament-title">가장 좋아하는 XXX는?</span>
+                    <span class="tournament-content">가장 좋아하는 XXX을 골라야 합니다.</span>
+                </div>
+                <div class="tournament-button">
+                    <a href="#">
+                        <i class="fa-solid fa-play"></i>
+                        <span>시작하기</span>
+                    </a>
+                    <a href="#">
+                        <i class="fa-solid fa-medal"></i>
+                        <span>랭킹보기</span>
+                    </a>
+                </div>
+            </div>
+            <div class="tournament-box">
+                <div class="tournament-info">
+                    <a class="thumbnail-box" href="#">
+                        <img class="thumbnail" src="https://newsimg.sedaily.com/2023/08/25/29TJLQF65Q_1.jpg" alt="">
+                    </a>
+                    <span class="tournament-title">가장 좋아하는 XXX는?</span>
+                    <span class="tournament-content">가장 좋아하는 XXX을 골라야 합니다.</span>
+                </div>
+                <div class="tournament-button">
+                    <a href="#">
+                        <i class="fa-solid fa-play"></i>
+                        <span>시작하기</span>
+                    </a>
+                    <a href="#">
+                        <i class="fa-solid fa-medal"></i>
+                        <span>랭킹보기</span>
+                    </a>
+                </div>
+            </div>
+            <div class="tournament-box">
+                <div class="tournament-info">
+                    <a class="thumbnail-box" href="#">
+                        <img class="thumbnail" src="https://newsimg.sedaily.com/2023/08/25/29TJLQF65Q_1.jpg" alt="">
+                    </a>
+                    <span class="tournament-title">가장 좋아하는 XXX는?</span>
+                    <span class="tournament-content">가장 좋아하는 XXX을 골라야 합니다.</span>
+                </div>
+                <div class="tournament-button">
+                    <a href="#">
+                        <i class="fa-solid fa-play"></i>
+                        <span>시작하기</span>
+                    </a>
+                    <a href="#">
+                        <i class="fa-solid fa-medal"></i>
+                        <span>랭킹보기</span>
+                    </a>
+                </div>
+            </div>
+            <div class="tournament-box">
+                <div class="tournament-info">
+                    <a class="thumbnail-box" href="#">
+                        <img class="thumbnail" src="https://newsimg.sedaily.com/2023/08/25/29TJLQF65Q_1.jpg" alt="">
+                    </a>
+                    <span class="tournament-title">가장 좋아하는 XXX는?</span>
+                    <span class="tournament-content">가장 좋아하는 XXX을 골라야 합니다.</span>
+                </div>
+                <div class="tournament-button">
+                    <a href="#">
+                        <i class="fa-solid fa-play"></i>
+                        <span>시작하기</span>
+                    </a>
+                    <a href="#">
+                        <i class="fa-solid fa-medal"></i>
+                        <span>랭킹보기</span>
+                    </a>
+                </div>
+            </div>
+            <div class="tournament-box">
+                <div class="tournament-info">
+                    <a class="thumbnail-box" href="#">
+                        <img class="thumbnail" src="https://newsimg.sedaily.com/2023/08/25/29TJLQF65Q_1.jpg" alt="">
+                    </a>
+                    <span class="tournament-title">가장 좋아하는 XXX는?</span>
+                    <span class="tournament-content">가장 좋아하는 XXX을 골라야 합니다.</span>
+                </div>
+                <div class="tournament-button">
+                    <a href="#">
+                        <i class="fa-solid fa-play"></i>
+                        <span>시작하기</span>
+                    </a>
+                    <a href="#">
+                        <i class="fa-solid fa-medal"></i>
+                        <span>랭킹보기</span>
+                    </a>
+                </div>
+            </div>
+            <div class="tournament-box">
+                <div class="tournament-info">
+                    <a class="thumbnail-box" href="#">
+                        <img class="thumbnail" src="https://newsimg.sedaily.com/2023/08/25/29TJLQF65Q_1.jpg" alt="">
+                    </a>
+                    <span class="tournament-title">가장 좋아하는 XXX는?</span>
+                    <span class="tournament-content">가장 좋아하는 XXX을 골라야 합니다.</span>
+                </div>
+                <div class="tournament-button">
+                    <a href="#">
+                        <i class="fa-solid fa-play"></i>
+                        <span>시작하기</span>
+                    </a>
+                    <a href="#">
+                        <i class="fa-solid fa-medal"></i>
+                        <span>랭킹보기</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section class="paging-container">
+            <ul class="front-back-ul">
+                <li><a href=""><i class="fa-solid fa-arrow-left"></i></a></li>
+            </ul>
+            <ul class="paging-ul">
+                <li><a href="#">1</a></li>
+                <li><a href="#">2</a></li>
+                <li><a href="#">3</a></li>
+                <li><a href="#">4</a></li>
+                <li><a href="#">5</a></li>
+            </ul>
+            <ul class="front-back-ul">
+                <li><a href=""><i class="fa-solid fa-arrow-right"></i></a></li>
+            </ul>
+        </section>
+    </main>
+    <th:block th:replace="~{layouts/footer.html :: footer}"></th:block>
+</body>
+</html>

@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>랭킹</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/assets/styles/ranking.css}">
+    <script src="https://kit.fontawesome.com/0500497c40.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <header th:replace="layouts/header ::  header"></header>
+    <main id="ranking-main">
+        <section class="ranking-container">
+            <table class="tournament-ranking">
+                <thead>
+                    <tr>
+                        <th>순위</th>
+                        <th>이미지</th>
+                        <th>이름</th>
+                        <th>승점비율(승점/모든 승점 * 100)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="product">
+                        <td>1</td>
+                        <td><img class="thumbnail" src="https://newsimg.sedaily.com/2023/08/25/29TJLQF65Q_1.jpg" alt=""></td>
+                        <td>이름1</td>
+                        <td>
+                            <div class="graph-box">
+                                <div class="graph-stick"></div>
+                            </div>
+                            <span>50%</span>
+                        </td>
+                    </tr>
+                    <tr class="product">
+                        <td>1</td>
+                        <td><img class="thumbnail" src="https://newsimg.sedaily.com/2023/08/25/29TJLQF65Q_1.jpg" alt=""></td>
+                        <td>이름1</td>
+                        <td>
+                            <div class="graph-box">
+                                <div class="graph-stick"></div>
+                            </div>
+                            <span>50%</span>
+                        </td>
+                    </tr>
+                    <tr class="product">
+                        <td>1</td>
+                        <td><img class="thumbnail" src="https://newsimg.sedaily.com/2023/08/25/29TJLQF65Q_1.jpg" alt=""></td>
+                        <td>이름1</td>
+                        <td>
+                            <div class="graph-box">
+                                <div class="graph-stick"></div>
+                            </div>
+                            <span>50%</span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section class="comments-container">
+            <div class="none-login">
+                <a href="#">로그인이 필요한 서비스 입니다.</a>
+            </div>
+            <div class="write-comment">
+                <form id="comment-form" action="">
+                    <label>
+                        <span>댓글 쓰기</span>
+                        <textarea name="content" minlength="2" maxlength="1000" id="" cols="160" placeholder="댓글을 입력해주세요(최소 2자, 최대 1000자)" rows="10"></textarea>
+                    </label>
+                </form>
+            </div>
+            <div class="comments-list">
+                <div class="comment-box">
+                    <div class="comment-info">
+                        <span>닉네임1</span>
+                        <span>2024-05-03 08:25</span>
+                        <input value="삭제" type="button">
+                    </div>
+                    <div class="comment-content">
+                        내 코멘트이다.
+                    </div>
+                </div>
+                <div class="comment-box">
+                    <div class="comment-info">
+                        <span>닉네임1</span>
+                        <span>2024-05-03 08:25</span>
+                        <input value="삭제" type="button">
+                    </div>
+                    <div class="comment-content">
+                        내 코멘트이다.
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer th:replace="layouts/footer ::  footer"></footer>
+</body>
+</html>

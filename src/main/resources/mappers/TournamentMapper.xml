@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC
+        "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dev.hcs.mytournament.mappers.TournamentMapper">
+
+    <insert id="insertTournament"
+            useGeneratedKeys="true"
+            keyColumn="index"
+            keyProperty="index"
+            parameterType="dev.hcs.mytournament.entities.TournamentEntity">
+        INSERT INTO `worldcup`.`tournament` (`user_email`, `thumbnail`, `thumbnail_file_name`, `thumbnail_content_type`, `title`, `content`, `play_count`, `created_at`, `modified_at`, `is_recognized`)
+        VALUES (#{userEmail}, #{thumbnail}, #{thumbnailFileName}, #{thumbnailContentType}, #{title}, #{content}, #{playCount}, #{createdAt}, #{modifiedAt}, #{isRecognized})
+    </insert>
+
+    <insert id="insertTournamentProduct" parameterType="dev.hcs.mytournament.entities.TournamentProductEntity">
+        INSERT INTO `worldcup`.`tournament_product` (`tournament_index`, `product_thumbnail`, `product_thumbnail_file_name`, `product_thumbnail_content_type`, `name`, `point`)
+        VALUES (#{tournamentIndex}, #{productThumbnail}, #{productThumbnailFileName}, #{productThumbnailContentType}, #{name}, #{point})
+    </insert>
+
+    <select id="selectTournamentByIndex" parameterType="int" resultType="dev.hcs.mytournament.entities.TournamentEntity">
+        SELECT `index`                      AS `index`,
+               `user_email`                 AS `userEmail`,
+               `thumbnail`                  AS `thumbnail`,
+               `thumbnail_file_name`        AS `thumbnailFileName`,
+               `thumbnail_content_type`     AS `thumbnailContentType`,
+               `title`                      AS `title`,
+               `content`                    AS `content`,
+               `play_count`                 AS `playCount`,
+               `created_at`                 AS `createdAt`,
+               `modified_at`                AS `modifiedAt`,
+               `is_recognized`               AS `isRecognized`
+        FROM `worldcup`.`tournament`
+        WHERE `index` = #{index}
+        LIMIT 1
+    </select>
+
+    <select id="selectTournamentProductByIndex" parameterType="int" resultType="dev.hcs.mytournament.entities.TournamentProductEntity">
+        SELECT `index`                          AS `index`,
+               `tournament_index`               AS `tournamentIndex`,
+               `product_thumbnail`              AS `productThumbnail`,
+               `product_thumbnail_file_name`    AS `productThumbnailFileName`,
+               `product_thumbnail_content_type` AS `productThumbnailContentType`,
+               `name`                           AS `name`,
+               `point`                          AS `point`
+        FROM `worldcup`.`tournament_product`
+        WHERE `index` = #{index}
+        LIMIT 1
+    </select>
+
+    <select id="selectTournaments" resultType="dev.hcs.mytournament.entities.TournamentEntity">
+        SELECT `index`                      AS `index`,
+               `user_email`                 AS `userEmail`,
+               `thumbnail`                  AS `thumbnail`,
+               `thumbnail_file_name`        AS `thumbnailFileName`,
+               `thumbnail_content_type`     AS `thumbnailContentType`,
+               `title`                      AS `title`,
+               `content`                    AS `content`,
+               `play_count`                 AS `playCount`,
+               `created_at`                 AS `createdAt`,
+               `modified_at`                AS `modifiedAt`,
+               `is_recognized`               AS `isRecognized`
+        FROM `worldcup`.`tournament`
+        ORDER BY `created_at` DESC;
+    </select>
+
+    <update id="updateTournament" parameterType="dev.hcs.mytournament.entities.TournamentEntity">
+        UPDATE `worldcup`.`tournament`
+        SET `user_email`            = #{userEmail},
+            `thumbnail`             = #{thumbnail},
+            `thumbnail_file_name`   = #{thumbnailFileName},
+            `thumbnail_content_type`= #{thumbnailContentType},
+            `title`                 = #{title},
+            `content`               = #{content},
+            `play_count`            = #{playCount},
+            `created_at`            = #{createdAt},
+            `modified_at`           = #{modifiedAt},
+            `is_recognized`         = #{isRecognized}
+        WHERE `index` = #{index}
+        LIMIT 1
+    </update>
+</mapper>

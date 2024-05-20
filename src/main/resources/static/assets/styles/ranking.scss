@@ -1,0 +1,114 @@
+@charset "UTF-8";
+@import "common";
+
+#ranking-main {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.ranking-container {
+  margin-bottom: 2rem;
+  text-align: center;
+
+  > .tournament-ranking {
+    border: 1px solid #e0e0e0;
+
+    > thead > tr > th {
+      background-color: #ffffff;
+    }
+
+    > tbody > tr > td {
+      background-color: #e0e0e0;
+    }
+
+    > tbody > tr > td:first-child {
+      width: 100px;
+    }
+
+    > tbody > tr > td:nth-child(3) {
+      width: 280px;
+    }
+
+    > tbody > tr > td:last-child {
+      width: 500px;
+    }
+
+    > tbody > tr > td > .thumbnail {
+      width: 280px;
+    }
+
+    > tbody > tr > td > .graph-box {
+      border-radius: 0.75rem;
+      background-color: #ffffff;
+      height: 40px;
+      overflow: hidden;
+
+      > .graph-stick {
+        background-color: #009fff;
+        height: 40px;
+        width: 0; /* 그래프 */
+      }
+    }
+  }
+}
+
+.comments-container {
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1.2rem;
+
+  > .none-login {
+    border: 2px solid #757575;
+    padding: 2rem 30rem;
+    border-radius: 0.5rem;
+  }
+
+  > .write-comment > #comment-form {
+
+    > label {
+      align-items: flex-start;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+
+      > textarea {
+        padding: 0.75rem 0.75rem;
+        font-family: inherit;
+        border: 1px solid #e0e0e0;
+        height: 6.25rem;
+        outline: none;
+        resize: none;
+      }
+    }
+  }
+
+  > .comments-list {
+    margin: 2rem 0;
+
+    align-items: flex-start;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 2rem;
+
+    > .comment-box {
+      align-items: flex-start;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      gap: 0.2rem;
+
+      > .comment-info {
+        align-items: flex-start;
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        gap: 0.5rem;
+      }
+    }
+  }
+}

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>로그인</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/assets/styles/user.css}">
+    <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+    <script defer type="text/javascript" th:src="@{/assets/scripts/login.js}"></script>
+    <script defer type="text/javascript" th:src="@{/assets/scripts/common.js}"></script>
+    <script th:if="${session.get('user') != null}">
+        alert('이미 로그인 되어 있습니다. 홈 페이지로 이동합니다.');
+        location.href = '/';
+    </script>
+</head>
+<body>
+    <main id="user-main">
+        <section id="user-container">
+            <div class="user-box">
+                <form id="login-form">
+                    <div class="input-box">
+                        <label><input name="email" type="text" placeholder="이메일"></label>
+                        <label><input name="password" type="password" placeholder="비밀번호"></label>
+                    </div>
+                    <div class="warning">잘못된 이메일 혹은 비밀번호 입니다.</div>
+                    <div class="spring"></div>
+                    <a href="/user/resetPassword">비밀번호를 잊으셨나요?</a>
+                    <input value="로그인" type="submit">
+                    <a class="kakao-login-link" th:href="${location}">
+                        <img class="kakao-login-button" src="/assets/images/kakao_login_button.png" alt="카카오로그인">
+                    </a>
+                </form>
+            </div>
+        </section>
+        <div class="links">
+            <span>회원이 아니신가요? <a href="/user/register">회원가입 페이지로 이동하기</a></span>
+            <span>홈페이지로 돌아가고 싶으신가요? <a href="/">돌아가기</a> </span>
+        </div>
+    </main>
+</body>
+</html>

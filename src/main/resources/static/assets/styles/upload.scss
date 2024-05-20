@@ -1,0 +1,157 @@
+@charset "UTF-8";
+@import "common";
+
+#upload-main {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  >.upload-container {
+    margin: 2rem 0;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    > #upload-form {
+      width: 600px;
+      align-items: stretch;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      gap: 1.25rem;
+
+      > input[type="submit"] {
+        font-family: inherit;
+        border-radius: 0.25rem;
+        color: #ffffff;
+        height: 3rem;
+        border: none;
+        background-color: #009fff;
+        font-size: 1.5rem;
+        cursor: pointer;
+
+        &:hover {
+          background-color: darken(#009fff, 5);
+        }
+      }
+
+      > .tournament-title {
+        align-items: stretch;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        gap: 0.75rem;
+
+        > label {
+          align-items: stretch;
+          display: flex;
+          flex-direction: column;
+          justify-content: stretch;
+          box-sizing: border-box;
+          gap: 0.25rem;
+
+          &:focus-within {
+            > span {
+              color: #009fff;
+            }
+
+            > input {
+              border-color: #009fff;
+            }
+
+            > textarea {
+              border: 1px solid #009fff;
+            }
+          }
+
+          > span {
+            color: #757575;
+            font-size: 0.75rem;
+          }
+
+          > input {
+            font-family: inherit;
+            outline: none;
+            border: 1px solid #e0e0e0;
+            height: 35px;
+            padding: 0 0.5rem;
+          }
+
+          > textarea{
+            font-family: inherit;
+            outline: none;
+            resize: none;
+            border: 1px solid #e0e0e0;
+            height: 50px;
+            padding: 0.5rem 0.5rem;
+          }
+        }
+      }
+
+      > .tournament-products {
+        align-items: flex-start;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+
+        > ul {
+          align-items: stretch;
+          display: flex;
+          flex-direction: column;
+          justify-content: stretch;
+          gap: 0.25rem;
+
+          > .product-box {
+            width: 600px;
+            align-items: center;
+            display: flex;
+            flex-direction: row;
+            justify-content: stretch;
+
+            > label {
+              box-sizing: border-box;
+              align-items: stretch;
+              display: flex;
+              flex-direction: row;
+              justify-content: stretch;
+
+              > .thumbnail-select {
+
+                &:checked {
+                  + .file-image {
+                    border: 2px solid #009fff;
+                  }
+                }
+              }
+
+              > .file-image {
+                border: 2px solid #e0e0e0;
+                width: 50px;
+                height: 50px;
+              }
+
+              > .file {
+                font-family: inherit;
+              }
+
+              > .product-name {
+                flex-grow: 1;
+                width: 265px;
+                height: 50px;
+                outline: none;
+                border: 1px solid #e0e0e0;
+                padding: 0 0.25rem;
+
+                &:focus-within {
+                  border-color: #009fff;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

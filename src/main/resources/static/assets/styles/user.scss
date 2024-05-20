@@ -1,0 +1,124 @@
+@charset "UTF-8";
+
+@import "common";
+
+body {
+  background-color: #eeeeee;
+}
+
+#user-main {
+  margin: 9rem 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#user-container {
+  background-color: #ffffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 5px 18px -7px rgba(0, 0, 0, 1);
+  padding: 4rem 4rem;
+  border-radius: 2rem;
+
+  > {
+    div > form > * {}
+
+    .user-box > form {
+      align-items: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 0.75rem;
+
+      > .input-box {
+        align-items: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+    }
+  }
+}
+
+input[type="submit"] {
+  font-family: inherit;
+  padding: 1rem 3rem;
+  width: 350px;
+  background-color: #009fff;
+  color: white;
+  font-size: 2rem;
+  border: none;
+  border-radius: 0.3rem;
+  cursor: pointer;
+
+  &:hover {
+    filter: brightness(0.9);
+  }
+}
+
+#login-form > .kakao-login-link > .kakao-login-button {
+  width: 350px;
+  cursor: pointer;
+}
+
+.input-box input[type="text"], input[type="password"] {
+  font-family: inherit;
+  height: 3rem;
+  width: 350px;
+  border: 1px solid #e0e0e0;
+  margin: 0.7rem 0;
+  font-size: 1.2rem;
+  outline: none;
+}
+
+.input-box input {
+  &[type="button"] {
+    font-family: inherit;
+    padding: 0.75rem 3rem;
+    width: 350px;
+    background-color: #757575;
+    color: white;
+    font-size: 1.5rem;
+    border: none;
+    border-radius: 0.3rem;
+    cursor: pointer;
+
+    &:hover {
+      filter: brightness(0.9);
+    }
+  }
+
+  &:focus-within {
+    border-color: #009fff;
+  }
+}
+
+a {
+  text-decoration: none;
+  color: #009fff;
+  font-size: large;
+  font-weight: bold;
+}
+
+.links {
+  font-size: large;
+  margin: 2rem 0;
+
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1.2rem;
+}
+
+.warning {
+  color: red;
+  display: none;
+
+  &.-visible {
+    display: block;
+    pointer-events: all;
+  }
+}

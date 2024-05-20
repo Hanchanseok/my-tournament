@@ -1,0 +1,188 @@
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css");
+body {
+  font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+  height: 100vh;
+  margin: 0;
+  background-color: #eeeeee;
+  align-items: stretch;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+ul {
+  list-style-type: none;
+  margin-block-start: 0;
+  margin-block-end: 0;
+  margin-inline-start: 0;
+  margin-inline-end: 0;
+  padding-inline-start: 0;
+}
+
+#header {
+  background-color: #009fff;
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  z-index: 9;
+}
+#header > .header-section.spring {
+  flex-grow: 1;
+}
+#header > .header-section {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  padding: 0 1.75rem;
+  gap: 1.5rem;
+}
+#header > .header-section > .header-menu {
+  text-decoration: none;
+  color: #eeeeee;
+  transition-duration: 0.5s;
+}
+#header > .header-section > .header-menu:hover {
+  color: #000000;
+}
+#header > .header-section:nth-child(3) > .header-menu {
+  font-size: 1.2rem;
+}
+
+main {
+  flex-grow: 1;
+}
+
+#footer {
+  background-color: #e0e0e0;
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  z-index: 9;
+}
+#footer > .footer-message {
+  color: #757575;
+  padding: 1.5rem;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.7rem;
+}
+
+#loading {
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(33, 33, 33, 0.6274509804);
+  opacity: 0;
+  pointer-events: none;
+  position: fixed;
+  transition: opacity 250ms;
+  user-select: none;
+  z-index: 10;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  justify-content: center;
+}
+#loading > .image {
+  top: 0.25rem;
+  width: 4rem;
+  height: 4rem;
+  animation-duration: 1000ms;
+  animation-iteration-count: infinite;
+  animation-name: animation-loading-image;
+  animation-timing-function: linear;
+  position: relative;
+  transition: top 250ms;
+}
+@keyframes animation-loading-image {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+#loading > .text {
+  top: 0.25rem;
+  color: #ffffff;
+  font-size: 1.5rem;
+  opacity: 0;
+  position: relative;
+  transition-delay: 125ms;
+  transition-duration: 250ms;
+  transition-property: top, opacity;
+}
+#loading.-visible {
+  opacity: 1;
+  pointer-events: all;
+}
+#loading.-visible > .image {
+  top: 0;
+}
+#loading.-visible > .text {
+  top: 0;
+  opacity: 1;
+}
+
+#admin-aside {
+  background-color: #424242;
+  position: fixed;
+  padding: 100px 0;
+  width: 200px;
+  height: 100vh;
+  z-index: 0;
+}
+#admin-aside > .menu {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 1.5rem;
+}
+#admin-aside > .menu > li > a {
+  text-decoration: none;
+  color: #eeeeee;
+}
+#admin-aside > .menu > li > a:hover {
+  color: #d5d5d5;
+}
+
+.admin-main {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+.admin-main > .manage-table {
+  border: 1px solid #e0e0e0;
+  width: 1000px;
+}
+.admin-main > .manage-table > thead > tr > th {
+  background-color: #e0e0e0;
+}
+.admin-main > .manage-table > tbody > tr > th {
+  background-color: #e0e0e0;
+}
+.admin-main > .manage-table > tbody > tr > td {
+  text-align: center;
+}
+.admin-main > .manage-table > tbody > tr > td > input[type=button] {
+  background-color: #009fff;
+  border: none;
+  border-radius: 0.25rem;
+  cursor: pointer;
+  color: white;
+  font-family: inherit;
+}
+.admin-main > .manage-table > tbody > tr > td > input[type=button]:hover {
+  background-color: #007fcc;
+}
+
+/*# sourceMappingURL=admin.css.map */
