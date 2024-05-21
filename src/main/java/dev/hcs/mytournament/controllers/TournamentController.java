@@ -1,5 +1,6 @@
 package dev.hcs.mytournament.controllers;
 
+import dev.hcs.mytournament.dtos.RankingDto;
 import dev.hcs.mytournament.entities.TournamentEntity;
 import dev.hcs.mytournament.entities.TournamentProductEntity;
 import dev.hcs.mytournament.entities.UserEntity;
@@ -29,6 +30,7 @@ public class TournamentController {
         this.tournamentService = tournamentService;
     }
 
+    // 업로드 페이지로
     @RequestMapping(value = "/upload", method = RequestMethod.GET, produces = MediaType.TEXT_HTML_VALUE)
     public ModelAndView getUpload() {
         ModelAndView modelAndView = new ModelAndView();
@@ -36,6 +38,7 @@ public class TournamentController {
         return modelAndView;
     }
 
+    // 대회 업로드
     @RequestMapping(value = "/upload", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public String postUpload(
@@ -54,6 +57,7 @@ public class TournamentController {
         return responseObject.toString();
     }
 
+    // 대회 썸네일
     @RequestMapping(value = "/thumbnail", method = RequestMethod.GET)
     public ResponseEntity<byte[]> getTournamentThumbnail(@RequestParam("index") int index) {
         TournamentEntity tournament = this.tournamentService.get(index);
@@ -66,6 +70,7 @@ public class TournamentController {
                 .body(tournament.getThumbnail());
     }
 
+    // 요소들의 썸네일
     @RequestMapping(value = "/productThumbnail", method = RequestMethod.GET)
     public ResponseEntity<byte[]> getProductThumbnail(@RequestParam("index") int index) {
         TournamentProductEntity product = this.tournamentService.getProduct(index);
@@ -76,5 +81,17 @@ public class TournamentController {
                 .contentType(MediaType.parseMediaType(product.getProductThumbnailContentType()))
                 .contentLength(product.getProductThumbnail().length)
                 .body(product.getProductThumbnail());
+    }
+
+    // 랭킹 조회
+    @RequestMapping(value = "/ranking", method = RequestMethod.GET, produces = MediaType.TEXT_HTML_VALUE)
+    public ModelAndView getRanking(@RequestParam("index") int index) {
+        RankingDto[] products = this.tournamentService.getRanking(index);
+        TournamentEntity tournament = this.tournamentService.get(index);
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("products", products);
+        modelAndView.addObject("tournament", tournament);
+        modelAndView.setViewName("/tournament/ranking");
+        return modelAndView;
     }
 }

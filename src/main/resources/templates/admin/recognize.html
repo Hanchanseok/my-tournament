@@ -34,7 +34,8 @@
                 <th class="tournamentIndex" th:text="${tournament.getIndex()}">1</th>
                 <td th:text="${tournament.getTitle()}">대회 이름</td>
                 <td><a href="#">상세 보기</a></td>
-                <td th:text="${tournament.isRecognized()}">승인 안됨</td>
+                <td th:if="${!tournament.isRecognized()}">X</td>
+                <td th:if="${tournament.isRecognized()}">O</td>
                 <td><input class="recognize-button" value="전환" type="button"></td>
             </tr>
             </tbody>

@@ -1,6 +1,7 @@
 package dev.hcs.mytournament.survices;
 
 import dev.hcs.mytournament.entities.TournamentEntity;
+import dev.hcs.mytournament.mappers.AdminMapper;
 import dev.hcs.mytournament.mappers.TournamentMapper;
 import dev.hcs.mytournament.results.CommonResult;
 import dev.hcs.mytournament.results.Result;
@@ -10,14 +11,16 @@ import org.springframework.stereotype.Service;
 @Service
 public class AdminService {
     private final TournamentMapper tournamentMapper;
+    private final AdminMapper adminMapper;
 
     @Autowired
-    public AdminService(TournamentMapper tournamentMapper) {
+    public AdminService(TournamentMapper tournamentMapper, AdminMapper adminMapper) {
         this.tournamentMapper = tournamentMapper;
+        this.adminMapper = adminMapper;
     }
 
     public TournamentEntity[] getTournaments() {
-        return this.tournamentMapper.selectTournaments();
+        return this.adminMapper.selectTournaments();
     }
 
     public Result recognizeTournament(int index) {

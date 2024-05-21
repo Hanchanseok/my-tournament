@@ -14,225 +14,35 @@
 <th:block th:replace="~{layouts/header.html :: header}"></th:block>
     <main id="index-main">
         <section class="search-container">
-            <form id="search-form" action="">
+            <form id="search-form" method="get" action="/">
                 <label class="orderLabel">
                     <select name="by" id="">
-                        <option value="latest">최신순</option>
-                        <option value="popular">인기순</option>
+                        <option th:selected="${paging.getBy() == 'latest'}" value="latest">최신순</option>
+                        <option th:selected="${paging.getBy() == 'popular'}" value="popular">인기순</option>
                     </select>
                 </label>
                 <label class="searchLabel">
-                    <input name="keyword" minlength="1" maxlength="30" placeholder="월드컵 제목을 입력하세요." type="search">
+                    <input th:value="${paging.getKeyword()}" name="keyword" minlength="1" maxlength="50" placeholder="월드컵 제목을 입력하세요. (1자 이상 50자 이하)" type="search">
                 </label>
                 <input value="검색" type="submit">
             </form>
         </section>
 
         <section class="tournaments-container">
-            <div class="tournament-box">
+            <div th:each="tournament : ${tournaments}" class="tournament-box">
                 <div class="tournament-info">
                     <a class="thumbnail-box" href="#">
-                        <img class="thumbnail" src="https://newsimg.sedaily.com/2023/08/25/29TJLQF65Q_1.jpg" alt="">
+                        <img class="thumbnail" th:src="@{/tournament/thumbnail (index = ${tournament.getIndex()})}" alt="">
                     </a>
-                    <span class="tournament-title">가장 좋아하는 XXX는?</span>
-                    <span class="tournament-content">가장 좋아하는 XXX을 골라야 합니다.</span>
+                    <span class="tournament-title" th:text="${tournament.getTitle()}">가장 좋아하는 XXX는?</span>
+                    <span class="tournament-content" th:text="${tournament.getContent()}">가장 좋아하는 XXX을 골라야 합니다.</span>
                 </div>
                 <div class="tournament-button">
                     <a href="#">
                         <i class="fa-solid fa-play"></i>
                         <span>시작하기</span>
                     </a>
-                    <a href="#">
-                        <i class="fa-solid fa-medal"></i>
-                        <span>랭킹보기</span>
-                    </a>
-                </div>
-            </div>
-            <div class="tournament-box">
-                <div class="tournament-info">
-                    <a class="thumbnail-box" href="#">
-                        <img class="thumbnail" src="https://i.namu.wiki/i/S7uvnBUJfd6-L_tsEjODzNPX8pXiBD1NtA8HZgYe024dpHG6kBSO1RY5ieGjTbvmVmdd9x41065-KMoYjGdzlQ.webp" alt="">
-                    </a>
-                    <span class="tournament-title">가장 좋아하는 XXX는?</span>
-                    <span class="tournament-content">가장 좋아하는 XXX을 골라야 합니다.</span>
-                </div>
-                <div class="tournament-button">
-                    <a href="#">
-                        <i class="fa-solid fa-play"></i>
-                        <span>시작하기</span>
-                    </a>
-                    <a href="#">
-                        <i class="fa-solid fa-medal"></i>
-                        <span>랭킹보기</span>
-                    </a>
-                </div>
-            </div>
-            <div class="tournament-box">
-                <div class="tournament-info">
-                    <a class="thumbnail-box" href="#">
-                        <img class="thumbnail" src="https://newsimg.sedaily.com/2023/08/25/29TJLQF65Q_1.jpg" alt="">
-                    </a>
-                    <span class="tournament-title">가장 좋아하는 XXX는?</span>
-                    <span class="tournament-content">가장 좋아하는 XXX을 골라야 합니다.</span>
-                </div>
-                <div class="tournament-button">
-                    <a href="#">
-                        <i class="fa-solid fa-play"></i>
-                        <span>시작하기</span>
-                    </a>
-                    <a href="#">
-                        <i class="fa-solid fa-medal"></i>
-                        <span>랭킹보기</span>
-                    </a>
-                </div>
-            </div>
-            <div class="tournament-box">
-                <div class="tournament-info">
-                    <a class="thumbnail-box" href="#">
-                        <img class="thumbnail" src="https://www.allurekorea.com/wp_data/allure/2023/08/style_64d0b9fd307d8-700x500-1691401288.jpg?ver=5.0.14" alt="">
-                    </a>
-                    <span class="tournament-title">가장 좋아하는 XXX는?</span>
-                    <span class="tournament-content">가장 좋아하는 XXX을 골라야 합니다.</span>
-                </div>
-                <div class="tournament-button">
-                    <a href="#">
-                        <i class="fa-solid fa-play"></i>
-                        <span>시작하기</span>
-                    </a>
-                    <a href="#">
-                        <i class="fa-solid fa-medal"></i>
-                        <span>랭킹보기</span>
-                    </a>
-                </div>
-            </div>
-            <div class="tournament-box">
-                <div class="tournament-info">
-                    <a class="thumbnail-box" href="#">
-                        <img class="thumbnail" src="https://newsimg.sedaily.com/2023/08/25/29TJLQF65Q_1.jpg" alt="">
-                    </a>
-                    <span class="tournament-title">가장 좋아하는 XXX는?</span>
-                    <span class="tournament-content">가장 좋아하는 XXX을 골라야 합니다.</span>
-                </div>
-                <div class="tournament-button">
-                    <a href="#">
-                        <i class="fa-solid fa-play"></i>
-                        <span>시작하기</span>
-                    </a>
-                    <a href="#">
-                        <i class="fa-solid fa-medal"></i>
-                        <span>랭킹보기</span>
-                    </a>
-                </div>
-            </div>
-            <div class="tournament-box">
-                <div class="tournament-info">
-                    <a class="thumbnail-box" href="#">
-                        <img class="thumbnail" src="https://newsimg.sedaily.com/2023/08/25/29TJLQF65Q_1.jpg" alt="">
-                    </a>
-                    <span class="tournament-title">가장 좋아하는 XXX는?</span>
-                    <span class="tournament-content">가장 좋아하는 XXX을 골라야 합니다.</span>
-                </div>
-                <div class="tournament-button">
-                    <a href="#">
-                        <i class="fa-solid fa-play"></i>
-                        <span>시작하기</span>
-                    </a>
-                    <a href="#">
-                        <i class="fa-solid fa-medal"></i>
-                        <span>랭킹보기</span>
-                    </a>
-                </div>
-            </div>
-            <div class="tournament-box">
-                <div class="tournament-info">
-                    <a class="thumbnail-box" href="#">
-                        <img class="thumbnail" src="https://newsimg.sedaily.com/2023/08/25/29TJLQF65Q_1.jpg" alt="">
-                    </a>
-                    <span class="tournament-title">가장 좋아하는 XXX는?</span>
-                    <span class="tournament-content">가장 좋아하는 XXX을 골라야 합니다.</span>
-                </div>
-                <div class="tournament-button">
-                    <a href="#">
-                        <i class="fa-solid fa-play"></i>
-                        <span>시작하기</span>
-                    </a>
-                    <a href="#">
-                        <i class="fa-solid fa-medal"></i>
-                        <span>랭킹보기</span>
-                    </a>
-                </div>
-            </div>
-            <div class="tournament-box">
-                <div class="tournament-info">
-                    <a class="thumbnail-box" href="#">
-                        <img class="thumbnail" src="https://newsimg.sedaily.com/2023/08/25/29TJLQF65Q_1.jpg" alt="">
-                    </a>
-                    <span class="tournament-title">가장 좋아하는 XXX는?</span>
-                    <span class="tournament-content">가장 좋아하는 XXX을 골라야 합니다.</span>
-                </div>
-                <div class="tournament-button">
-                    <a href="#">
-                        <i class="fa-solid fa-play"></i>
-                        <span>시작하기</span>
-                    </a>
-                    <a href="#">
-                        <i class="fa-solid fa-medal"></i>
-                        <span>랭킹보기</span>
-                    </a>
-                </div>
-            </div>
-            <div class="tournament-box">
-                <div class="tournament-info">
-                    <a class="thumbnail-box" href="#">
-                        <img class="thumbnail" src="https://newsimg.sedaily.com/2023/08/25/29TJLQF65Q_1.jpg" alt="">
-                    </a>
-                    <span class="tournament-title">가장 좋아하는 XXX는?</span>
-                    <span class="tournament-content">가장 좋아하는 XXX을 골라야 합니다.</span>
-                </div>
-                <div class="tournament-button">
-                    <a href="#">
-                        <i class="fa-solid fa-play"></i>
-                        <span>시작하기</span>
-                    </a>
-                    <a href="#">
-                        <i class="fa-solid fa-medal"></i>
-                        <span>랭킹보기</span>
-                    </a>
-                </div>
-            </div>
-            <div class="tournament-box">
-                <div class="tournament-info">
-                    <a class="thumbnail-box" href="#">
-                        <img class="thumbnail" src="https://newsimg.sedaily.com/2023/08/25/29TJLQF65Q_1.jpg" alt="">
-                    </a>
-                    <span class="tournament-title">가장 좋아하는 XXX는?</span>
-                    <span class="tournament-content">가장 좋아하는 XXX을 골라야 합니다.</span>
-                </div>
-                <div class="tournament-button">
-                    <a href="#">
-                        <i class="fa-solid fa-play"></i>
-                        <span>시작하기</span>
-                    </a>
-                    <a href="#">
-                        <i class="fa-solid fa-medal"></i>
-                        <span>랭킹보기</span>
-                    </a>
-                </div>
-            </div>
-            <div class="tournament-box">
-                <div class="tournament-info">
-                    <a class="thumbnail-box" href="#">
-                        <img class="thumbnail" src="https://newsimg.sedaily.com/2023/08/25/29TJLQF65Q_1.jpg" alt="">
-                    </a>
-                    <span class="tournament-title">가장 좋아하는 XXX는?</span>
-                    <span class="tournament-content">가장 좋아하는 XXX을 골라야 합니다.</span>
-                </div>
-                <div class="tournament-button">
-                    <a href="#">
-                        <i class="fa-solid fa-play"></i>
-                        <span>시작하기</span>
-                    </a>
-                    <a href="#">
+                    <a th:href="@{/tournament/ranking (index = ${tournament.getIndex()})}">
                         <i class="fa-solid fa-medal"></i>
                         <span>랭킹보기</span>
                     </a>
@@ -240,18 +50,15 @@
             </div>
         </section>
 
-        <section class="paging-container">
-            <ul class="front-back-ul">
+        <input class="currentPageHidden" th:value="${paging.getRequestPage()}" type="hidden">
+        <section th:if="${paging.getTotalPage() > 1}"  class="paging-container">
+            <ul th:if="${paging.isShowPrev()}" class="front-back-ul">
                 <li><a href=""><i class="fa-solid fa-arrow-left"></i></a></li>
             </ul>
-            <ul class="paging-ul">
-                <li><a href="#">1</a></li>
-                <li><a href="#">2</a></li>
-                <li><a href="#">3</a></li>
-                <li><a href="#">4</a></li>
-                <li><a href="#">5</a></li>
+            <ul th:each="num : ${#numbers.sequence(paging.getMinPage(), paging.getMaxPage())}" class="paging-ul">
+                <li><a th:class="${num}" th:href="@{/ (page=${num}, by=${paging.getBy()}, keyword=${paging.getKeyword()})}" th:text="${num}">1</a></li>
             </ul>
-            <ul class="front-back-ul">
+            <ul th:if="${paging.isShowNext()}" class="front-back-ul">
                 <li><a href=""><i class="fa-solid fa-arrow-right"></i></a></li>
             </ul>
         </section>
@@ -259,3 +66,10 @@
     <th:block th:replace="~{layouts/footer.html :: footer}"></th:block>
 </body>
 </html>
+<script th:if="${paging.getTotalPage() > 1}">
+    const currentPageHidden = document.querySelector('.currentPageHidden').value;
+    const currentPageATag = document.getElementsByClassName(currentPageHidden);
+    console.log(currentPageATag[0]);
+    currentPageATag[0].style.backgroundColor='#009fff';
+    currentPageATag[0].style.color='white';
+</script>

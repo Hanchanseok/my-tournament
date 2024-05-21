@@ -48,7 +48,7 @@
         LIMIT 1
     </select>
 
-    <select id="selectTournaments" resultType="dev.hcs.mytournament.entities.TournamentEntity">
+    <select id="selectTournaments" parameterType="dev.hcs.mytournament.dtos.SearchDto" resultType="dev.hcs.mytournament.entities.TournamentEntity">
         SELECT `index`                      AS `index`,
                `user_email`                 AS `userEmail`,
                `thumbnail`                  AS `thumbnail`,
@@ -61,7 +61,32 @@
                `modified_at`                AS `modifiedAt`,
                `is_recognized`               AS `isRecognized`
         FROM `worldcup`.`tournament`
-        ORDER BY `created_at` DESC;
+        WHERE `is_recognized` is true
+        <if test="keyword != null">
+            AND REPLACE(`title`, ' ', '') LIKE CONCAT('%', REPLACE(#{keyword}, ' ', ''), '%')
+        </if>
+        <if test="by != null and by.equals('latest')">
+            ORDER BY `created_at` DESC
+        </if>
+        <if test="by != null and by.equals('popular')">
+            ORDER BY `play_count` DESC
+        </if>
+        LIMIT #{countPerPage} OFFSET #{offset}
+    </select>
+
+    <select id="getTournamentTotalCount" parameterType="dev.hcs.mytournament.dtos.SearchDto" resultType="int">
+        SELECT COUNT(0)
+        FROM `worldcup`.`tournament`
+        WHERE `is_recognized` is true
+        <if test="keyword != null">
+            AND REPLACE(`title`, ' ', '') LIKE CONCAT('%', REPLACE(#{keyword}, ' ', ''), '%')
+        </if>
+        <if test="by != null and by.equals('latest')">
+            ORDER BY `created_at` DESC
+        </if>
+        <if test="by != null and by.equals('popular')">
+            ORDER BY `play_count` DESC
+        </if>
     </select>
 
     <update id="updateTournament" parameterType="dev.hcs.mytournament.entities.TournamentEntity">
@@ -79,4 +104,24 @@
         WHERE `index` = #{index}
         LIMIT 1
     </update>
+
+    <select id="selectRanking" resultType="dev.hcs.mytournament.dtos.RankingDto">
+        SELECT `index`                                      AS `index`,
+               `tournament_index`                           AS `tournamentIndex`,
+               `product_thumbnail`                          AS `productThumbnail`,
+               `product_thumbnail_file_name`                AS `productThumbnailFileName`,
+               `product_thumbnail_content_type`             AS `productThumbnailContentType`,
+               `name`                                       AS `name`,
+               `point`                                      AS `point`,
+               ROUND(`point`/#{totalPoint} * 100, 1)        AS `ratio`
+        FROM `worldcup`.`tournament_product`
+        WHERE `tournament_index` = #{index}
+        ORDER BY `ratio` DESC
+    </select>
+
+    <select id="selectTotalPoint" parameterType="int" resultType="int">
+        SELECT SUM(point)
+        FROM `worldcup`.`tournament_product`
+        WHERE `tournament_index` = #{index}
+    </select>
 </mapper>

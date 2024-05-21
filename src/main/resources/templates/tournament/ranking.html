@@ -8,8 +8,12 @@
     <title>랭킹</title>
     <link rel="stylesheet" type="text/css" th:href="@{/assets/styles/ranking.css}">
     <script src="https://kit.fontawesome.com/0500497c40.js" crossorigin="anonymous"></script>
+    <script th:if="${!tournament.isRecognized()}">
+        alert('승인되지 않은 토너먼트입니다.');
+        location.href='/';
+    </script>
 </head>
-<body>
+<body th:if="${tournament.isRecognized()}">
     <header th:replace="layouts/header ::  header"></header>
     <main id="ranking-main">
         <section class="ranking-container">
@@ -23,37 +27,15 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr class="product">
-                        <td>1</td>
-                        <td><img class="thumbnail" src="https://newsimg.sedaily.com/2023/08/25/29TJLQF65Q_1.jpg" alt=""></td>
-                        <td>이름1</td>
+                    <tr th:each="product, i : ${products}" class="product">
+                        <td th:text="${i.index+1}">1</td>
+                        <td><img class="thumbnail" th:src="@{/tournament/productThumbnail (index= ${product.getIndex()})}" alt=""></td>
+                        <td th:text="${product.getName()}">이름1</td>
                         <td>
                             <div class="graph-box">
-                                <div class="graph-stick"></div>
+                                <div class="graph-stick" th:style="'width: ' + ${product.getRatio()} + '%;'"></div>
                             </div>
-                            <span>50%</span>
-                        </td>
-                    </tr>
-                    <tr class="product">
-                        <td>1</td>
-                        <td><img class="thumbnail" src="https://newsimg.sedaily.com/2023/08/25/29TJLQF65Q_1.jpg" alt=""></td>
-                        <td>이름1</td>
-                        <td>
-                            <div class="graph-box">
-                                <div class="graph-stick"></div>
-                            </div>
-                            <span>50%</span>
-                        </td>
-                    </tr>
-                    <tr class="product">
-                        <td>1</td>
-                        <td><img class="thumbnail" src="https://newsimg.sedaily.com/2023/08/25/29TJLQF65Q_1.jpg" alt=""></td>
-                        <td>이름1</td>
-                        <td>
-                            <div class="graph-box">
-                                <div class="graph-stick"></div>
-                            </div>
-                            <span>50%</span>
+                            <span th:text="${product.getRatio() + '%'}">50%</span>
                         </td>
                     </tr>
                 </tbody>
@@ -61,10 +43,10 @@
         </section>
 
         <section class="comments-container">
-            <div class="none-login">
-                <a href="#">로그인이 필요한 서비스 입니다.</a>
+            <div class="none-login" th:if="${session.get('user') == null}">
+                <a href="/user/login">로그인이 필요한 서비스 입니다.</a>
             </div>
-            <div class="write-comment">
+            <div class="write-comment" th:if="${session.get('user') != null}">
                 <form id="comment-form" action="">
                     <label>
                         <span>댓글 쓰기</span>
