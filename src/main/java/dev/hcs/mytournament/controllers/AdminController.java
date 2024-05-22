@@ -1,6 +1,7 @@
 package dev.hcs.mytournament.controllers;
 
 import dev.hcs.mytournament.entities.TournamentEntity;
+import dev.hcs.mytournament.entities.UserEntity;
 import dev.hcs.mytournament.results.Result;
 import dev.hcs.mytournament.survices.AdminService;
 import org.json.JSONObject;
@@ -37,6 +38,24 @@ public class AdminController {
             @RequestParam(value = "index") int index
     ) {
         Result result = this.adminService.recognizeTournament(index);
+        JSONObject responseObject = new JSONObject();
+        responseObject.put("result", result.name().toLowerCase());
+        return responseObject.toString();
+    }
+
+    @RequestMapping(value = "/accounts", method = RequestMethod.GET, produces = MediaType.TEXT_HTML_VALUE)
+    public ModelAndView getAccounts() {
+        UserEntity[] users = this.adminService.getUsers();
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("/admin/accounts");
+        modelAndView.addObject("users", users);
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/accounts", method = RequestMethod.PATCH, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public String patchAccounts(@RequestParam(value = "email")String email) {
+        Result result = this.adminService.suspendUser(email);
         JSONObject responseObject = new JSONObject();
         responseObject.put("result", result.name().toLowerCase());
         return responseObject.toString();

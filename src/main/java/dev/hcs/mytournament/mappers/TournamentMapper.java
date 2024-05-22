@@ -18,6 +18,8 @@ public interface TournamentMapper {
 
     TournamentEntity[] selectTournaments(SearchDto search);
 
+    TournamentProductEntity[] selectTournamentProducts(int tournamentIndex);
+
     int getTournamentTotalCount(SearchDto search);
 
     int updateTournament(TournamentEntity tournament);

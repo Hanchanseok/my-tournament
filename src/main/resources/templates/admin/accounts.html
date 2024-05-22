@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>계정 관리</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/assets/styles/admin.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/assets/styles/index.css}">
+    <script defer type="text/javascript" th:src="@{/assets/scripts/admin.js}"></script>
+    <script src="https://kit.fontawesome.com/0500497c40.js" crossorigin="anonymous"></script>
+    <script th:if="${session.get('user') == null || session.user.isAdmin == false}">
+        alert('잘못된 접근입니다.');
+        location.href='/'
+    </script>
+</head>
+<body th:if="${session.get('user') != null && session.user.isAdmin() == true}">
+<th:block th:replace="~{layouts/header.html :: header}"></th:block>
+<th:block th:replace="~{layouts/adminAside.html :: admin-aside}"></th:block>
+<main class="admin-main">
+    <table class="manage-table">
+        <thead>
+        <tr>
+            <th>넘버</th>
+            <th>이메일</th>
+            <th>닉네임</th>
+            <th>가입일자</th>
+            <th>관리자 여부</th>
+            <th>탈퇴 여부</th>
+            <th>정지 여부</th>
+            <th>계정 정지</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="user, i : ${users}">
+            <td th:text="${i.index+1}">1</td>
+            <td class="email" th:text="${user.getEmail()}">user@sample.com</td>
+            <td th:text="${user.getNickname()}">유저</td>
+            <td th:text="${#temporals.format(user.getCreatedAt(), 'yyyy-MM-dd')}">2024-05-22</td>
+            <td><span th:if="${!user.isAdmin()}">X</span><span th:if="${user.isAdmin()}">O</span></td>
+            <td><span th:if="${!user.isDeleted()}">X</span><span th:if="${user.isDeleted()}">O</span></td>
+            <td><span th:if="${!user.isSuspended()}">X</span><span th:if="${user.isSuspended()}">O</span></td>
+            <td><input th:if="${!user.isAdmin()}" class="suspend-button" value="전환" type="button"></td>
+        </tr>
+        </tbody>
+    </table>
+</main>
+<th:block th:replace="~{layouts/footer.html :: footer}"></th:block>
+</body>
+</html>

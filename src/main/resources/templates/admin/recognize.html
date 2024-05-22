@@ -24,6 +24,7 @@
             <tr>
                 <th>넘버</th>
                 <th>업로드 된 대회</th>
+                <th>업로드한 유저</th>
                 <th>상세 보기</th>
                 <th>승인 여부</th>
                 <th>승인 하기</th>
@@ -33,7 +34,8 @@
             <tr th:each="tournament : ${tournaments}">
                 <th class="tournamentIndex" th:text="${tournament.getIndex()}">1</th>
                 <td th:text="${tournament.getTitle()}">대회 이름</td>
-                <td><a href="#">상세 보기</a></td>
+                <td th:text="${tournament.getUserEmail()}">업로드한 유저</td>
+                <td><a onclick="window.open(this.href, '_blank', 'width=800, height=600'); return false;" th:href="@{/tournament/detail (index=${tournament.getIndex()})}">상세 보기</a></td>
                 <td th:if="${!tournament.isRecognized()}">X</td>
                 <td th:if="${tournament.isRecognized()}">O</td>
                 <td><input class="recognize-button" value="전환" type="button"></td>

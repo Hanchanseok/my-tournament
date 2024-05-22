@@ -1,0 +1,27 @@
+@charset "UTF-8";
+@import "common";
+
+#detail-main {
+  align-items: stretch;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+
+  > table {
+    border: 1px solid #e0e0e0;
+    text-align: center;
+
+    thead > tr > th {
+      background-color: #757575;
+      color: #eeeeee;
+    }
+
+    tbody > tr > td {
+      background-color: #f5f5f5;
+
+      > .product-img {
+        width: 250px;
+      }
+    }
+  }
+}

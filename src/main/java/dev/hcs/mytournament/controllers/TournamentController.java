@@ -83,6 +83,18 @@ public class TournamentController {
                 .body(product.getProductThumbnail());
     }
 
+    // 대회 상세보기
+    @RequestMapping(value = "/detail", method = RequestMethod.GET, produces = MediaType.TEXT_HTML_VALUE)
+    public ModelAndView getDetail(@RequestParam("index") int index) {
+        TournamentEntity tournament = this.tournamentService.get(index);
+        TournamentProductEntity[] products = this.tournamentService.getProducts(index);
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("tournament", tournament);
+        modelAndView.addObject("products", products);
+        modelAndView.setViewName("/tournament/detail");
+        return modelAndView;
+    }
+
     // 랭킹 조회
     @RequestMapping(value = "/ranking", method = RequestMethod.GET, produces = MediaType.TEXT_HTML_VALUE)
     public ModelAndView getRanking(@RequestParam("index") int index) {
@@ -92,6 +104,13 @@ public class TournamentController {
         modelAndView.addObject("products", products);
         modelAndView.addObject("tournament", tournament);
         modelAndView.setViewName("/tournament/ranking");
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/play", method = RequestMethod.GET, produces = MediaType.TEXT_HTML_VALUE)
+    public ModelAndView getPlay() {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("/tournament/play");
         return modelAndView;
     }
 }

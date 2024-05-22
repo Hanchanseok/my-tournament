@@ -87,6 +87,11 @@ public class TournamentService {
         return this.tournamentMapper.selectTournamentProductByIndex(index);
     }
 
+    // 각 토너먼트의 요소들을 선택
+    public TournamentProductEntity[] getProducts(int tournamentIndex) {
+        return this.tournamentMapper.selectTournamentProducts(tournamentIndex);
+    }
+
 
     // 홈 화면에 대회들 정렬(페이징과 검색)
     public TournamentEntity[] getTournaments(SearchDto search) {

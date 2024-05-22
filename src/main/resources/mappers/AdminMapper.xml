@@ -19,4 +19,17 @@
         FROM `worldcup`.`tournament`
         ORDER BY `created_at` DESC;
     </select>
+
+    <select id="selectUsers" resultType="dev.hcs.mytournament.entities.UserEntity">
+        SELECT `email`        AS `email`,
+               `password`     AS `password`,
+               `nickname`     AS `nickname`,
+               `created_at`   AS `createdAt`,
+               `is_admin`     AS `isAdmin`,
+               `is_deleted`   AS `isDeleted`,
+               `is_suspended` AS `isSuspended`,
+               `is_kakao`     AS `isKakao`
+        FROM `worldcup`.`users`
+        ORDER BY `created_at` DESC
+    </select>
 </mapper>

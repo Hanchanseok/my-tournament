@@ -35,16 +35,6 @@ public class HomeController {
         search.setKeyword(keyword);
         search.setRequestPage(page);
         TournamentEntity[] tournaments = tournamentService.getTournaments(search);
-//        System.out.println("requestPage : " + search.getRequestPage());
-//        System.out.println("totalCount : " + search.getTotalCount());
-//        System.out.println("maxPage : " + search.getMaxPage());
-//        System.out.println("minPage : " + search.getMinPage());
-//        System.out.println("offset : " + search.getOffset());
-//        System.out.println("totalPage : " + search.getTotalPage());
-//        System.out.println("beginPage : " + search.getBeginPage());
-//        System.out.println("endPage : " + search.getEndPage());
-//        System.out.println("showPrev : " + search.isShowPrev());
-//        System.out.println("showNext : " + search.isShowNext());
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("tournaments", tournaments);
         modelAndView.addObject("paging", search);

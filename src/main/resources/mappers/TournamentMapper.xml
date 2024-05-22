@@ -48,6 +48,18 @@
         LIMIT 1
     </select>
 
+    <select id="selectTournamentProducts" parameterType="int" resultType="dev.hcs.mytournament.entities.TournamentProductEntity">
+        SELECT `index`                          AS `index`,
+               `tournament_index`               AS `tournamentIndex`,
+               `product_thumbnail`              AS `productThumbnail`,
+               `product_thumbnail_file_name`    AS `productThumbnailFileName`,
+               `product_thumbnail_content_type` AS `productThumbnailContentType`,
+               `name`                           AS `name`,
+               `point`                          AS `point`
+        FROM `worldcup`.`tournament_product`
+        WHERE `tournament_index` = #{tournamentIndex}
+    </select>
+
     <select id="selectTournaments" parameterType="dev.hcs.mytournament.dtos.SearchDto" resultType="dev.hcs.mytournament.entities.TournamentEntity">
         SELECT `index`                      AS `index`,
                `user_email`                 AS `userEmail`,

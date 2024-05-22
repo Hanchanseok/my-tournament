@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>상세보기</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/assets/styles/detail.css}">
+</head>
+<body>
+<main id="detail-main">
+    <table class="tournament-description">
+        <thead>
+        <tr>
+            <th>제목</th>
+            <th>내용</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td th:text="${tournament.getTitle()}">가장 좋아하는</td>
+            <td th:text="${tournament.getContent()}">설명</td>
+        </tr>
+        </tbody>
+    </table>
+    <table class="products">
+        <thead>
+        <tr>
+            <th>넘버</th>
+            <th>이미지</th>
+            <th>이름</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="product, i : ${products}">
+            <td th:text="${i.index+1}">1</td>
+            <td><img class="product-img" th:src="@{/tournament/productThumbnail (index= ${product.getIndex()})}" alt=""></td>
+            <td th:text="${product.getName()}">이름</td>
+        </tr>
+        </tbody>
+    </table>
+</main>
+</body>
+</html>
