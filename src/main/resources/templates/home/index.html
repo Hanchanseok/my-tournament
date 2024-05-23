@@ -31,14 +31,14 @@
         <section class="tournaments-container">
             <div th:each="tournament : ${tournaments}" class="tournament-box">
                 <div class="tournament-info">
-                    <a class="thumbnail-box" href="#">
+                    <a class="thumbnail-box" th:href="@{/tournament/play (index = ${tournament.getIndex()})}">
                         <img class="thumbnail" th:src="@{/tournament/thumbnail (index = ${tournament.getIndex()})}" alt="">
                     </a>
                     <span class="tournament-title" th:text="${tournament.getTitle()}">가장 좋아하는 XXX는?</span>
                     <span class="tournament-content" th:text="${tournament.getContent()}">가장 좋아하는 XXX을 골라야 합니다.</span>
                 </div>
                 <div class="tournament-button">
-                    <a href="#">
+                    <a th:href="@{/tournament/play (index = ${tournament.getIndex()})}">
                         <i class="fa-solid fa-play"></i>
                         <span>시작하기</span>
                     </a>

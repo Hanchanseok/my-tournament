@@ -7,26 +7,37 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>경기</title>
     <link rel="stylesheet" type="text/css" th:href="@{/assets/styles/play.css}">
+    <script defer type="text/javascript" th:src="@{/assets/scripts/common.js}"></script>
+    <script defer type="text/javascript" th:src="@{/assets/scripts/play.js}"></script>
 </head>
 <body>
     <main id="play-id">
+        <div id="loading">
+            <img alt="" class="image" th:src="@{/assets/images/loading.png}">
+            <span class="text">잠시만 기다려 주세요...</span>
+        </div>
+        <input class="tournament-index" th:value="${index}" type="hidden">
         <section class="title-container">
             <h2 class="tournament-title">제목</h2>
             <h2 class="tournament-round">16강</h2>
         </section>
         <section class="play-container">
-            <div class="product-box">
-                <div class="product-select">
-                    <img class="product-img" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTEzQhMzN0sJnGfqdi2aHD7fzZWirfyYB1DoFc7EQPiUQ&s" alt="img">
-                </div>
-                <span class="product-name">이름1</span>
-            </div>
-            <div class="product-box">
-                <div class="product-select">
-                    <img class="product-img" src="" alt="img">
-                </div>
-                <span class="product-name">이름2</span>
-            </div>
+<!--            <div class="product-box">-->
+<!--                <div class="product-select">-->
+<!--                    <img class="product-img" src="" alt="">-->
+<!--                </div>-->
+<!--                <span class="product-name">이름1</span>-->
+<!--            </div>-->
+<!--            <div class="product-box">-->
+<!--                <div class="product-select">-->
+<!--                    <img class="product-img" src="" alt="">-->
+<!--                </div>-->
+<!--                <span class="product-name">이름2</span>-->
+<!--            </div>-->
+        </section>
+        <section class="select-container">
+            <div class="select">선택1</div>
+            <div class="select">선택2</div>
         </section>
     </main>
 </body>

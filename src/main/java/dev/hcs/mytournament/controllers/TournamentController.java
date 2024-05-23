@@ -107,10 +107,24 @@ public class TournamentController {
         return modelAndView;
     }
 
+    // 플레이
     @RequestMapping(value = "/play", method = RequestMethod.GET, produces = MediaType.TEXT_HTML_VALUE)
-    public ModelAndView getPlay() {
+    public ModelAndView getPlay(@RequestParam("index") int index) {
         ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("index", index);
         modelAndView.setViewName("/tournament/play");
         return modelAndView;
+    }
+
+    // 플레이 시 대회 불러오기
+    @RequestMapping(value = "/loadTournament", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public String getLoadTournament(@RequestParam("index") int index) {
+        TournamentEntity tournament = this.tournamentService.get(index);
+        TournamentProductEntity[] products = this.tournamentService.getProducts(index);
+        JSONObject responseObject = new JSONObject();
+        responseObject.put("tournamentTitle", tournament.getTitle());
+        responseObject.put("products", products);
+        return responseObject.toString();
     }
 }

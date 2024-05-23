@@ -84,7 +84,7 @@ main {
   position: fixed;
   transition: opacity 250ms;
   user-select: none;
-  z-index: 10;
+  z-index: 20;
   align-items: center;
   display: flex;
   flex-direction: column;
