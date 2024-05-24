@@ -5,12 +5,17 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>경기</title>
+    <title th:text="${tournament.getTitle()}">경기</title>
     <link rel="stylesheet" type="text/css" th:href="@{/assets/styles/play.css}">
     <script defer type="text/javascript" th:src="@{/assets/scripts/common.js}"></script>
     <script defer type="text/javascript" th:src="@{/assets/scripts/play.js}"></script>
+    <script th:if="${!tournament.isRecognized()}">
+        alert('승인되지 않은 토너먼트입니다.');
+        location.href='/';
+    </script>
 </head>
 <body>
+<header></header>
     <main id="play-id">
         <div id="loading">
             <img alt="" class="image" th:src="@{/assets/images/loading.png}">
@@ -18,7 +23,7 @@
         </div>
         <input class="tournament-index" th:value="${index}" type="hidden">
         <section class="title-container">
-            <h2 class="tournament-title">제목</h2>
+            <h2 class="tournament-title">로딩 중...</h2>
             <h2 class="tournament-round">16강</h2>
         </section>
         <section class="play-container">
@@ -40,5 +45,6 @@
             <div class="select">선택2</div>
         </section>
     </main>
+<footer></footer>
 </body>
 </html>

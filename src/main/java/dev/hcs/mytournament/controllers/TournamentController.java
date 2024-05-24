@@ -110,8 +110,10 @@ public class TournamentController {
     // 플레이
     @RequestMapping(value = "/play", method = RequestMethod.GET, produces = MediaType.TEXT_HTML_VALUE)
     public ModelAndView getPlay(@RequestParam("index") int index) {
+        TournamentEntity tournament = this.tournamentService.get(index);
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("index", index);
+        modelAndView.addObject("tournament", tournament);
         modelAndView.setViewName("/tournament/play");
         return modelAndView;
     }
@@ -125,6 +127,24 @@ public class TournamentController {
         JSONObject responseObject = new JSONObject();
         responseObject.put("tournamentTitle", tournament.getTitle());
         responseObject.put("products", products);
+        return responseObject.toString();
+    }
+    
+    // 플레이 완료 후 점수 수정
+    @RequestMapping(value = "/loadTournament", method = RequestMethod.PATCH, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public String patchLoadTournament(
+            @RequestParam("round4One") String round4One,
+            @RequestParam("round4Two") String round4Two,
+            @RequestParam("runnerUp") String runnerUp,
+            @RequestParam("champion") String champion,
+            @RequestParam("tournamentIndex") int tournamentIndex
+    ) {
+        Result result = this.tournamentService.updateProduct(
+                Integer.parseInt(round4One), Integer.parseInt(round4Two), Integer.parseInt(runnerUp), Integer.parseInt(champion), tournamentIndex
+        );
+        JSONObject responseObject = new JSONObject();
+        responseObject.put("result", result.name().toLowerCase());
         return responseObject.toString();
     }
 }

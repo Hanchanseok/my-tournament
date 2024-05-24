@@ -27,4 +27,6 @@ public interface TournamentMapper {
     RankingDto[] selectRanking(int index, int totalPoint);
 
     int selectTotalPoint(int index);
+
+    int updateTournamentProduct(TournamentProductEntity product);
 }

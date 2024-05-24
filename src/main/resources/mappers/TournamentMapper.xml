@@ -136,4 +136,15 @@
         FROM `worldcup`.`tournament_product`
         WHERE `tournament_index` = #{index}
     </select>
+
+    <update id="updateTournamentProduct" parameterType="dev.hcs.mytournament.entities.TournamentProductEntity">
+        UPDATE `worldcup`.`tournament_product`
+        SET `product_thumbnail`                 = #{productThumbnail},
+            `product_thumbnail_file_name`       = #{productThumbnailFileName},
+            `product_thumbnail_content_type`    = #{productThumbnailContentType},
+            `name`                              = #{name},
+            `point`                             = #{point}
+        WHERE `index` = #{index}
+        LIMIT 1
+    </update>
 </mapper>

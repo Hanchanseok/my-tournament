@@ -124,4 +124,57 @@ public class TournamentService {
         // 그 후 파라미터를 넣어 조회
         return this.tournamentMapper.selectRanking(index, totalPoint);
     }
+
+    // 플레이 후 요소 점수 변경
+    @Transactional
+    public Result updateProduct(int round4One, int round4Two, int runnerUp, int champion, int tournamentIndex) {
+        // 우선 해당 토너먼트의 데이터를 불러와 플레이 횟수를 +1 추가하고 업데이트
+        TournamentEntity dbTournament = this.tournamentMapper.selectTournamentByIndex(tournamentIndex);
+        if (dbTournament == null) {
+            return CommonResult.FAILURE;
+        }
+        dbTournament.setPlayCount(dbTournament.getPlayCount() + 1);
+        if (this.tournamentMapper.updateTournament(dbTournament) < 0) {
+            return CommonResult.FAILURE;
+        }
+
+        // 요소들 점수를 추가함 (4강은 2점, 준우승은 5점, 우승은 10점)
+        TournamentProductEntity dbProduct1 = this.tournamentMapper.selectTournamentProductByIndex(round4One);
+        if (dbProduct1 == null) {
+            return CommonResult.FAILURE;
+        }
+        dbProduct1.setPoint(dbProduct1.getPoint() + 2);
+        if (this.tournamentMapper.updateTournamentProduct(dbProduct1) < 0) {
+            return CommonResult.FAILURE;
+        }
+
+        TournamentProductEntity dbProduct2 = this.tournamentMapper.selectTournamentProductByIndex(round4Two);
+        if (dbProduct2 == null) {
+            return CommonResult.FAILURE;
+        }
+        dbProduct2.setPoint(dbProduct2.getPoint() + 2);
+        if (this.tournamentMapper.updateTournamentProduct(dbProduct2) < 0) {
+            return CommonResult.FAILURE;
+        }
+
+        TournamentProductEntity dbProduct3 = this.tournamentMapper.selectTournamentProductByIndex(runnerUp);
+        if (dbProduct3 == null) {
+            return CommonResult.FAILURE;
+        }
+        dbProduct3.setPoint(dbProduct3.getPoint() + 5);
+        if (this.tournamentMapper.updateTournamentProduct(dbProduct3) < 0) {
+            return CommonResult.FAILURE;
+        }
+
+        TournamentProductEntity dbProduct4 = this.tournamentMapper.selectTournamentProductByIndex(champion);
+        if (dbProduct4 == null) {
+            return CommonResult.FAILURE;
+        }
+        dbProduct4.setPoint(dbProduct4.getPoint() + 10);
+        if (this.tournamentMapper.updateTournamentProduct(dbProduct4) < 0) {
+            return CommonResult.FAILURE;
+        }
+
+        return CommonResult.SUCCESS;
+    }
 }
