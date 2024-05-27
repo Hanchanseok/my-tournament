@@ -147,4 +147,32 @@
         WHERE `index` = #{index}
         LIMIT 1
     </update>
+
+    <insert id="insertTournamentComment" parameterType="dev.hcs.mytournament.entities.TournamentCommentEntity">
+        INSERT INTO `worldcup`.`tournament_comment`(`tournament_index`, `user_email`, `content`, `created_at`, `modified_at`) VALUES (#{tournamentIndex}, #{userEmail}, #{content}, #{createdAt}, #{modifiedAt})
+    </insert>
+
+    <select id="selectTournamentComments" parameterType="int" resultType="dev.hcs.mytournament.dtos.TournamentCommentDto">
+        SELECT `comment`.`index`              AS `index`,
+               `comment`.`tournament_index`   AS `tournamentIndex`,
+               `comment`.`user_email`         AS `userEmail`,
+               `comment`.`content`            AS `content`,
+               `comment`.`created_at`         AS `createdAt`,
+               `comment`.`modified_at`        AS `modifiedAt`,
+               `user`.`nickname`           AS `userNickname`
+        FROM `worldcup`.`tournament_comment` AS `comment`
+            LEFT JOIN `worldcup`.`users` AS `user` on `comment`.`user_email` = `user`.`email`
+        WHERE `tournament_index` = #{tournamentIndex}
+        ORDER By `comment`.`created_at` DESC
+    </select>
+
+    <update id="updateTournamentComment" parameterType="dev.hcs.mytournament.entities.TournamentCommentEntity">
+        UPDATE `worldcup`.`tournament_comment`
+        SET `user_email`    = #{userEmail},
+            `content`       = #{content},
+            `created_at`    = #{createdAt},
+            `modified_at`   = #{modifiedAt}
+        WHERE `index` = #{index}
+        LIMIT 1
+    </update>
 </mapper>

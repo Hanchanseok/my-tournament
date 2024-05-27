@@ -2,6 +2,8 @@ package dev.hcs.mytournament.mappers;
 
 import dev.hcs.mytournament.dtos.RankingDto;
 import dev.hcs.mytournament.dtos.SearchDto;
+import dev.hcs.mytournament.dtos.TournamentCommentDto;
+import dev.hcs.mytournament.entities.TournamentCommentEntity;
 import dev.hcs.mytournament.entities.TournamentEntity;
 import dev.hcs.mytournament.entities.TournamentProductEntity;
 import org.apache.ibatis.annotations.Mapper;
@@ -29,4 +31,10 @@ public interface TournamentMapper {
     int selectTotalPoint(int index);
 
     int updateTournamentProduct(TournamentProductEntity product);
+
+    int insertTournamentComment(TournamentCommentEntity comment);
+
+    TournamentCommentDto[] selectTournamentComments(int tournamentIndex);
+
+    int updateTournamentComment(TournamentCommentEntity comment);
 }

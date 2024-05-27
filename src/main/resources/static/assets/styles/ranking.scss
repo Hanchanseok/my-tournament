@@ -60,6 +60,7 @@
   flex-direction: column;
   justify-content: center;
   gap: 1.2rem;
+  margin-bottom: 5rem;
 
   > .none-login {
     border: 2px solid #757575;
@@ -68,6 +69,29 @@
   }
 
   > .write-comment > #comment-form {
+    align-items: stretch;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 0.2rem;
+
+    > input[type="submit"] {
+      font-family: inherit;
+      border: 2px solid #e74c3c;
+      background-color: #eeeeee;
+      color: #e74c3c;
+      border-radius: 0.2rem;
+      font-size: 1.2rem;
+      padding: 0.425rem 0;
+      cursor: pointer;
+      transition-duration: 0.2s;
+      font-weight: 600;
+
+      &:hover {
+        background-color: #e74c3c;
+        color: #e0e0e0;
+      }
+    }
 
     > label {
       align-items: flex-start;
@@ -107,7 +131,60 @@
         display: flex;
         flex-direction: row;
         justify-content: flex-start;
-        gap: 0.5rem;
+        gap: 0.75rem;
+
+        > input[type="button"] {
+          font-family: inherit;
+          border: 1px solid #e74c3c;
+          color: #e74c3c;
+          border-radius: 0.2rem;
+          cursor: pointer;
+          transition-duration: 0.2s;
+
+          &:hover {
+            background-color: #e74c3c;
+            color: #e0e0e0;
+          }
+        }
+      }
+    }
+    > #update-comment-form {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%,-50%);
+
+      background-color: #212121a0;
+      padding: 100vh 100vh;
+      z-index: 100;
+
+      align-items: stretch;
+      display: none;
+      flex-direction: column;
+      justify-content: flex-start;
+      gap: 0.125rem;
+
+      > label > textarea {
+        resize: none;
+        outline: none;
+        border: 1px solid #e0e0e0;
+        font-family: inherit;
+      }
+
+      > input[type="button"], input[type="submit"] {
+        border: 1px solid #e74c3c;
+        background-color: #eeeeee;
+        color: #e74c3c;
+        font-size: 1.1rem;
+        font-weight: 500;
+        border-radius: 0.15rem;
+        cursor: pointer;
+        transition-duration: 0.2s;
+
+        &:hover {
+          background-color: #e74c3c;
+          color: #e0e0e0;
+        }
       }
     }
   }

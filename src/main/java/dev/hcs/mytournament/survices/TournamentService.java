@@ -2,10 +2,13 @@ package dev.hcs.mytournament.survices;
 
 import dev.hcs.mytournament.dtos.RankingDto;
 import dev.hcs.mytournament.dtos.SearchDto;
+import dev.hcs.mytournament.dtos.TournamentCommentDto;
+import dev.hcs.mytournament.entities.TournamentCommentEntity;
 import dev.hcs.mytournament.entities.TournamentEntity;
 import dev.hcs.mytournament.entities.TournamentProductEntity;
 import dev.hcs.mytournament.entities.UserEntity;
 import dev.hcs.mytournament.mappers.TournamentMapper;
+import dev.hcs.mytournament.mappers.UserMapper;
 import dev.hcs.mytournament.results.CommonResult;
 import dev.hcs.mytournament.results.Result;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,10 +22,12 @@ import java.time.LocalDateTime;
 @Service
 public class TournamentService {
     private final TournamentMapper tournamentMapper;
+    private final UserMapper userMapper;
 
     @Autowired
-    public TournamentService(TournamentMapper tournamentMapper) {
+    public TournamentService(TournamentMapper tournamentMapper, UserMapper userMapper) {
         this.tournamentMapper = tournamentMapper;
+        this.userMapper = userMapper;
     }
 
     @Transactional
@@ -34,6 +39,11 @@ public class TournamentService {
             MultipartFile[] files,
             String[] productNames
     ) throws IOException {
+        UserEntity dbUser = this.userMapper.selectUserByEmail(user.getEmail());
+        if (dbUser == null) {
+            return CommonResult.FAILURE;
+        }
+
         if (tournament == null) {
             return CommonResult.FAILURE;
         }
@@ -124,6 +134,32 @@ public class TournamentService {
         // 그 후 파라미터를 넣어 조회
         return this.tournamentMapper.selectRanking(index, totalPoint);
     }
+
+    // 랭킹 코멘트 작성
+    public Result writeComment(TournamentCommentEntity comment, UserEntity user) {
+        UserEntity dbUser = this.userMapper.selectUserByEmail(user.getEmail());
+        if (dbUser == null) {
+            return CommonResult.FAILURE;
+        }
+
+        if (comment == null || comment.getContent().length() < 2 || comment.getContent().length() > 1000) {
+            return CommonResult.FAILURE;
+        }
+        comment.setUserEmail(dbUser.getEmail());
+        comment.setCreatedAt(LocalDateTime.now());
+        comment.setModifiedAt(null);
+        return this.tournamentMapper.insertTournamentComment(comment) > 0
+                ? CommonResult.SUCCESS
+                : CommonResult.FAILURE;
+    }
+
+    // 랭킹 코멘트 조회
+    public TournamentCommentDto[] getComments(int index) {
+        return this.tournamentMapper.selectTournamentComments(index);
+    }
+
+    // 랭킹 코멘트 수정
+
 
     // 플레이 후 요소 점수 변경
     @Transactional

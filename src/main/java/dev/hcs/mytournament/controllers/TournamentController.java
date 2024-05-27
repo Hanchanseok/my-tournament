@@ -1,11 +1,14 @@
 package dev.hcs.mytournament.controllers;
 
 import dev.hcs.mytournament.dtos.RankingDto;
+import dev.hcs.mytournament.dtos.TournamentCommentDto;
+import dev.hcs.mytournament.entities.TournamentCommentEntity;
 import dev.hcs.mytournament.entities.TournamentEntity;
 import dev.hcs.mytournament.entities.TournamentProductEntity;
 import dev.hcs.mytournament.entities.UserEntity;
 import dev.hcs.mytournament.results.Result;
 import dev.hcs.mytournament.survices.TournamentService;
+import jakarta.servlet.http.HttpSession;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -100,11 +103,36 @@ public class TournamentController {
     public ModelAndView getRanking(@RequestParam("index") int index) {
         RankingDto[] products = this.tournamentService.getRanking(index);
         TournamentEntity tournament = this.tournamentService.get(index);
+        TournamentCommentDto[] comments = this.tournamentService.getComments(index);
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("products", products);
         modelAndView.addObject("tournament", tournament);
+        modelAndView.addObject("comments", comments);
         modelAndView.setViewName("/tournament/ranking");
         return modelAndView;
+    }
+
+    // 랭킹 조회 부분에서 댓글 쓰기
+    @RequestMapping(value = "/ranking", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public String postComment(
+            TournamentCommentEntity comment,
+            HttpSession session
+    ) {
+        UserEntity user = (UserEntity) session.getAttribute("user");
+        Result result = this.tournamentService.writeComment(comment, user);
+        JSONObject responseObject = new JSONObject();
+        responseObject.put("result", result.name().toLowerCase());
+        return responseObject.toString();
+    }
+
+    // 랭킹 조회 부분 댓글 업데이트
+    @RequestMapping(value = "/ranking", method = RequestMethod.PATCH, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public String patchComment(TournamentCommentEntity comment) {
+        System.out.println(comment.getIndex());
+        System.out.println(comment.getContent());
+        return null;
     }
 
     // 플레이

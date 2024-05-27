@@ -7,6 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title th:text="${tournament.getTitle()}"></title>
     <link rel="stylesheet" type="text/css" th:href="@{/assets/styles/ranking.css}">
+    <script defer type="text/javascript" th:src="@{/assets/scripts/ranking.js}"></script>
     <script src="https://kit.fontawesome.com/0500497c40.js" crossorigin="anonymous"></script>
     <script th:if="${!tournament.isRecognized()}">
         alert('승인되지 않은 토너먼트입니다.');
@@ -47,34 +48,35 @@
                 <a href="/user/login">로그인이 필요한 서비스 입니다.</a>
             </div>
             <div class="write-comment" th:if="${session.get('user') != null}">
-                <form id="comment-form" action="">
+                <form id="comment-form">
                     <label>
-                        <span>댓글 쓰기</span>
-                        <textarea name="content" minlength="2" maxlength="1000" id="" cols="160" placeholder="댓글을 입력해주세요(최소 2자, 최대 1000자)" rows="10"></textarea>
+                        <input name="tournamentIndex" th:value="${tournament.getIndex()}" type="hidden">
+                        <textarea required name="content" minlength="2" maxlength="1000" cols="160" placeholder="댓글을 입력해주세요(최소 2자, 최대 1000자)" rows="10"></textarea>
                     </label>
+                    <input value="작성" type="submit">
                 </form>
             </div>
             <div class="comments-list">
-                <div class="comment-box">
+                <div class="comment-box" th:each="comment : ${comments}">
                     <div class="comment-info">
-                        <span>닉네임1</span>
-                        <span>2024-05-03 08:25</span>
-                        <input value="삭제" type="button">
+                        <input class="comment-index" th:value="${comment.getIndex()}" type="hidden">
+                        <span th:text="${comment.getUserNickname()}">닉네임1</span>
+                        <span th:text="${#temporals.format(comment.getCreatedAt(), 'yyyy-MM-dd HH:mm:ss')}">2024-05-03 08:25</span>
+                        <input th:if="${session.get('user') != null}" value="수정" class="update-button" type="button">
+                        <input th:if="${session.get('user') != null}" value="삭제" class="delete-button" type="button">
+                        <input value="신고" class="report-button" type="button">
                     </div>
-                    <div class="comment-content">
+                    <div th:text="${comment.getContent()}" class="comment-content">
                         내 코멘트이다.
                     </div>
                 </div>
-                <div class="comment-box">
-                    <div class="comment-info">
-                        <span>닉네임1</span>
-                        <span>2024-05-03 08:25</span>
-                        <input value="삭제" type="button">
-                    </div>
-                    <div class="comment-content">
-                        내 코멘트이다.
-                    </div>
-                </div>
+                <form id="update-comment-form">
+                    <label>
+                        <textarea required name="content" minlength="2" maxlength="1000" cols="160" placeholder="댓글을 입력해주세요(최소 2자, 최대 1000자)" rows="5"></textarea>
+                    </label>
+                    <input class="update-cancel" value="수정 취소" type="button">
+                    <input value="수정 완료" type="submit">
+                </form>
             </div>
         </section>
     </main>
