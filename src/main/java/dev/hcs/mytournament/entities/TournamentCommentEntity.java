@@ -14,4 +14,5 @@ public class TournamentCommentEntity {
     private String content;
     private LocalDateTime createdAt;
     private LocalDateTime modifiedAt;
+    private boolean isReported;
 }

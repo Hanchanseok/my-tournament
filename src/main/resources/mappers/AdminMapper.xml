@@ -32,4 +32,17 @@
         FROM `worldcup`.`users`
         ORDER BY `created_at` DESC
     </select>
+
+    <select id="selectReportedComments" resultType="dev.hcs.mytournament.entities.TournamentCommentEntity">
+        SELECT `index`              AS `index`,
+               `tournament_index`   AS `tournamentIndex`,
+               `user_email`         AS `userEmail`,
+               `content`            AS `content`,
+               `created_at`         AS `createdAt`,
+               `modified_at`        AS `modified_at`,
+               `is_reported`        AS `isReported`
+        FROM `worldcup`.`tournament_comment`
+        WHERE `is_reported` = true
+        ORDER BY `created_at` DESC
+    </select>
 </mapper>

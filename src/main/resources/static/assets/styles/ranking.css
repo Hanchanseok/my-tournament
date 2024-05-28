@@ -226,6 +226,9 @@ main {
   outline: none;
   resize: none;
 }
+.comments-container > .write-comment > #comment-form > label > textarea:focus-within {
+  border: 1px solid #e74c3c;
+}
 .comments-container > .comments-list {
   margin: 2rem 0;
   align-items: flex-start;

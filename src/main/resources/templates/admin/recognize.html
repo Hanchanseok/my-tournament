@@ -38,7 +38,7 @@
                 <td><a onclick="window.open(this.href, '_blank', 'width=800, height=600'); return false;" th:href="@{/tournament/detail (index=${tournament.getIndex()})}">상세 보기</a></td>
                 <td th:if="${!tournament.isRecognized()}">X</td>
                 <td th:if="${tournament.isRecognized()}">O</td>
-                <td><input class="recognize-button" value="전환" type="button"></td>
+                <td><input th:onclick=" 'recognize(' + ${tournament.getIndex()} + ');' " class="recognize-button" value="전환" type="button"></td>
             </tr>
             </tbody>
         </table>

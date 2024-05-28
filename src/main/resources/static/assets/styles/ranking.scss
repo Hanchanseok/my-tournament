@@ -106,6 +106,10 @@
         height: 6.25rem;
         outline: none;
         resize: none;
+
+        &:focus-within {
+          border: 1px solid #e74c3c;
+        }
       }
     }
   }

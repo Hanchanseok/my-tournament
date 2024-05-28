@@ -28,7 +28,6 @@ uploadForm.onsubmit = (e) => {
     e.preventDefault();
     const xhr = new XMLHttpRequest();
     const formData = new FormData();
-    formData.append("email", uploadForm['email'].value);
     formData.append("title", uploadForm['title'].value);
     formData.append("content", uploadForm['content'].value);
     // 파일들과 이름들 넣기

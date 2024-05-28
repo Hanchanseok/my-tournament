@@ -1,5 +1,6 @@
 package dev.hcs.mytournament.controllers;
 
+import dev.hcs.mytournament.entities.TournamentCommentEntity;
 import dev.hcs.mytournament.entities.TournamentEntity;
 import dev.hcs.mytournament.entities.UserEntity;
 import dev.hcs.mytournament.results.Result;
@@ -59,5 +60,41 @@ public class AdminController {
         JSONObject responseObject = new JSONObject();
         responseObject.put("result", result.name().toLowerCase());
         return responseObject.toString();
+    }
+
+    @RequestMapping(value = "/reportedComments", method = RequestMethod.GET, produces = MediaType.TEXT_HTML_VALUE)
+    public ModelAndView getReportedComments() {
+        TournamentCommentEntity[] comments = this.adminService.getReportedComments();
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("comments", comments);
+        modelAndView.setViewName("/admin/reportedComments");
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/reportedComments", method = RequestMethod.PATCH, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public String patchReportedComments(TournamentCommentEntity comment) {
+        Result result = adminService.updateReportedComment(comment.getIndex());
+        JSONObject responseObject = new JSONObject();
+        responseObject.put("result", result.name().toLowerCase());
+        return responseObject.toString();
+    }
+
+    @RequestMapping(value = "/reportedComments", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public String deleteReportedComments(TournamentCommentEntity comment) {
+        Result result = adminService.deleteReportedComment(comment.getIndex());
+        JSONObject responseObject = new JSONObject();
+        responseObject.put("result", result.name().toLowerCase());
+        return responseObject.toString();
+    }
+
+    @RequestMapping(value = "/commentDetail", method = RequestMethod.GET, produces = MediaType.TEXT_HTML_VALUE)
+    public ModelAndView getCommentDetail(@RequestParam(value = "index")int index) {
+        TournamentCommentEntity comment = this.adminService.getComment(index);
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("comment", comment);
+        modelAndView.setViewName("/admin/commentDetail");
+        return modelAndView;
     }
 }

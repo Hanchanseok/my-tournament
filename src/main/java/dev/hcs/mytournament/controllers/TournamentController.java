@@ -47,11 +47,12 @@ public class TournamentController {
     public String postUpload(
             TournamentEntity tournament,
             TournamentProductEntity product,
-            UserEntity user,
+            HttpSession session,
             @RequestParam("files")MultipartFile[] files,
             @RequestParam("productNames") String[] productNames,
             @RequestParam("tournamentThumbnail") MultipartFile thumbnail
     ) throws IOException {
+        UserEntity user = (UserEntity) session.getAttribute("user");
         Result result = this.tournamentService.uploadTournament(
                 tournament, product, user, thumbnail, files, productNames
         );
@@ -115,10 +116,7 @@ public class TournamentController {
     // 랭킹 조회 부분에서 댓글 쓰기
     @RequestMapping(value = "/ranking", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public String postComment(
-            TournamentCommentEntity comment,
-            HttpSession session
-    ) {
+    public String postComment(TournamentCommentEntity comment, HttpSession session) {
         UserEntity user = (UserEntity) session.getAttribute("user");
         Result result = this.tournamentService.writeComment(comment, user);
         JSONObject responseObject = new JSONObject();
@@ -129,11 +127,36 @@ public class TournamentController {
     // 랭킹 조회 부분 댓글 업데이트
     @RequestMapping(value = "/ranking", method = RequestMethod.PATCH, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public String patchComment(TournamentCommentEntity comment) {
-        System.out.println(comment.getIndex());
-        System.out.println(comment.getContent());
-        return null;
+    public String patchComment(TournamentCommentEntity comment, HttpSession session) {
+        UserEntity user = (UserEntity) session.getAttribute("user");
+        Result result = this.tournamentService.updateComments(comment, user);
+        JSONObject responseObject = new JSONObject();
+        responseObject.put("result", result.name().toLowerCase());
+        return responseObject.toString();
     }
+
+    // 랭킹 조회 부분 댓글 삭제
+    @RequestMapping(value = "/ranking", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public String deleteComment(TournamentCommentEntity comment, HttpSession session) {
+        UserEntity user = (UserEntity) session.getAttribute("user");
+        Result result = this.tournamentService.deleteComment(comment, user);
+        JSONObject responseObject = new JSONObject();
+        responseObject.put("result", result.name().toLowerCase());
+        return responseObject.toString();
+    }
+
+    // 랭킹 조회 부분 댓글 신고
+    @RequestMapping(value = "/ranking/report", method = RequestMethod.PATCH, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public String reportComment(TournamentCommentEntity comment, HttpSession session) {
+        UserEntity user = (UserEntity) session.getAttribute("user");
+        Result result = this.tournamentService.reportComment(comment, user);
+        JSONObject responseObject = new JSONObject();
+        responseObject.put("result", result.name().toLowerCase());
+        return responseObject.toString();
+    }
+
 
     // 플레이
     @RequestMapping(value = "/play", method = RequestMethod.GET, produces = MediaType.TEXT_HTML_VALUE)

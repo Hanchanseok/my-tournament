@@ -1,5 +1,6 @@
 package dev.hcs.mytournament.survices;
 
+import dev.hcs.mytournament.entities.TournamentCommentEntity;
 import dev.hcs.mytournament.entities.TournamentEntity;
 import dev.hcs.mytournament.entities.UserEntity;
 import dev.hcs.mytournament.mappers.AdminMapper;
@@ -63,6 +64,39 @@ public class AdminService {
             dbUser.setSuspended(false);
         }
         return this.userMapper.updateUser(dbUser) > 0
+                ? CommonResult.SUCCESS
+                : CommonResult.FAILURE;
+    }
+
+    // 신고받은 댓글들 모두 조회
+    public TournamentCommentEntity[] getReportedComments() {
+        return this.adminMapper.selectReportedComments();
+    }
+
+    // 신고받은 댓글 하나 조회
+    public TournamentCommentEntity getComment(int index) {
+        return this.tournamentMapper.selectTournamentCommentByIndex(index);
+    }
+
+    // 신고 받은 댓글 문제 없음
+    public Result updateReportedComment(int index) {
+        TournamentCommentEntity dbComment = this.tournamentMapper.selectTournamentCommentByIndex(index);
+        if (dbComment == null || !dbComment.isReported()) {
+            return CommonResult.FAILURE;
+        }
+        dbComment.setReported(false);
+        return this.tournamentMapper.updateTournamentComment(dbComment) > 0
+                ? CommonResult.SUCCESS
+                : CommonResult.FAILURE;
+    }
+
+    // 신고 받은 댓글 삭제
+    public Result deleteReportedComment(int index) {
+        TournamentCommentEntity dbComment = this.tournamentMapper.selectTournamentCommentByIndex(index);
+        if (dbComment == null || !dbComment.isReported()) {
+            return CommonResult.FAILURE;
+        }
+        return this.tournamentMapper.deleteTournamentComment(index) > 0
                 ? CommonResult.SUCCESS
                 : CommonResult.FAILURE;
     }

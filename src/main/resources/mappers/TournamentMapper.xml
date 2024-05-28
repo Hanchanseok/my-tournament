@@ -149,7 +149,7 @@
     </update>
 
     <insert id="insertTournamentComment" parameterType="dev.hcs.mytournament.entities.TournamentCommentEntity">
-        INSERT INTO `worldcup`.`tournament_comment`(`tournament_index`, `user_email`, `content`, `created_at`, `modified_at`) VALUES (#{tournamentIndex}, #{userEmail}, #{content}, #{createdAt}, #{modifiedAt})
+        INSERT INTO `worldcup`.`tournament_comment`(`tournament_index`, `user_email`, `content`, `created_at`, `modified_at`, `is_reported`) VALUES (#{tournamentIndex}, #{userEmail}, #{content}, #{createdAt}, #{modifiedAt}, #{isReported})
     </insert>
 
     <select id="selectTournamentComments" parameterType="int" resultType="dev.hcs.mytournament.dtos.TournamentCommentDto">
@@ -159,6 +159,7 @@
                `comment`.`content`            AS `content`,
                `comment`.`created_at`         AS `createdAt`,
                `comment`.`modified_at`        AS `modifiedAt`,
+               `comment`.`is_reported`        AS `isReported`,
                `user`.`nickname`           AS `userNickname`
         FROM `worldcup`.`tournament_comment` AS `comment`
             LEFT JOIN `worldcup`.`users` AS `user` on `comment`.`user_email` = `user`.`email`
@@ -166,13 +167,33 @@
         ORDER By `comment`.`created_at` DESC
     </select>
 
+    <select id="selectTournamentCommentByIndex" parameterType="int" resultType="dev.hcs.mytournament.entities.TournamentCommentEntity">
+        SELECT `index`              AS `index`,
+               `tournament_index`   AS `tournamentIndex`,
+               `user_email`         AS `userEmail`,
+               `content`            AS `content`,
+               `created_at`         AS `createdAt`,
+               `modified_at`        AS `modifiedAt`,
+               `is_reported`        AS `isReported`
+        FROM `worldcup`.`tournament_comment`
+        WHERE `index` = #{index}
+        LIMIT 1
+    </select>
+
     <update id="updateTournamentComment" parameterType="dev.hcs.mytournament.entities.TournamentCommentEntity">
         UPDATE `worldcup`.`tournament_comment`
         SET `user_email`    = #{userEmail},
             `content`       = #{content},
             `created_at`    = #{createdAt},
-            `modified_at`   = #{modifiedAt}
+            `modified_at`   = #{modifiedAt},
+            `is_reported`   = #{isReported}
         WHERE `index` = #{index}
         LIMIT 1
     </update>
+
+    <delete id="deleteTournamentComment" parameterType="int">
+        DELETE FROM `worldcup`.`tournament_comment`
+        WHERE `index` = #{index}
+        LIMIT 1
+    </delete>
 </mapper>

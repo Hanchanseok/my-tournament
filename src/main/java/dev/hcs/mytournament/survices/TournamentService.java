@@ -11,6 +11,7 @@ import dev.hcs.mytournament.mappers.TournamentMapper;
 import dev.hcs.mytournament.mappers.UserMapper;
 import dev.hcs.mytournament.results.CommonResult;
 import dev.hcs.mytournament.results.Result;
+import dev.hcs.mytournament.results.tournament.ReportCommentResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -30,6 +31,7 @@ public class TournamentService {
         this.userMapper = userMapper;
     }
 
+    // 대회 업로드
     @Transactional
     public Result uploadTournament(
             TournamentEntity tournament,
@@ -148,6 +150,7 @@ public class TournamentService {
         comment.setUserEmail(dbUser.getEmail());
         comment.setCreatedAt(LocalDateTime.now());
         comment.setModifiedAt(null);
+        comment.setReported(false);
         return this.tournamentMapper.insertTournamentComment(comment) > 0
                 ? CommonResult.SUCCESS
                 : CommonResult.FAILURE;
@@ -159,7 +162,64 @@ public class TournamentService {
     }
 
     // 랭킹 코멘트 수정
+    public Result updateComments(TournamentCommentEntity comment, UserEntity user) {
+        if (user == null) {
+            return CommonResult.FAILURE;
+        }
 
+        if (comment == null || comment.getContent().length() < 2 || comment.getContent().length() > 1000) {
+            return CommonResult.FAILURE;
+        }
+        TournamentCommentEntity dbComment = this.tournamentMapper.selectTournamentCommentByIndex(comment.getIndex());
+
+        if (dbComment == null || !dbComment.getUserEmail().equals(user.getEmail())) {
+            return CommonResult.FAILURE;
+        }
+
+        dbComment.setContent(comment.getContent());
+        dbComment.setModifiedAt(LocalDateTime.now());
+        return this.tournamentMapper.updateTournamentComment(dbComment) > 0
+                ? CommonResult.SUCCESS
+                : CommonResult.FAILURE;
+    }
+
+    // 랭킹 코멘트 삭제
+    public Result deleteComment(TournamentCommentEntity comment, UserEntity user) {
+        if (user == null) {
+            return CommonResult.FAILURE;
+        }
+
+        TournamentCommentEntity dbComment = this.tournamentMapper.selectTournamentCommentByIndex(comment.getIndex());
+
+        if (dbComment == null || !dbComment.getUserEmail().equals(user.getEmail())) {
+            return CommonResult.FAILURE;
+        }
+        return this.tournamentMapper.deleteTournamentComment(dbComment.getIndex()) > 0
+                ? CommonResult.SUCCESS
+                : CommonResult.FAILURE;
+    }
+
+    // 랭킹 코멘트 신고
+    public Result reportComment(TournamentCommentEntity comment, UserEntity user) {
+
+        TournamentCommentEntity dbComment = this.tournamentMapper.selectTournamentCommentByIndex(comment.getIndex());
+
+        if (dbComment == null) {
+            return CommonResult.FAILURE;
+        }
+
+        if (user != null) {
+            // 자신의 코멘트는 신고할 수 없다.
+            if (dbComment.getUserEmail().equals(user.getEmail())) {
+                return ReportCommentResult.FAILURE_REPORT_OWN_COMMENT;
+            }
+        }
+
+        dbComment.setReported(true);
+        return this.tournamentMapper.updateTournamentComment(dbComment) > 0
+                ? CommonResult.SUCCESS
+                : CommonResult.FAILURE;
+    }
 
     // 플레이 후 요소 점수 변경
     @Transactional
