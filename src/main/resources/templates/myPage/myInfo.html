@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>내 정보</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/assets/styles/manage.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/assets/styles/index.css}">
+    <script src="https://kit.fontawesome.com/0500497c40.js" crossorigin="anonymous"></script>
+</head>
+<body>
+<th:block th:replace="~{layouts/header.html :: header}"></th:block>
+<th:block th:replace="~{layouts/myPageAside.html :: myPage-aside}"></th:block>
+<main class="manage-main">
+    <section class="myInfo-container">
+        <div class="myInfo-box">
+            <div class="myInfo-view">
+                <span class="user-nickname">유저님 반갑습니다.</span>
+                <span class="user-email">이메일 : user1@sample.com</span>
+                <span class="user-created-at">가입일자 : 2022-05-24</span>
+            </div>
+            <div class="myInfo-modify">
+                <a href="#">내 정보 수정</a>
+            </div>
+        </div>
+        <div class="myThings-box">
+            <div class="myThing">
+                <span>내 토너먼트</span>
+                <span>0</span>
+            </div>
+            <div class="myThing">
+                <span>내 댓글</span>
+                <span>0</span>
+            </div>
+            <div class="myThing">
+                <span>굿즈 주문</span>
+                <span>0</span>
+            </div>
+        </div>
+    </section>
+</main>
+<th:block th:replace="~{layouts/footer.html :: footer}"></th:block>
+</body>
+</html>

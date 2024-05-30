@@ -68,4 +68,18 @@
         WHERE BINARY `email` = #{email}
         LIMIT 1
     </select>
+
+    <select id="selectUserByNickname" resultType="dev.hcs.mytournament.entities.UserEntity">
+        SELECT `email`        AS `email`,
+               `password`     AS `password`,
+               `nickname`     AS `nickname`,
+               `created_at`   AS `createdAt`,
+               `is_admin`     AS `isAdmin`,
+               `is_deleted`   AS `isDeleted`,
+               `is_suspended` AS `isSuspended`,
+               `is_kakao`     AS `isKakao`
+        FROM `worldcup`.`users`
+        WHERE BINARY `nickname` = #{nickname}
+        LIMIT 1
+    </select>
 </mapper>

@@ -135,6 +135,11 @@ public class UserService {
             return RegisterResult.FAILURE_EMAIL_AUTH_VERIFIED;
         }
 
+        // 닉네임 중복 여부 확인
+        if (this.userMapper.selectUserByNickname(user.getNickname()) != null) {
+            return RegisterResult.FAILURE_DUPLICATE_NICKNAME;
+        }
+
         // 비밀번호 암호화
         user.setPassword( new BCryptPasswordEncoder().encode(user.getPassword()) );
         user.setCreatedAt(LocalDateTime.now());

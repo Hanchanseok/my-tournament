@@ -116,6 +116,9 @@ registerForm.onsubmit = (e) => {
         } else if (responseObject['result'] === "failure_email_auth_verified") {
             warningRegister.innerText = '이메일 인증이 완료되지 않았습니다.';
             warningRegister.show();
+        } else if (responseObject['result'] === "failure_duplicate_nickname") {
+            warningRegister.innerText = '이미 사용중인 닉네임 입니다.';
+            warningRegister.show();
         }
         
     }

@@ -20,4 +20,6 @@ public interface UserMapper {
                                                    @Param("salt") String salt);
 
     UserEntity selectUserByEmail(@Param("email") String email);
+
+    UserEntity selectUserByNickname(@Param("nickname") String nickname);
 }

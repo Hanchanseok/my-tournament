@@ -20,7 +20,7 @@
             <i class="menu-icon fa-solid fa-pen-nib"></i>
             <span class="menu-text">업로드</span>
         </a>
-        <a class="header-menu" href="#" th:if="${session.get('user') != null}">
+        <a class="header-menu" href="/myPage/myInfo" th:if="${session.get('user') != null}">
             <i class="menu-icon fa-solid fa-user"></i>
             <span class="menu-text">마이페이지</span>
         </a>

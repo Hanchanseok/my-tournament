@@ -131,7 +131,7 @@ main {
   opacity: 1;
 }
 
-#admin-aside {
+.manage-aside {
   background-color: #424242;
   position: fixed;
   padding: 100px 0;
@@ -139,41 +139,41 @@ main {
   height: 100vh;
   z-index: 0;
 }
-#admin-aside > .menu {
+.manage-aside > .menu {
   align-items: center;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   gap: 1.5rem;
 }
-#admin-aside > .menu > li > a {
+.manage-aside > .menu > li > a {
   text-decoration: none;
   color: #eeeeee;
 }
-#admin-aside > .menu > li > a:hover {
+.manage-aside > .menu > li > a:hover {
   color: #d5d5d5;
 }
 
-.admin-main {
+.manage-main {
   align-items: center;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
 }
-.admin-main > .manage-table {
+.manage-main > .manage-table {
   border: 1px solid #e0e0e0;
   width: 1000px;
 }
-.admin-main > .manage-table > thead > tr > th {
+.manage-main > .manage-table > thead > tr > th {
   background-color: #e0e0e0;
 }
-.admin-main > .manage-table > tbody > tr > th {
+.manage-main > .manage-table > tbody > tr > th {
   background-color: #e0e0e0;
 }
-.admin-main > .manage-table > tbody > tr > td {
+.manage-main > .manage-table > tbody > tr > td {
   text-align: center;
 }
-.admin-main > .manage-table > tbody > tr > td > input[type=button] {
+.manage-main > .manage-table > tbody > tr > td > input[type=button] {
   background-color: #009fff;
   border: none;
   border-radius: 0.25rem;
@@ -181,8 +181,70 @@ main {
   color: white;
   font-family: inherit;
 }
-.admin-main > .manage-table > tbody > tr > td > input[type=button]:hover {
+.manage-main > .manage-table > tbody > tr > td > input[type=button]:hover {
   background-color: #007fcc;
 }
+.manage-main .myInfo-container {
+  margin-top: 3rem;
+  border: 4px solid #747474;
+  align-items: stretch;
+  display: flex;
+  flex-direction: column;
+  justify-content: stretch;
+}
+.manage-main .myInfo-container > .myInfo-box {
+  align-items: stretch;
+  display: flex;
+  flex-direction: row;
+  justify-content: stretch;
+  padding: 2rem 4rem;
+  gap: 10rem;
+  border-bottom: 1px dashed #919191;
+}
+.manage-main .myInfo-container > .myInfo-box > .myInfo-view {
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 0.75rem;
+}
+.manage-main .myInfo-container > .myInfo-box > .myInfo-view > .user-nickname {
+  font-weight: 700;
+  font-size: 1.2rem;
+  margin: 0;
+  padding: 0;
+}
+.manage-main .myInfo-container > .myInfo-box > .myInfo-view > .user-email {
+  font-size: 0.9rem;
+  color: #007fcc;
+}
+.manage-main .myInfo-container > .myInfo-box > .myInfo-view > .user-created-at {
+  font-size: 1.2rem;
+  color: #e74c3c;
+  margin-top: 0.75rem;
+}
+.manage-main .myInfo-container > .myInfo-box > .myInfo-modify > a {
+  background-color: #e74c3c;
+  padding: 0.5rem 1.2rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #eeeeee;
+  text-decoration: none;
+}
+.manage-main .myInfo-container > .myThings-box {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 7rem;
+}
+.manage-main .myInfo-container > .myThings-box > .myThing {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.75rem;
+  padding: 2rem 0;
+}
 
-/*# sourceMappingURL=admin.css.map */
+/*# sourceMappingURL=manage.css.map */

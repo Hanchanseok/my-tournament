@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import dev.hcs.mytournament.entities.UserEntity;
 import dev.hcs.mytournament.mappers.UserMapper;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -118,7 +119,7 @@ public class KakaoService {
     public void kakaoRegister(HashMap<String, Object> userInfo, UserEntity user) {
         user.setEmail("kakao_" + userInfo.get("email").toString());
         user.setPassword( new BCryptPasswordEncoder().encode( userInfo.get("id").toString() ) );
-        user.setNickname( userInfo.get("nickname").toString() );
+        user.setNickname( RandomStringUtils.randomAlphanumeric(8) );
         user.setCreatedAt(LocalDateTime.now());
         user.setAdmin(false);
         user.setDeleted(false);
