@@ -196,4 +196,16 @@
         WHERE `index` = #{index}
         LIMIT 1
     </delete>
+
+    <select id="selectTournamentCountByEmail" parameterType="string">
+        SELECT COUNT(0)
+        FROM `worldcup`.`tournament`
+        WHERE `user_email` = #{userEmail}
+    </select>
+
+    <select id="selectCommentCountByEmail" parameterType="string">
+        SELECT COUNT(0)
+        FROM `worldcup`.`tournament_comment`
+        WHERE `user_email` = #{userEmail}
+    </select>
 </mapper>

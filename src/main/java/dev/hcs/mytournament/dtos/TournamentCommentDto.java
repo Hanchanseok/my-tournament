@@ -10,4 +10,5 @@ import lombok.*;
 @NoArgsConstructor
 public class TournamentCommentDto extends TournamentCommentEntity {
     private String userNickname;
+    private String tournamentTitle;
 }

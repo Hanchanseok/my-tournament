@@ -231,6 +231,9 @@ main {
   color: #eeeeee;
   text-decoration: none;
 }
+.manage-main .myInfo-container > .myInfo-box > .myInfo-modify > a:hover {
+  background-color: #bf2718;
+}
 .manage-main .myInfo-container > .myThings-box {
   align-items: center;
   display: flex;
@@ -245,6 +248,13 @@ main {
   justify-content: center;
   gap: 0.75rem;
   padding: 2rem 0;
+}
+.manage-main .myInfo-container > .myThings-box > .myThing > a {
+  color: #e74c3c;
+  text-decoration: none;
+}
+.manage-main .myInfo-container > .myThings-box > .myThing > a:hover {
+  color: #a82315;
 }
 
 /*# sourceMappingURL=manage.css.map */

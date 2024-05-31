@@ -120,6 +120,10 @@
 
           color: #eeeeee;
           text-decoration: none;
+
+          &:hover {
+            background-color: darken(#e74c3c, 15%);
+          }
         }
       }
     }
@@ -139,6 +143,15 @@
         justify-content: center;
         gap: 0.75rem;
         padding: 2rem 0;
+
+        > a {
+          color: #e74c3c;
+          text-decoration: none;
+
+          &:hover {
+            color: darken(#e74c3c, 20%);
+          }
+        }
       }
     }
   }

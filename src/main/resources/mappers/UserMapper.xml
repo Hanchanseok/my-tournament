@@ -82,4 +82,5 @@
         WHERE BINARY `nickname` = #{nickname}
         LIMIT 1
     </select>
+
 </mapper>

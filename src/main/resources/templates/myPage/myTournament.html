@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>내 토너먼트</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/assets/styles/manage.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/assets/styles/index.css}">
+    <script src="https://kit.fontawesome.com/0500497c40.js" crossorigin="anonymous"></script>
+    <script th:if="${session.get('user') == null}">
+        alert('잘못된 접근입니다.');
+        location.href='/'
+    </script>
+</head>
+<body th:if="${session.get('user') != null}">
+<th:block th:replace="~{layouts/header.html :: header}"></th:block>
+<th:block th:replace="~{layouts/myPageAside.html :: myPage-aside}"></th:block>
+    <main class="manage-main">
+        <table class="manage-table">
+            <thead>
+            <tr>
+                <th>넘버</th>
+                <th>업로드 된 대회</th>
+                <th>업로드 날짜</th>
+                <th>상세 보기</th>
+                <th>승인 여부</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="tournament : ${tournaments}">
+                <th th:text="${tournament.getIndex()}">0</th>
+                <td th:text="${tournament.getTitle()}">대회</td>
+                <td th:text="${#temporals.format(tournament.getCreatedAt(), 'yyyy-MM-dd')}">업로드날짜</td>
+                <td><a onclick="window.open(this.href, '_blank', 'width=800, height=600'); return false;" th:href="@{/tournament/detail (index=${tournament.getIndex()})}">상세 보기</a></td>
+                <td>
+                    <span th:if="${tournament.isRecognized()}">O</span>
+                    <span th:if="${!tournament.isRecognized()}">X</span>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </main>
+<th:block th:replace="~{layouts/footer.html :: footer}"></th:block>
+</body>
+</html>

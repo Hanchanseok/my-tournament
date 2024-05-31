@@ -51,6 +51,7 @@ uploadForm.onsubmit = (e) => {
         if (responseObject['result'] === 'failure') {
             alert('업로드에 실패하였습니다.');
         } else if (responseObject['result'] === 'success') {
+            alert('[업로드 완료] 관리자의 승인 후, 대회 진행 가능합니다.');
             location.href = '/';
         }
 

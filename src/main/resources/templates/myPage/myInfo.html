@@ -9,17 +9,21 @@
     <link rel="stylesheet" type="text/css" th:href="@{/assets/styles/manage.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/assets/styles/index.css}">
     <script src="https://kit.fontawesome.com/0500497c40.js" crossorigin="anonymous"></script>
+    <script th:if="${session.get('user') == null}">
+        alert('잘못된 접근입니다.');
+        location.href='/'
+    </script>
 </head>
-<body>
+<body th:if="${session.get('user') != null}">
 <th:block th:replace="~{layouts/header.html :: header}"></th:block>
 <th:block th:replace="~{layouts/myPageAside.html :: myPage-aside}"></th:block>
 <main class="manage-main">
     <section class="myInfo-container">
         <div class="myInfo-box">
             <div class="myInfo-view">
-                <span class="user-nickname">유저님 반갑습니다.</span>
-                <span class="user-email">이메일 : user1@sample.com</span>
-                <span class="user-created-at">가입일자 : 2022-05-24</span>
+                <span class="user-nickname"><span th:text="${myInfo.getNickname()}"></span>님 반갑습니다.</span>
+                <span class="user-email">이메일 : <span th:text="${myInfo.getEmail()}"></span></span>
+                <span class="user-created-at">가입일자 : <span th:text="${#temporals.format(myInfo.getCreatedAt(), 'yyyy-MM-dd')}"></span></span>
             </div>
             <div class="myInfo-modify">
                 <a href="#">내 정보 수정</a>
@@ -28,15 +32,15 @@
         <div class="myThings-box">
             <div class="myThing">
                 <span>내 토너먼트</span>
-                <span>0</span>
+                <a href="/myPage/myTournament" th:text="${tournamentCount}">0</a>
             </div>
             <div class="myThing">
                 <span>내 댓글</span>
-                <span>0</span>
+                <a href="/myPage/myComment" th:text="${commentCount}">0</a>
             </div>
             <div class="myThing">
                 <span>굿즈 주문</span>
-                <span>0</span>
+                <a href="#">0</a>
             </div>
         </div>
     </section>

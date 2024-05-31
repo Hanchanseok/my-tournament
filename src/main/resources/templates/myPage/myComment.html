@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>내 댓글</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/assets/styles/manage.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/assets/styles/index.css}">
+    <script defer type="text/javascript" th:src="@{/assets/scripts/myPage.js}"></script>
+    <script src="https://kit.fontawesome.com/0500497c40.js" crossorigin="anonymous"></script>
+    <script th:if="${session.get('user') == null}">
+        alert('잘못된 접근입니다.');
+        location.href='/'
+    </script>
+</head>
+<body th:if="${session.get('user') != null}">
+<th:block th:replace="~{layouts/header.html :: header}"></th:block>
+<th:block th:replace="~{layouts/myPageAside.html :: myPage-aside}"></th:block>
+    <main class="manage-main">
+        <table class="manage-table">
+            <thead>
+            <tr>
+                <th>넘버</th>
+                <th>해당 토너먼트</th>
+                <th>날짜</th>
+                <th>내용</th>
+                <th>삭제</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="comment : ${comments}">
+                <th th:text="${comment.getIndex()}"></th>
+                <td>
+                    <a th:text="${comment.getTournamentTitle()}" th:href="@{/tournament/ranking (index=${comment.getTournamentIndex()})}"></a>
+                </td>
+                <td th:text="${#temporals.format(comment.getCreatedAt(), 'yyyy-MM-dd HH:ss:mm')}"></td>
+                <td><a onclick="window.open(this.href, '_blank', 'width=600, height=400'); return false;" th:href="@{/admin/commentDetail (index=${comment.getIndex()})}">상세 보기</a></td>
+                <td><input th:onclick="'commentDelete(' + ${comment.getIndex()} + ');'" class="comment-delete-button" value="삭제" type="button"></td>
+            </tr>
+            </tbody>
+        </table>
+    </main>
+<th:block th:replace="~{layouts/footer.html :: footer}"></th:block>
+</body>
+</html>

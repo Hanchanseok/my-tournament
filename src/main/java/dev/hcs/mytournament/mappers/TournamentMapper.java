@@ -6,7 +6,9 @@ import dev.hcs.mytournament.dtos.TournamentCommentDto;
 import dev.hcs.mytournament.entities.TournamentCommentEntity;
 import dev.hcs.mytournament.entities.TournamentEntity;
 import dev.hcs.mytournament.entities.TournamentProductEntity;
+import dev.hcs.mytournament.entities.UserEntity;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 @Mapper
 public interface TournamentMapper {
@@ -41,4 +43,9 @@ public interface TournamentMapper {
     int updateTournamentComment(TournamentCommentEntity comment);
 
     int deleteTournamentComment(int index);
+
+    int selectTournamentCountByEmail(String userEmail);
+
+    int selectCommentCountByEmail(String userEmail);
+
 }
