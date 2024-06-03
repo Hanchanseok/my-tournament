@@ -26,7 +26,7 @@
                 <span class="user-created-at">가입일자 : <span th:text="${#temporals.format(myInfo.getCreatedAt(), 'yyyy-MM-dd')}"></span></span>
             </div>
             <div class="myInfo-modify">
-                <a href="#">내 정보 수정</a>
+                <a onclick="window.open(this.href, '_blank', 'width=800, height=600'); return false;" href="/myPage/updateMyInfo">내 정보 수정</a>
             </div>
         </div>
         <div class="myThings-box">

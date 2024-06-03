@@ -117,7 +117,7 @@ public class KakaoService {
 
     // 카카오 회원가입
     public void kakaoRegister(HashMap<String, Object> userInfo, UserEntity user) {
-        user.setEmail("kakao_" + userInfo.get("email").toString());
+        user.setEmail("(kakao)" + userInfo.get("email").toString());
         user.setPassword( new BCryptPasswordEncoder().encode( userInfo.get("id").toString() ) );
         user.setNickname( RandomStringUtils.randomAlphanumeric(8) );
         user.setCreatedAt(LocalDateTime.now());
@@ -131,7 +131,7 @@ public class KakaoService {
     // 카카오 로그인
     public UserEntity kakaoLogin(HashMap<String, Object> userInfo, UserEntity user) {
         // db에 해당 아이디가 있는지 확인
-        UserEntity dbUser = this.userMapper.selectUserByEmail("kakao_" + userInfo.get("email").toString());
+        UserEntity dbUser = this.userMapper.selectUserByEmail("(kakao)" + userInfo.get("email").toString());
         if (dbUser == null) {
             return null;    // 없으면 로그인 X
         }

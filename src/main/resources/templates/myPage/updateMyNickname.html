@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>내 닉네임 변경</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/assets/styles/manage.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/assets/styles/common.css}">
+    <script defer type="text/javascript" th:src="@{/assets/scripts/myPage.js}"></script>
+</head>
+<body>
+    <main class="update-my-info-main">
+        <section class="update-my-info-container">
+            <form id="nickname-form" class="update-my-info-form">
+                <div class="nickname-box">
+                    <label><input autofocus required name="nickname" minlength="2" maxlength="10" type="text" placeholder="닉네임 (숫자, 영어 대소문자, 완성 한글 2자 이상 10자 이하)"></label>
+                    <label><input name="nicknameSend" value="닉네임 중복 확인" type="button"></label>
+                </div>
+                <div class="warning-message" hidden></div>
+                <input value="닉네임 변경" type="submit">
+            </form>
+        </section>
+    </main>
+</body>
+</html>

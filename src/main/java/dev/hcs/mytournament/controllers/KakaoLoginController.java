@@ -46,7 +46,7 @@ public class KakaoLoginController {
 
         // 로그인, 회원가입 로직 추가
         // 만약 처음 로그인 시, 회원 DB에 해당 이메일이 없다면
-        if (this.userService.getUserByEmail( "kakao_" + userInfo.get("email").toString() ) == null) {
+        if (this.userService.getUserByEmail( "(kakao)" + userInfo.get("email").toString() ) == null) {
             // 회원가입하기
             this.kakaoService.kakaoRegister(userInfo, user);
         }
