@@ -3,6 +3,7 @@ package dev.hcs.mytournament.controllers;
 import dev.hcs.mytournament.entities.UserEntity;
 import dev.hcs.mytournament.results.CommonResult;
 import dev.hcs.mytournament.results.Result;
+import dev.hcs.mytournament.results.user.UpdatePasswordResult;
 import dev.hcs.mytournament.survices.MyPageService;
 import jakarta.servlet.http.HttpSession;
 import org.json.JSONObject;
@@ -25,6 +26,7 @@ public class MyPageController {
         this.myPageService = myPageService;
     }
 
+    // 내 정보 페이지
     @RequestMapping(value = "/myInfo", method = RequestMethod.GET, produces = MediaType.TEXT_HTML_VALUE)
     public ModelAndView getMyInfo(HttpSession session) {
         UserEntity user = (UserEntity) session.getAttribute("user");
@@ -36,6 +38,7 @@ public class MyPageController {
         return modelAndView;
     }
 
+    // 내 토너먼트 페이지
     @RequestMapping(value = "/myTournament", method = RequestMethod.GET, produces = MediaType.TEXT_HTML_VALUE)
     public ModelAndView getMyTournament(HttpSession session) {
         UserEntity user = (UserEntity) session.getAttribute("user");
@@ -45,6 +48,7 @@ public class MyPageController {
         return modelAndView;
     }
 
+    // 내 댓글 페이지
     @RequestMapping(value = "/myComment", method = RequestMethod.GET, produces = MediaType.TEXT_HTML_VALUE)
     public ModelAndView getMyComment(HttpSession session) {
         UserEntity user = (UserEntity) session.getAttribute("user");
@@ -54,6 +58,7 @@ public class MyPageController {
         return modelAndView;
     }
 
+    // 내 정보 수정(카카오일 경우 비밀번호 입력 면제)
     @RequestMapping(value = "/updateMyInfo", method = RequestMethod.GET, produces = MediaType.TEXT_HTML_VALUE)
     public ModelAndView getUpdateMyInfo(HttpSession session) {
         UserEntity user = (UserEntity) session.getAttribute("user");
@@ -66,6 +71,7 @@ public class MyPageController {
         return  modelAndView;
     }
 
+    // 비밀번호 입력 성공시 정보 수정페이지로
     @RequestMapping(value = "/updateMyInfo", method = RequestMethod.POST, produces = MediaType.TEXT_HTML_VALUE)
     public ModelAndView getCheckMyPassword(HttpSession session, @RequestParam("password") String password) {
         UserEntity user = (UserEntity) session.getAttribute("user");
@@ -80,17 +86,18 @@ public class MyPageController {
         return modelAndView;
     }
 
+    // 닉네임 변경 페이지
     @RequestMapping(value = "/updateMyNickname", method = RequestMethod.GET, produces = MediaType.TEXT_HTML_VALUE)
-    public ModelAndView getUpdateMyNickname(HttpSession session) {
-        UserEntity user = (UserEntity) session.getAttribute("user");
+    public ModelAndView getUpdateMyNickname() {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("/myPage/updateMyNickname");
         return modelAndView;
     }
 
+    // 닉네임 변경 전 닉네임 중복 검사
     @RequestMapping(value = "/updateMyNickname", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public String patchUpdateMyNickname(
+    public String postUpdateMyNickname(
             @RequestParam("nickname") String nickname
     ) {
         Result result = this.myPageService.checkDuplicateNickname(nickname);
@@ -99,24 +106,46 @@ public class MyPageController {
         return responseObject.toString();
     }
 
+    // 닉네임 최종 변경
     @RequestMapping(value = "/updateMyNickname", method = RequestMethod.PATCH, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public String postUpdateMyNickname(
+    public String patchUpdateMyNickname(
             HttpSession session,
             @RequestParam("nickname") String nickname
     ) {
         UserEntity user = (UserEntity) session.getAttribute("user");
         Result result = this.myPageService.updateMyNickname(user, nickname);
+        if (result == UpdatePasswordResult.SUCCESS) {
+            session.setAttribute("user", user);
+        }
         JSONObject responseObject = new JSONObject();
         responseObject.put("result", result.name().toLowerCase());
         return responseObject.toString();
     }
 
+    // 비밀번호 변경 페이지
     @RequestMapping(value = "/updateMyPassword", method = RequestMethod.GET, produces = MediaType.TEXT_HTML_VALUE)
-    public ModelAndView getUpdateMyPassword(HttpSession session) {
-        UserEntity user = (UserEntity) session.getAttribute("user");
+    public ModelAndView getUpdateMyPassword() {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("/myPage/updateMyPassword");
         return modelAndView;
+    }
+
+    // 비밀번호 최종 변경
+    @RequestMapping(value = "/updateMyPassword", method = RequestMethod.PATCH, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public String patchUpdateMyPassword(
+            @RequestParam("password") String password,
+            @RequestParam("passwordCheck") String passwordCheck,
+            HttpSession session
+    ) {
+        UserEntity user = (UserEntity) session.getAttribute("user");
+        Result result = this.myPageService.updateMyPassword(user, password, passwordCheck);
+        if (result == UpdatePasswordResult.SUCCESS) {
+            session.setAttribute("user", user);
+        }
+        JSONObject responseObject = new JSONObject();
+        responseObject.put("result", result.name().toLowerCase());
+        return responseObject.toString();
     }
 }
