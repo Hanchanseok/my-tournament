@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>상점</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/assets/styles/index.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/assets/styles/store.css}">
+    <script src="https://kit.fontawesome.com/0500497c40.js" crossorigin="anonymous"></script>
+</head>
+<body>
+<th:block th:replace="~{layouts/header.html :: header}"></th:block>
+<main id="store-main">
+    <section class="search-container">
+        <form id="search-form" method="get" action="/">
+            <label class="orderLabel">
+                <select name="by" id="">
+                    <option value="latest">최신순</option>
+                    <option value="popular">인기순</option>
+                </select>
+            </label>
+            <label class="searchLabel">
+                <input name="keyword" minlength="1" maxlength="50" placeholder="굿즈 이름을 입력하세요. (1자 이상 50자 이하)" type="search">
+            </label>
+            <input value="검색" type="submit">
+        </form>
+    </section>
+    <section class="goods-container">
+        <div class="goods-box">
+            <a href="#" class="goods-detail">
+                <div class="goods-img-box">
+                    <img class="goods-img" src="https://m.mondayfactory.co.kr/web/product/big/202202/ed95a8ac22e7041d906bcf9f9f19a1ee.jpg" alt="">
+                </div>
+                <div class="goods-info-box">
+                    <div class="goods-info">
+                        <span class="goods-name">이름 : <span>물품</span></span>
+                        <span class="goods-stoke">제고 : <span>12개</span></span>
+                        <span class="goods-price">2,000원</span>
+                    </div>
+                    <div class="sale-status">
+                        <div class="sale-box">
+                            <i class="sale-icon fa-solid fa-award"></i>
+                            <span>판매 중</span>
+                        </div>
+                        <div class="no-sale-box">
+                            <i class="no-sale-icon fa-solid fa-circle-xmark"></i>
+                            <span>판매 중단</span>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="goods-box">
+            <a href="#" class="goods-detail">
+                <div class="goods-img-box">
+                    <img class="goods-img" src="https://m.mondayfactory.co.kr/web/product/big/202202/ed95a8ac22e7041d906bcf9f9f19a1ee.jpg" alt="">
+                </div>
+                <div class="goods-info-box">
+                    <div class="goods-info">
+                        <span class="goods-name">이름 : <span>물품</span></span>
+                        <span class="goods-stoke">제고 : <span>12개</span></span>
+                        <span class="goods-price">2,000원</span>
+                    </div>
+                    <div class="sale-status">
+                        <div class="sale-box">
+                            <i class="sale-icon fa-solid fa-award"></i>
+                            <span>판매 중</span>
+                        </div>
+                        <div class="no-sale-box">
+                            <i class="no-sale-icon fa-solid fa-circle-xmark"></i>
+                            <span>판매 중단</span>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </section>
+
+    <section class="paging-container">
+        <ul class="front-back-ul">
+            <li><a href="#"><i class="fa-solid fa-arrow-left"></i></a></li>
+        </ul>
+        <ul class="paging-ul">
+            <li><a href="#">1</a></li>
+        </ul>
+        <ul class="front-back-ul">
+            <li><a href="#"><i class="fa-solid fa-arrow-right"></i></a></li>
+        </ul>
+    </section>
+</main>
+<th:block th:replace="~{layouts/footer.html :: footer}"></th:block>
+</body>
+</html>

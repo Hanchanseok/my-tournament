@@ -1,0 +1,119 @@
+.goods-container {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  row-gap: 2rem;
+  column-gap: 2rem;
+
+  > .goods-box {
+    background-color: #ffffff;
+    width: 17rem;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+
+    &:hover > .goods-detail > .goods-img-box > .goods-img {
+      transform: scale(1.2);
+      -webkit-transform: scale(1.2);
+      -moz-transform: scale(1.2);
+      -ms-transform: scale(1.2); /* IE 9 */
+      -o-transform: scale(1.2);
+
+      transition: transform 0.3s;
+    }
+
+    > .goods-detail {
+      text-decoration: none;
+      color: #747474;
+      align-items: flex-start;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      gap: 0.25rem;
+
+      > .goods-img-box {
+        width: 17rem;
+        height: 13rem;
+        overflow: hidden;
+
+        align-items: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+
+        > .goods-img {
+          width: 17rem;
+        }
+      }
+
+      > .goods-info-box {
+        width: 17rem;
+        align-items: flex-end;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+
+        > .goods-info {
+          align-items: flex-start;
+          display: flex;
+          flex-direction: column;
+          justify-content: flex-start;
+          gap: 0.25rem;
+          padding: 0.5rem 0.5rem;
+
+          > .goods-name {
+            padding-bottom: 0.25rem;
+            color: #212121;
+            font-weight: 700;
+            font-size: 1.125rem;
+          }
+
+          > .goods-stoke {
+            font-weight: 300;
+            font-size: 0.9rem;
+          }
+
+          > .goods-price {
+            color: #009fff;
+            font-weight: 600;
+          }
+        }
+
+        > .sale-status {
+          align-items: flex-start;
+          display: flex;
+          flex-direction: row;
+          justify-content: flex-start;
+          gap: 0.5rem;
+          padding: 0.5rem;
+
+          > .sale-box {
+            color: #009fff;
+          }
+
+          > .no-sale-box {
+            color: red;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 100rem) {
+  #store-main > .goods-container {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+@media screen and (max-width: 85rem) {
+  #store-main > .goods-container {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+@media screen and (max-width: 65rem) {
+  #store-main > .goods-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media screen and (max-width: 40rem) {
+  #store-main > .goods-container {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}

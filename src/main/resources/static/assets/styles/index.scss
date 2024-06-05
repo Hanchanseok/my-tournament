@@ -1,7 +1,7 @@
 @charset "UTF-8";
 @import "common";
 
-#index-main {
+#index-main, #store-main {
   align-items: stretch;
   display: flex;
   flex-direction: column;
@@ -10,6 +10,7 @@
   > section {
     margin: 1.125rem 2rem;
   }
+
   > .search-container {
 
 
@@ -62,7 +63,9 @@
       }
     }
   }
+}
 
+#index-main {
   > .tournaments-container {
     width: 280px;
 
@@ -137,7 +140,9 @@
       }
     }
   }
+}
 
+#index-main, #store-main {
   .paging-container {
     margin: 3rem 0;
     align-items: center;

@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>굿즈 이름</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/assets/styles/goods.css}">
+    <script defer type="text/javascript" th:src="@{/assets/scripts/goods.js}"></script>
+    <script src="https://kit.fontawesome.com/0500497c40.js" crossorigin="anonymous"></script>
+</head>
+<body>
+<th:block th:replace="~{layouts/header.html :: header}"></th:block>
+<main id="goods-main">
+    <section class="goods-info">
+        <div class="carousel-wrapper">
+            <i class="fa-solid fa-chevron-left carousel-prev"></i>
+            <div class="carousel">
+                <img class="carousel-image" src="https://blog.newswire.co.kr/wp-content/uploads/2021/12/twosome-1.jpg" alt="">
+                <img class="carousel-image" src="https://www.spcmagazine.com/wp-content/uploads/2021/01/spc_%EB%8D%98%ED%82%A8-%EC%9D%B8%ED%84%B0%EB%B7%B0-%EC%9D%B4%EB%AF%B8%EC%A7%80-06.jpg" alt="">
+                <img class="carousel-image" src="https://blog.kakaocdn.net/dn/b1YEet/btqMLRPZvWA/3W863YINRF36CDUpLikP51/img.png" alt="">
+            </div>
+            <i class="fa-solid fa-chevron-right carousel-next"></i>
+        </div>
+        <div class="goods-description">
+
+        </div>
+    </section>
+    <section class="goods-order">
+        <div class="my-address">
+
+        </div>
+        <div class="goods-buy">
+
+        </div>
+    </section>
+    <section class="goods-comment">
+        <div>
+
+        </div>
+    </section>
+</main>
+<th:block th:replace="~{layouts/footer.html :: footer}"></th:block>
+</body>
+</html>
