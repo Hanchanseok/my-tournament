@@ -13,32 +13,107 @@
 <body>
 <th:block th:replace="~{layouts/header.html :: header}"></th:block>
 <main id="goods-main">
-    <section class="goods-info">
-        <div class="carousel-wrapper">
-            <i class="fa-solid fa-chevron-left carousel-prev"></i>
-            <div class="carousel">
-                <img class="carousel-image" src="https://blog.newswire.co.kr/wp-content/uploads/2021/12/twosome-1.jpg" alt="">
-                <img class="carousel-image" src="https://www.spcmagazine.com/wp-content/uploads/2021/01/spc_%EB%8D%98%ED%82%A8-%EC%9D%B8%ED%84%B0%EB%B7%B0-%EC%9D%B4%EB%AF%B8%EC%A7%80-06.jpg" alt="">
-                <img class="carousel-image" src="https://blog.kakaocdn.net/dn/b1YEet/btqMLRPZvWA/3W863YINRF36CDUpLikP51/img.png" alt="">
+    <section class="goods-container">
+        <section class="goods-info">
+            <div class="carousel-wrapper">
+                <i class="fa-solid fa-chevron-left carousel-prev"></i>
+                <div class="carousel">
+                    <img class="carousel-image" src="https://blog.newswire.co.kr/wp-content/uploads/2021/12/twosome-1.jpg" alt="">
+                    <img class="carousel-image" src="https://www.spcmagazine.com/wp-content/uploads/2021/01/spc_%EB%8D%98%ED%82%A8-%EC%9D%B8%ED%84%B0%EB%B7%B0-%EC%9D%B4%EB%AF%B8%EC%A7%80-06.jpg" alt="">
+                    <img class="carousel-image" src="https://blog.kakaocdn.net/dn/b1YEet/btqMLRPZvWA/3W863YINRF36CDUpLikP51/img.png" alt="">
+                </div>
+                <i class="fa-solid fa-chevron-right carousel-next"></i>
             </div>
-            <i class="fa-solid fa-chevron-right carousel-next"></i>
-        </div>
-        <div class="goods-description">
+            <div class="goods-detail-box">
+                <div class="goods-description">
+                    <h1 class="goods-title">굿즈1</h1>
+                    <span class="goods-content">굿즈에 대한 설명을 적으시면 됩니다. 여기에 굿즈에 대한 자세한 설명이 표시됩니다.굿즈에 대한 설명을 적으시면 됩니다. 여기에 굿즈에 대한 자세한 설명이 표시됩니다.굿즈에 대한 설명을 적으시면 됩니다. 여기에 굿즈에 대한 자세한 설명이 표시됩니다.</span>
+                    <table class="goods-info-table">
+                        <thead>
+                        <tr>
+                            <th>가격</th>
+                            <th>재고</th>
+                            <th>판매여부</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>2,200</td>
+                            <td>12</td>
+                            <td>판매</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+        <section class="goods-order">
+            <form class="buy-form">
+                <div class="my-address">
+                    <div class="address-input">
+                        <span class="address-text">주소</span>
+                        <div>
+                            <label><input disabled required class="addressPostal" placeholder="우편번호" type="text"></label>
+                            <label><input class="find-address" value="우편번호 찾기" type="button"></label>
+                        </div>
+                        <label><input disabled required class="addressPrimary" placeholder="기본 주소" type="text"></label>
+                        <label><input required class="addressSecondary" placeholder="상세 주소(건물 이름, 층, 상호명, 동, 호 등)" type="text"></label>
+                    </div>
+                    <div class="saved-address-container">
+                        <div class="saved-address-box">
+                            <span class="saved-address">522011 대구 달서구 장기동 초록나라아파트 XX동 XX호</span>
+                            <input class="delete-saved-address" value="X" type="button">
+                        </div>
+                        <div class="saved-address-box">
+                            <span class="saved-address">522011 대구 달서구 장기동 초록나라아파트 XX동 XX호</span>
+                            <input class="delete-saved-address" value="X" type="button">
+                        </div>
+                    </div>
+                </div>
+                <div class="goods-buy">
+                    <div class="goods-select">
+                        <label for="product-select-check" class="select-button">상품 ▽</label>
+                        <input id="product-select-check" hidden type="checkbox">
+                        <ul class="product-select">
+                            <li>상품1</li>
+                            <li>상품2</li>
+                        </ul>
+                        <label for="size-select-check" class="select-button">사이즈 ▽</label>
+                        <input id="size-select-check" hidden type="checkbox">
+                        <ul class="size-select">
+                            <li>12cm</li>
+                            <li>13cm</li>
+                        </ul>
+                    </div>
+                    <div class="current-selected">
+                        <div class="current-selected-title">
+                            <span class="selected-name">내 상품</span>
+                            <span class="selected-size">12cm</span>
+                        </div>
+                        <div class="select-amount">
+                            <label><input value="1" required min="1" max="12" type="number"></label>
+                            <span class="selected-price">2000 원</span>
+                            <span class="selected-cancel">취소</span>
+                        </div>
+                    </div>
+                    <div class="final-price">
+                        <span class="final-price-text">총 상품 금액</span>
+                        <span class="all-count">총 수량 1개</span>
+                        <span class="all-price">2000 원</span>
+                    </div>
+                    <div class="order-button-box">
+                        <input value="찜하기" type="button">
+                        <input value="주문하기" type="submit">
+                    </div>
+                </div>
+            </form>
+        </section>
+        <section class="goods-comment">
+            <div>
 
-        </div>
-    </section>
-    <section class="goods-order">
-        <div class="my-address">
+            </div>
+        </section>
 
-        </div>
-        <div class="goods-buy">
-
-        </div>
-    </section>
-    <section class="goods-comment">
-        <div>
-
-        </div>
     </section>
 </main>
 <th:block th:replace="~{layouts/footer.html :: footer}"></th:block>

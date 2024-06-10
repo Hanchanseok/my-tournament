@@ -1,75 +1,292 @@
 @charset "UTF-8";
 @import "common";
 
+
 #goods-main {
   align-items: center;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
+  gap: 5rem;
 
-  .goods-info {
-    margin-top: 2rem;
+  .goods-container {
     align-items: flex-start;
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 5rem;
 
-    > .carousel-wrapper {
-      border-radius: 0.75rem;
-      box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+    .goods-info {
+      margin-top: 2rem;
+      align-items: flex-start;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      gap: 1.5rem;
+
+      > .carousel-wrapper {
+        border-radius: 0.75rem;
+        box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+        width: 600px;
+        height: 400px;
+        overflow: hidden;
+        position: relative;
+
+        > .carousel-prev {
+          background-color: #e0e0e0a0;
+          position: absolute;
+          font-size: 2.5rem;
+          top: 50%;
+          transform: translateY(-50%);
+          z-index: 1;
+          cursor: pointer;
+          color: #747474;
+
+          &:hover {
+            color: darken(#747474, 10%);
+          }
+          &:active {
+            color: darken(#747474, 20%);
+          }
+        }
+
+        > .carousel-next {
+          background-color: #e0e0e0a0;
+          position: absolute;
+          font-size: 2.5rem;
+          top: 50%;
+          left: 100%;
+          transform: translate(-100%, -50%);
+          z-index: 1;
+          cursor: pointer;
+          color: #747474;
+
+          &:hover {
+            color: darken(#747474, 10%);
+          }
+          &:active {
+            color: darken(#747474, 20%);
+          }
+        }
+
+        > .carousel {
+          display: grid;
+          grid-template-columns: repeat(5, 1fr);
+
+          transform: translate3d(0, 0, 0);
+          transition: transform 0.2s;
+
+          > .carousel-image {
+            width: 600px;
+            height: 400px;
+            object-fit: cover;
+          }
+        }
+      }
+    }
+
+    .goods-detail-box {
       width: 600px;
       height: 400px;
-      overflow: hidden;
-      position: relative;
+      //border-radius: 0.5rem;
+      align-items: flex-start;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      //border: 4px solid #e0e0e0;
 
-      > .carousel-prev {
-        background-color: #e0e0e0a0;
-        position: absolute;
-        font-size: 2.5rem;
-        top: 50%;
-        transform: translateY(-50%);
-        z-index: 1;
-        cursor: pointer;
-        color: #747474;
+      > .goods-description {
+        align-items: stretch;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        margin: 2rem;
+        gap: 1.25rem;
 
-        &:hover {
-          color: darken(#747474, 10%);
+        > .goods-title {
+          margin-block-start: 0;
+          margin-block-end: 0;
+          color: #414141;
+          font-size: 2.125rem;
         }
-        &:active {
-          color: darken(#747474, 20%);
+
+        > .goods-content {
+          color: #757575;
+          line-height: 180%;
+          margin-bottom: 1.5rem;
+        }
+
+        .goods-info-table {
+          border: 1px solid #e0e0e0;
+          text-align: center;
+
+          > thead > tr > th {
+            background-color: #009fff;
+            color: #eeeeee;
+          }
+
+          > tbody > tr > td {
+            font-size: 1.125rem;
+            height: 1.5rem;
+          }
         }
       }
+    }
 
-      > .carousel-next {
-        background-color: #e0e0e0a0;
-        position: absolute;
-        font-size: 2.5rem;
-        top: 50%;
-        left: 100%;
-        transform: translate(-100%, -50%);
-        z-index: 1;
-        cursor: pointer;
-        color: #747474;
+    .goods-order {
 
-        &:hover {
-          color: darken(#747474, 10%);
+      > .buy-form {
+        align-items: flex-start;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        gap: 5rem;
+
+        > .my-address {
+
+          align-items: flex-start;
+          display: flex;
+          flex-direction: column;
+          justify-content: flex-start;
+
+
+          > .address-input {
+            align-items: stretch;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+
+            &:focus-within {
+              > .address-text {
+                color: #009fff;
+              }
+            }
+
+            > .address-text {
+              color: #747474;
+              font-size: 0.75rem;
+            }
+
+            > label > input[type="text"] {
+              border: 1px solid #e0e0e0;
+              outline: none;
+              width: 37.5rem;
+              height: 2rem;
+
+              &:focus {
+                border-color: #009fff;
+              }
+            }
+
+            > div {
+              align-items: center;
+              display: flex;
+              flex-direction: row;
+              justify-content: flex-start;
+
+              > label:nth-child(1) {
+                flex: 1;
+              }
+
+              > label {
+                > .find-address {
+                  height: 2rem;
+                  border: none;
+                  background-color: #009fff;
+                  color: #eeeeee;
+                  margin-left: 0.5rem;
+
+                  &:hover {
+                    background-color: darken(#009fff, 10%);
+                  }
+
+                  &:active {
+                    background-color: darken(#009fff, 20%);
+                  }
+                }
+
+                > input[type="text"] {
+                  border: 1px solid #e0e0e0;
+                  outline: none;
+                  width: 100%;
+                  height: 2rem;
+
+                  &:focus {
+                    border-color: #009fff;
+                  }
+                }
+              }
+            }
+          }
+
+          > .saved-address-container {
+            margin-top: 0.25rem;
+            align-items: flex-start;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            gap: 0.125rem;
+
+            > .saved-address-box {
+              background-color: #919191;
+              color: #eeeeee;
+              font-size: 0.75rem;
+              border-radius: 0.2rem;
+
+              > .saved-address {
+                cursor: pointer;
+              }
+
+              > .delete-saved-address {
+                border: none;
+                cursor: pointer;
+                font-weight: bold;
+              }
+            }
+          }
         }
-        &:active {
-          color: darken(#747474, 20%);
-        }
-      }
+        > .goods-buy {
+          align-items: flex-start;
+          display: flex;
+          flex-direction: column;
+          justify-content: flex-start;
+          gap: 1.2rem;
 
-      > .carousel {
-        display: grid;
-        grid-template-columns: repeat(5, 1fr);
+          > .goods-select {
+            align-items: flex-start;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
 
-        transform: translate3d(0, 0, 0);
-        transition: transform 0.2s;
+            > .select-button {
+              text-align: center;
+              border: 1px solid #999999;
+              background-color: #eeeeee;
+              padding: 0.325rem 0;
+              width: 30rem;
+            }
 
-        > .carousel-image {
-          width: 600px;
-          height: 400px;
-          object-fit: cover;
+            > .product-select, .size-select {
+              align-items: flex-start;
+              display: none;
+              flex-direction: column;
+              justify-content: flex-start;
+
+              border: 1px solid #999999;
+              background-color: #eeeeee;
+              padding: 0.325rem 0;
+              width: 30rem;
+
+              > li {
+                cursor: pointer;
+              }
+            }
+
+            > #product-select-check:checked + .product-select,
+              #size-select-check:checked + .size-select{
+              display: flex;
+            }
+          }
         }
       }
     }
