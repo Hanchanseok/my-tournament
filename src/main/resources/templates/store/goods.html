@@ -71,46 +71,63 @@
                     </div>
                 </div>
                 <div class="goods-buy">
-                    <div class="goods-select">
-                        <label for="product-select-check" class="select-button">상품 ▽</label>
-                        <input id="product-select-check" hidden type="checkbox">
-                        <ul class="product-select">
-                            <li>상품1</li>
-                            <li>상품2</li>
-                        </ul>
-                        <label for="size-select-check" class="select-button">사이즈 ▽</label>
-                        <input id="size-select-check" hidden type="checkbox">
-                        <ul class="size-select">
-                            <li>12cm</li>
-                            <li>13cm</li>
-                        </ul>
-                    </div>
-                    <div class="current-selected">
-                        <div class="current-selected-title">
-                            <span class="selected-name">내 상품</span>
-                            <span class="selected-size">12cm</span>
+                    <div class="select-amount-container">
+                        <span class="amount-text">수량</span>
+                        <div class="amount-box">
+                            <div class="amount-select">
+                                <i class="fa-solid fa-chevron-down decrease-button"></i>
+                                <label><input class="amount-input" name="amount" value="1" required min="1" max="12" type="number" disabled></label>
+                                <i class="fa-solid fa-chevron-up increase-button"></i>
+                            </div>
+                            <div class="show-price">
+                                <span class="selected-price">2000 원</span>
+                                <input class="reset-button" value="원래대로" type="button">
+                            </div>
                         </div>
-                        <div class="select-amount">
-                            <label><input value="1" required min="1" max="12" type="number"></label>
-                            <span class="selected-price">2000 원</span>
-                            <span class="selected-cancel">취소</span>
-                        </div>
-                    </div>
-                    <div class="final-price">
-                        <span class="final-price-text">총 상품 금액</span>
-                        <span class="all-count">총 수량 1개</span>
-                        <span class="all-price">2000 원</span>
                     </div>
                     <div class="order-button-box">
-                        <input value="찜하기" type="button">
-                        <input value="주문하기" type="submit">
+                        <input class="wishlist-button" value="찜하기" type="button">
+                        <input class="order-button" value="주문하기" type="submit">
                     </div>
                 </div>
             </form>
         </section>
         <section class="goods-comment">
-            <div>
-
+            <div class="goods-comment-box">
+                <div class="comment-title">
+                    <div>
+                        <span>유저1</span>
+                    </div>
+                    <div>
+                        <span>평점</span>
+                        <span class="star">★★☆</span>
+                    </div>
+                    <div class="spring"></div>
+                    <div>
+                        <input class="report-comment-button" value="신고" type="button">
+                    </div>
+                </div>
+                <div class="comment-content">
+                    <span>내용ㅁㅇㄴㄹㄴㅇㄻㄴㄷㄻㄴㄷㄹ내용ㅁㅇㄴㄹㄴㅇㄻㄴㄷㄻㄴㄷㄹ내용ㅁㅇㄴㄹㄴㅇㄻㄴㄷㄻㄴㄷㄹ내용ㅁㅇㄴㄹㄴㅇㄻㄴㄷㄻㄴㄷㄹ내용ㅁㅇㄴㄹㄴㅇㄻㄴㄷㄻㄴㄷㄹ내용ㅁㅇㄴㄹㄴㅇㄻㄴㄷㄻㄴㄷㄹ내용ㅁㅇㄴㄹㄴㅇㄻㄴㄷㄻㄴㄷㄹ내용ㅁㅇㄴㄹㄴㅇㄻㄴㄷㄻㄴㄷㄹ내용ㅁㅇㄴㄹㄴㅇㄻㄴㄷㄻㄴㄷㄹ내용ㅁㅇㄴㄹㄴㅇㄻㄴㄷㄻㄴㄷㄹ</span>
+                </div>
+            </div>
+            <div class="goods-comment-box">
+                <div class="comment-title">
+                    <div>
+                        <span>유저1</span>
+                    </div>
+                    <div>
+                        <span>평점</span>
+                        <span class="star">★★☆</span>
+                    </div>
+                    <div class="spring"></div>
+                    <div>
+                        <input class="report-comment-button" value="신고" type="button">
+                    </div>
+                </div>
+                <div class="comment-content">
+                    <span>내용ㅁㅇㄴㄹㄴㅇㄻㄴㄷㄻㄴㄷㄹ내용ㅁㅇㄴㄹㄴㅇㄻㄴㄷㄻㄴㄷㄹ내용ㅁㅇㄴㄹㄴㅇㄻㄴㄷㄻㄴㄷㄹ내용ㅁㅇㄴㄹㄴㅇㄻㄴㄷㄻㄴㄷㄹ내용ㅁㅇㄴㄹㄴㅇㄻㄴㄷㄻㄴㄷㄹ내용ㅁㅇㄴㄹㄴㅇㄻㄴㄷㄻㄴㄷㄹ내용ㅁㅇㄴㄹㄴㅇㄻㄴㄷㄻㄴㄷㄹ내용ㅁㅇㄴㄹㄴㅇㄻㄴㄷㄻㄴㄷㄹ내용ㅁㅇㄴㄹㄴㅇㄻㄴㄷㄻㄴㄷㄹ내용ㅁㅇㄴㄹㄴㅇㄻㄴㄷㄻㄴㄷㄹ</span>
+                </div>
             </div>
         </section>
 

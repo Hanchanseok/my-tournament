@@ -23,4 +23,11 @@ public class StoreController {
         modelAndView.setViewName("/store/goods");
         return modelAndView;
     }
+
+    @RequestMapping(value = "/upload", method = RequestMethod.GET, produces = MediaType.TEXT_HTML_VALUE)
+    public ModelAndView getUpload() {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("/store/upload");
+        return modelAndView;
+    }
 }

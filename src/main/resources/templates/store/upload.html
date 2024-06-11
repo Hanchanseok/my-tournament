@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" type="text/css" th:href="@{/assets/styles/goodsupload.css}">
+    <script defer type="text/javascript" th:src="@{/assets/scripts/goodsUpload.js}"></script>
+    <script src="https://kit.fontawesome.com/0500497c40.js" crossorigin="anonymous"></script>
+    <title>굿즈 업로드</title>
+</head>
+<body>
+<th:block th:replace="~{layouts/header.html :: header}"></th:block>
+<main id="goods-upload">
+    <section class="goods-upload-container">
+        <form class="goods-upload-form">
+            <div class="goods-title">
+                <label>
+                    <span>굿즈 이름</span>
+                    <input autofocus required name="title" minlength="2" maxlength="50" type="text" placeholder="2자 이상 50자 이하">
+                </label>
+                <label>
+                    <span>굿즈 설명</span>
+                    <textarea required name="content" minlength="1" maxlength="1000" id="" cols="30" rows="10" placeholder="1자 이상 1000자 이하"></textarea>
+                </label>
+                <label>
+                    <span>가격</span>
+                    <input required name="price" value="0" min="0" type="number">
+                </label>
+                <label>
+                    <span>재고</span>
+                    <input required name="stoke" value="0" min="0" type="number">
+                </label>
+            </div>
+            <div class="goods-images">
+                <span>이미지는 최대 5개 까지 가능, 첫번째 이미지는 썸네일</span>
+                <div class="image-box">
+                    <input required id="goods-image-file" accept=".jpg, .jpeg, .png" type="file">
+                    <div class="image-amount">
+                        <i class="fa-solid fa-plus add-image-button"></i>
+                        <i class="fa-solid fa-minus delete-image-button"></i>
+                    </div>
+                </div>
+            </div>
+            <input value="업로드" type="submit">
+        </form>
+    </section>
+</main>
+<th:block th:replace="~{layouts/footer.html :: footer}"></th:block>
+</body>
+</html>

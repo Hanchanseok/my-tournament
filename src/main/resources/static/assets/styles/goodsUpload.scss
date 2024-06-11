@@ -1,0 +1,137 @@
+@charset "UTF-8";
+@import "common";
+
+#goods-upload {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+
+  > .goods-upload-container {
+    margin-top: 1.5rem;
+
+    > .goods-upload-form {
+      align-items: stretch;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      gap: 2rem;
+
+      > input[type="submit"] {
+        font-size: 1.5rem;
+        font-family: inherit;
+        padding: 0.5rem 0;
+        background-color: #009fff;
+        color: #eeeeee;
+        border: none;
+        cursor: pointer;
+        border-radius: 0.2rem;
+
+        &:hover {
+          background-color: darken(#009fff, 10);
+        }
+
+        &:active {
+          background-color: darken(#009fff, 20);
+        }
+      }
+
+      > .goods-title {
+        align-items: stretch;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        gap: 0.75rem;
+
+        > label {
+          align-items: stretch;
+          display: flex;
+          flex-direction: column;
+          justify-content: flex-start;
+
+          &:focus-within {
+            > span {
+              color: #009fff;
+            }
+
+            > textarea {
+              border: 1px solid #009fff;
+            }
+
+            > input {
+              border: 1px solid #009fff;
+            }
+          }
+
+          > input {
+            border: 1px solid #e0e0e0;
+            outline: none;
+            width: 30rem;
+            height: 1.5rem;
+            font-family: inherit;
+            font-size: 0.9rem;
+          }
+
+          > textarea {
+            border: 1px solid #e0e0e0;
+            outline: none;
+            resize: none;
+            height: 5rem;
+            font-family: inherit;
+            font-size: 0.9rem;
+          }
+
+          > span {
+            font-size: 0.75rem;
+            color: #747474;
+          }
+        }
+      }
+
+      > .goods-images {
+
+        &:focus-within {
+          > span {
+            color: #009fff;
+          }
+        }
+
+        > span {
+          font-size: 0.75rem;
+          color: #747474;
+        }
+
+        > .image-box {
+          align-items: center;
+          display: flex;
+          flex-direction: row;
+          justify-content: space-between;
+          margin: 0.5rem 0;
+
+          > input[type="file"] {
+            font-family: inherit;
+          }
+
+          > .image-amount {
+
+            > .add-image-button, .delete-image-button {
+              cursor: pointer;
+              border: none;
+              background-color: #747474;
+              color: #eeeeee;
+              padding: 0.25rem 0.25rem;
+
+              &:hover {
+                background-color: darken(#747474, 10);
+              }
+
+              &:active {
+                background-color: darken(#747474, 20);
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
