@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC
+        "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dev.hcs.mytournament.mappers.StoreMapper">
+    <insert id="insertGoods"
+            useGeneratedKeys="true"
+            keyColumn="index"
+            keyProperty="index"
+            parameterType="dev.hcs.mytournament.entities.GoodsEntity">
+        INSERT INTO `worldcup`.`goods`(`thumbnail`, `thumbnail_file_name`, `thumbnail_content_type`, `title`, `content`, `price`, `stoke`, `created_at`, `is_sale`)
+        VALUES (#{thumbnail}, #{thumbnailFileName}, #{thumbnailContentType}, #{title}, #{content}, #{price}, #{stoke}, #{createdAt}, #{isSale})
+    </insert>
+
+    <insert id="insertGoodsImage" parameterType="dev.hcs.mytournament.entities.GoodsImageEntity">
+        INSERT INTO `worldcup`.`goods_image`(`goods_index`, `image`, `image_file_name`, `image_content_type`)
+        VALUES (#{goodsIndex}, #{image}, #{imageFileName}, #{imageContentType})
+    </insert>
+
+    <select id="selectGoodsByIndex" parameterType="int" resultType="dev.hcs.mytournament.entities.GoodsEntity">
+        SELECT `index`                      AS `index`,
+               `thumbnail`                  AS `thumbnail`,
+               `thumbnail_file_name`        AS `thumbnailFileName`,
+               `thumbnail_content_type`     AS `thumbnailContentType`,
+               `title`                      AS `title`,
+               `content`                    AS `content`,
+               `price`                      AS `price`,
+               `stoke`                      AS `stoke`,
+               `created_at`                 AS `createdAt`,
+               `is_sale`                    AS `isSale`
+        FROM `worldcup`.`goods`
+        WHERE `index` = #{index}
+        LIMIT 1
+    </select>
+
+    <select id="selectGoodsImageByIndex" parameterType="int" resultType="dev.hcs.mytournament.entities.GoodsImageEntity">
+        SELECT `index`                  AS `index`,
+               `goods_index`            AS `goodsIndex`,
+               `image`                  AS `image`,
+               `image_file_name`        AS `imageFileName`,
+               `image_content_type`     AS `imageContentType`
+        FROM `worldcup`.`goods_image`
+        WHERE `index` = #{index}
+        LIMIT 1
+    </select>
+
+    <select id="selectGoods" resultType="dev.hcs.mytournament.entities.GoodsEntity">
+        SELECT `index`                      AS `index`,
+               `thumbnail`                  AS `thumbnail`,
+               `thumbnail_file_name`        AS `thumbnailFileName`,
+               `thumbnail_content_type`     AS `thumbnailContentType`,
+               `title`                      AS `title`,
+               `content`                    AS `content`,
+               `price`                      AS `price`,
+               `stoke`                      AS `stoke`,
+               `created_at`                 AS `createdAt`,
+               `is_sale`                    AS `isSale`
+        FROM `worldcup`.`goods`
+    </select>
+
+    <select id="getGoodsTotalCount" parameterType="dev.hcs.mytournament.dtos.SearchDto" resultType="int">
+
+    </select>
+
+    <select id="selectGoodsImageByGoodsIndex" resultType="dev.hcs.mytournament.entities.GoodsImageEntity">
+        SELECT `index`                  AS `index`,
+               `goods_index`            AS `goodsIndex`,
+               `image`                  AS `image`,
+               `image_file_name`        AS `imageFileName`,
+               `image_content_type`     AS `imageContentType`
+        FROM `worldcup`.`goods_image`
+        WHERE `goods_index` = #{goodsIndex}
+    </select>
+</mapper>

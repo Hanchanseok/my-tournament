@@ -140,32 +140,32 @@ main {
 #index-main > section, #store-main > section {
   margin: 1.125rem 2rem;
 }
-#index-main > .search-container > #search-form, #store-main > .search-container > #search-form {
+#index-main > .search-container > #search-form, #index-main > .search-container #goods-search-form, #store-main > .search-container > #search-form, #store-main > .search-container #goods-search-form {
   align-items: center;
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
 }
-#index-main > .search-container > #search-form > .orderLabel > select, #store-main > .search-container > #search-form > .orderLabel > select {
+#index-main > .search-container > #search-form > .orderLabel > select, #index-main > .search-container #goods-search-form > .orderLabel > select, #store-main > .search-container > #search-form > .orderLabel > select, #store-main > .search-container #goods-search-form > .orderLabel > select {
   border-color: #e0e0e0;
   width: 100px;
   height: 30px;
   font-family: inherit;
 }
-#index-main > .search-container > #search-form > .orderLabel > select:focus-within, #store-main > .search-container > #search-form > .orderLabel > select:focus-within {
+#index-main > .search-container > #search-form > .orderLabel > select:focus-within, #index-main > .search-container #goods-search-form > .orderLabel > select:focus-within, #store-main > .search-container > #search-form > .orderLabel > select:focus-within, #store-main > .search-container #goods-search-form > .orderLabel > select:focus-within {
   border-color: #009fff;
 }
-#index-main > .search-container > #search-form > .searchLabel > input[type=search], #store-main > .search-container > #search-form > .searchLabel > input[type=search] {
+#index-main > .search-container > #search-form > .searchLabel > input[type=search], #index-main > .search-container #goods-search-form > .searchLabel > input[type=search], #store-main > .search-container > #search-form > .searchLabel > input[type=search], #store-main > .search-container #goods-search-form > .searchLabel > input[type=search] {
   border: 1px solid #e0e0e0;
   outline: none;
   height: 30px;
   width: 400px;
   font-family: inherit;
 }
-#index-main > .search-container > #search-form > .searchLabel > input[type=search]:focus-within, #store-main > .search-container > #search-form > .searchLabel > input[type=search]:focus-within {
+#index-main > .search-container > #search-form > .searchLabel > input[type=search]:focus-within, #index-main > .search-container #goods-search-form > .searchLabel > input[type=search]:focus-within, #store-main > .search-container > #search-form > .searchLabel > input[type=search]:focus-within, #store-main > .search-container #goods-search-form > .searchLabel > input[type=search]:focus-within {
   border-color: #009fff;
 }
-#index-main > .search-container > #search-form > input[type=submit], #store-main > .search-container > #search-form > input[type=submit] {
+#index-main > .search-container > #search-form > input[type=submit], #index-main > .search-container #goods-search-form > input[type=submit], #store-main > .search-container > #search-form > input[type=submit], #store-main > .search-container #goods-search-form > input[type=submit] {
   color: #eeeeee;
   font-size: 1.1rem;
   border: none;
@@ -175,10 +175,10 @@ main {
   font-family: inherit;
   cursor: pointer;
 }
-#index-main > .search-container > #search-form > input[type=submit]:hover, #store-main > .search-container > #search-form > input[type=submit]:hover {
+#index-main > .search-container > #search-form > input[type=submit]:hover, #index-main > .search-container #goods-search-form > input[type=submit]:hover, #store-main > .search-container > #search-form > input[type=submit]:hover, #store-main > .search-container #goods-search-form > input[type=submit]:hover {
   background-color: #008fe6;
 }
-#index-main > .search-container > #search-form > input[type=submit]:active, #store-main > .search-container > #search-form > input[type=submit]:active {
+#index-main > .search-container > #search-form > input[type=submit]:active, #index-main > .search-container #goods-search-form > input[type=submit]:active, #store-main > .search-container > #search-form > input[type=submit]:active, #store-main > .search-container #goods-search-form > input[type=submit]:active {
   background-color: #0086d6;
 }
 

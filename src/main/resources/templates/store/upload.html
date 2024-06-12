@@ -9,6 +9,10 @@
     <script defer type="text/javascript" th:src="@{/assets/scripts/goodsUpload.js}"></script>
     <script src="https://kit.fontawesome.com/0500497c40.js" crossorigin="anonymous"></script>
     <title>굿즈 업로드</title>
+    <script th:if="${session.get('user') == null || session.user.isAdmin == false}">
+        alert('잘못된 접근입니다.');
+        location.href='/store/'
+    </script>
 </head>
 <body>
 <th:block th:replace="~{layouts/header.html :: header}"></th:block>
@@ -36,7 +40,7 @@
             <div class="goods-images">
                 <span>이미지는 최대 5개 까지 가능, 첫번째 이미지는 썸네일</span>
                 <div class="image-box">
-                    <input required id="goods-image-file" accept=".jpg, .jpeg, .png" type="file">
+                    <label><input required class="goods-image-file" accept=".jpg, .jpeg, .png" type="file"></label>
                     <div class="image-amount">
                         <i class="fa-solid fa-plus add-image-button"></i>
                         <i class="fa-solid fa-minus delete-image-button"></i>

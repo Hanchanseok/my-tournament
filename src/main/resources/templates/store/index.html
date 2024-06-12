@@ -14,11 +14,11 @@
 <th:block th:replace="~{layouts/header.html :: header}"></th:block>
 <main id="store-main">
     <section class="search-container">
-        <form id="search-form" method="get" action="/">
+        <form id="goods-search-form" method="get" action="/store/">
             <label class="orderLabel">
                 <select name="by" id="">
                     <option value="latest">최신순</option>
-                    <option value="popular">인기순</option>
+                    <option value="price">가격순</option>
                 </select>
             </label>
             <label class="searchLabel">
@@ -26,49 +26,26 @@
             </label>
             <input value="검색" type="submit">
         </form>
+        <a th:if="${session.get('user') != null && session.user.isAdmin() == true}" class="get-goods-upload" href="/store/upload">굿즈 업로드</a>
     </section>
     <section class="goods-container">
-        <div class="goods-box">
-            <a href="#" class="goods-detail">
+        <div th:each="goods : ${goodsList}" class="goods-box">
+            <a th:href="@{/store/goods (index=${goods.getIndex()})}" class="goods-detail">
                 <div class="goods-img-box">
-                    <img class="goods-img" src="https://m.mondayfactory.co.kr/web/product/big/202202/ed95a8ac22e7041d906bcf9f9f19a1ee.jpg" alt="">
+                    <img class="goods-img" th:src="@{/store/thumbnail (index=${goods.getIndex()})}" alt="">
                 </div>
                 <div class="goods-info-box">
                     <div class="goods-info">
-                        <span class="goods-name">이름 : <span>물품</span></span>
-                        <span class="goods-stoke">제고 : <span>12개</span></span>
-                        <span class="goods-price">2,000원</span>
+                        <span class="goods-name">이름 : <span th:text="${goods.getTitle()}">물품</span></span>
+                        <span class="goods-stoke">재고 : <span th:text="${goods.getStoke()}">12개</span></span>
+                        <span class="goods-price" th:text="${goods.getPrice() + '원'}">2,000</span>
                     </div>
                     <div class="sale-status">
-                        <div class="sale-box">
+                        <div class="sale-box" th:if="${goods.isSale()}">
                             <i class="sale-icon fa-solid fa-award"></i>
                             <span>판매 중</span>
                         </div>
-                        <div class="no-sale-box">
-                            <i class="no-sale-icon fa-solid fa-circle-xmark"></i>
-                            <span>판매 중단</span>
-                        </div>
-                    </div>
-                </div>
-            </a>
-        </div>
-        <div class="goods-box">
-            <a href="#" class="goods-detail">
-                <div class="goods-img-box">
-                    <img class="goods-img" src="https://m.mondayfactory.co.kr/web/product/big/202202/ed95a8ac22e7041d906bcf9f9f19a1ee.jpg" alt="">
-                </div>
-                <div class="goods-info-box">
-                    <div class="goods-info">
-                        <span class="goods-name">이름 : <span>물품</span></span>
-                        <span class="goods-stoke">제고 : <span>12개</span></span>
-                        <span class="goods-price">2,000원</span>
-                    </div>
-                    <div class="sale-status">
-                        <div class="sale-box">
-                            <i class="sale-icon fa-solid fa-award"></i>
-                            <span>판매 중</span>
-                        </div>
-                        <div class="no-sale-box">
+                        <div class="no-sale-box" th:if="${!goods.isSale()}">
                             <i class="no-sale-icon fa-solid fa-circle-xmark"></i>
                             <span>판매 중단</span>
                         </div>

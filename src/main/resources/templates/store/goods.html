@@ -18,16 +18,14 @@
             <div class="carousel-wrapper">
                 <i class="fa-solid fa-chevron-left carousel-prev"></i>
                 <div class="carousel">
-                    <img class="carousel-image" src="https://blog.newswire.co.kr/wp-content/uploads/2021/12/twosome-1.jpg" alt="">
-                    <img class="carousel-image" src="https://www.spcmagazine.com/wp-content/uploads/2021/01/spc_%EB%8D%98%ED%82%A8-%EC%9D%B8%ED%84%B0%EB%B7%B0-%EC%9D%B4%EB%AF%B8%EC%A7%80-06.jpg" alt="">
-                    <img class="carousel-image" src="https://blog.kakaocdn.net/dn/b1YEet/btqMLRPZvWA/3W863YINRF36CDUpLikP51/img.png" alt="">
+                    <img th:each="goodsImage : ${goodsImages}" class="carousel-image" th:src="@{/store/image (index=${goodsImage.getIndex()})}" alt="">
                 </div>
                 <i class="fa-solid fa-chevron-right carousel-next"></i>
             </div>
             <div class="goods-detail-box">
                 <div class="goods-description">
-                    <h1 class="goods-title">굿즈1</h1>
-                    <span class="goods-content">굿즈에 대한 설명을 적으시면 됩니다. 여기에 굿즈에 대한 자세한 설명이 표시됩니다.굿즈에 대한 설명을 적으시면 됩니다. 여기에 굿즈에 대한 자세한 설명이 표시됩니다.굿즈에 대한 설명을 적으시면 됩니다. 여기에 굿즈에 대한 자세한 설명이 표시됩니다.</span>
+                    <h1 class="goods-title" th:text="${goods.getTitle()}">굿즈1</h1>
+                    <span class="goods-content" th:text="${goods.getContent()}">굿즈에 대한 설명을 적으시면 됩니다. 여기에 굿즈에 대한 자세한 설명이 표시됩니다.굿즈에 대한 설명을 적으시면 됩니다. 여기에 굿즈에 대한 자세한 설명이 표시됩니다.굿즈에 대한 설명을 적으시면 됩니다. 여기에 굿즈에 대한 자세한 설명이 표시됩니다.</span>
                     <table class="goods-info-table">
                         <thead>
                         <tr>
@@ -38,9 +36,12 @@
                         </thead>
                         <tbody>
                         <tr>
-                            <td>2,200</td>
-                            <td>12</td>
-                            <td>판매</td>
+                            <td th:text="${goods.getPrice()}">2,200</td>
+                            <td th:text="${goods.getStoke()}">12</td>
+                            <td>
+                                <span th:if="${goods.isSale()}">판매</span>
+                                <span th:if="${!goods.isSale()}">판매 중단</span>
+                            </td>
                         </tr>
                         </tbody>
                     </table>

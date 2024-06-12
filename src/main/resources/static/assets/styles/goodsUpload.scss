@@ -108,11 +108,12 @@
           justify-content: space-between;
           margin: 0.5rem 0;
 
-          > input[type="file"] {
+          > label > input[type="file"] {
             font-family: inherit;
           }
 
           > .image-amount {
+            user-select: none;
 
             > .add-image-button, .delete-image-button {
               cursor: pointer;

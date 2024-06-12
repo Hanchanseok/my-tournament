@@ -1,3 +1,21 @@
+.search-container {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+  > .get-goods-upload {
+    background-color: #009fff;
+    padding: 0.425rem 1rem;
+    color: #eeeeee;
+    text-decoration: none;
+
+    &:hover {
+      background-color: darken(#009fff, 10);
+    }
+  }
+}
+
 .goods-container {
   display: grid;
   grid-template-columns: repeat(6, 1fr);
