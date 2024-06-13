@@ -7,6 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>굿즈 이름</title>
     <link rel="stylesheet" type="text/css" th:href="@{/assets/styles/goods.css}">
+    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
     <script defer type="text/javascript" th:src="@{/assets/scripts/goods.js}"></script>
     <script src="https://kit.fontawesome.com/0500497c40.js" crossorigin="anonymous"></script>
 </head>
@@ -36,8 +37,8 @@
                         </thead>
                         <tbody>
                         <tr>
-                            <td th:text="${goods.getPrice()}">2,200</td>
-                            <td th:text="${goods.getStoke()}">12</td>
+                            <td class="goods-price" th:text="${goods.getPrice()}">2,200</td>
+                            <td class="goods-stoke" th:text="${goods.getStoke()}">12</td>
                             <td>
                                 <span th:if="${goods.isSale()}">판매</span>
                                 <span th:if="${!goods.isSale()}">판매 중단</span>
@@ -54,11 +55,14 @@
                     <div class="address-input">
                         <span class="address-text">주소</span>
                         <div>
-                            <label><input disabled required class="addressPostal" placeholder="우편번호" type="text"></label>
-                            <label><input class="find-address" value="우편번호 찾기" type="button"></label>
+                            <label><input disabled required name="addressPostal" placeholder="우편번호" type="text"></label>
+                            <label><input class="find-address" name="findAddress" value="우편번호 찾기" type="button"></label>
                         </div>
-                        <label><input disabled required class="addressPrimary" placeholder="기본 주소" type="text"></label>
-                        <label><input required class="addressSecondary" placeholder="상세 주소(건물 이름, 층, 상호명, 동, 호 등)" type="text"></label>
+                        <label><input disabled required name="addressPrimary" placeholder="기본 주소" type="text"></label>
+                        <label><input required name="addressSecondary" placeholder="상세 주소(건물 이름, 층, 상호명, 동, 호 등)" type="text"></label>
+                    </div>
+                    <div class="address-finder">
+                        <div class="dialog"></div>
                     </div>
                     <div class="saved-address-container">
                         <div class="saved-address-box">
@@ -72,16 +76,17 @@
                     </div>
                 </div>
                 <div class="goods-buy">
+                    <input name="goodsIndex" th:value="${goods.getIndex()}" type="hidden">
                     <div class="select-amount-container">
                         <span class="amount-text">수량</span>
                         <div class="amount-box">
                             <div class="amount-select">
                                 <i class="fa-solid fa-chevron-down decrease-button"></i>
-                                <label><input class="amount-input" name="amount" value="1" required min="1" max="12" type="number" disabled></label>
+                                <label><input class="amount-input" name="amount" value="1" required min="1" th:max="${goods.getStoke()}" type="number" disabled></label>
                                 <i class="fa-solid fa-chevron-up increase-button"></i>
                             </div>
                             <div class="show-price">
-                                <span class="selected-price">2000 원</span>
+                                <span th:text="${goods.getPrice() + ' 원'}" class="selected-price"></span>
                                 <input class="reset-button" value="원래대로" type="button">
                             </div>
                         </div>

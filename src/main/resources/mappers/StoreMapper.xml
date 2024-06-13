@@ -44,7 +44,7 @@
         LIMIT 1
     </select>
 
-    <select id="selectGoods" resultType="dev.hcs.mytournament.entities.GoodsEntity">
+    <select id="selectGoods" parameterType="dev.hcs.mytournament.dtos.SearchDto" resultType="dev.hcs.mytournament.entities.GoodsEntity">
         SELECT `index`                      AS `index`,
                `thumbnail`                  AS `thumbnail`,
                `thumbnail_file_name`        AS `thumbnailFileName`,
@@ -56,10 +56,30 @@
                `created_at`                 AS `createdAt`,
                `is_sale`                    AS `isSale`
         FROM `worldcup`.`goods`
+        <if test="keyword != null">
+            WHERE REPLACE(`title`, ' ', '') LIKE CONCAT('%', REPLACE(#{keyword}, ' ', ''), '%')
+        </if>
+        <if test="by != null and by.equals('latest')">
+            ORDER BY `created_at` DESC
+        </if>
+        <if test="by != null and by.equals('price')">
+            ORDER BY `price` DESC
+        </if>
+        LIMIT #{countPerPage} OFFSET #{offset}
     </select>
 
     <select id="getGoodsTotalCount" parameterType="dev.hcs.mytournament.dtos.SearchDto" resultType="int">
-
+        SELECT COUNT(0)
+        FROM `worldcup`.`goods`
+        <if test="keyword != null">
+            WHERE REPLACE(`title`, ' ', '') LIKE CONCAT('%', REPLACE(#{keyword}, ' ', ''), '%')
+        </if>
+        <if test="by != null and by.equals('latest')">
+            ORDER BY `created_at` DESC
+        </if>
+        <if test="by != null and by.equals('price')">
+            ORDER BY `price` DESC
+        </if>
     </select>
 
     <select id="selectGoodsImageByGoodsIndex" resultType="dev.hcs.mytournament.entities.GoodsImageEntity">
@@ -71,4 +91,38 @@
         FROM `worldcup`.`goods_image`
         WHERE `goods_index` = #{goodsIndex}
     </select>
+
+    <insert id="insertGoodsOrder" parameterType="dev.hcs.mytournament.entities.GoodsOrderEntity">
+        INSERT INTO `worldcup`.`goods_order`(`goods_index`, `user_email`, `amount`, `price`, `address_postal`, `address_primary`, `address_secondary`, `order_at`, `is_paid`) VALUES (#{goodsIndex}, #{userEmail}, #{amount}, #{price}, #{addressPostal}, #{addressPrimary}, #{addressSecondary}, #{orderAt}, #{isPaid})
+    </insert>
+
+    <insert id="insertUserAddress" parameterType="dev.hcs.mytournament.entities.UserAddressEntity">
+        INSERT INTO `worldcup`.`user_address`(`user_email`, `address_postal`, `address_primary`, `address_secondary`) VALUES (#{userEmail}, #{addressPostal}, #{addressPrimary}, #{addressSecondary});
+    </insert>
+
+    <select id="selectUserAddress" parameterType="string" resultType="dev.hcs.mytournament.entities.UserAddressEntity">
+        SELECT `index`              AS `index`,
+               `user_email`         AS `userEmail`,
+               `address_postal`     AS `addressPostal`,
+               `address_primary`    AS `addressPrimary`,
+               `address_secondary`  AS `addressSecondary`
+        FROM `worldcup`.`user_address`
+        WHERE `user_email` = #{userEmail}
+        LIMIT 1;
+    </select>
+
+    <update id="updateGoods" parameterType="dev.hcs.mytournament.entities.GoodsEntity">
+        UPDATE `worldcup`.`goods`
+        SET     `thumbnail`                  = #{thumbnail},
+                `thumbnail_file_name`        = #{thumbnailFileName},
+                `thumbnail_content_type`     = #{thumbnailContentType},
+                `title`                      = #{title},
+                `content`                    = #{content},
+                `price`                      = #{price},
+                `stoke`                      = #{stoke},
+                `created_at`                 = #{createdAt},
+                `is_sale`                    = #{isSale}
+        WHERE `index` = #{index}
+        LIMIT 1
+    </update>
 </mapper>

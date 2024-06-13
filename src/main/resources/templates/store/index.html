@@ -17,12 +17,12 @@
         <form id="goods-search-form" method="get" action="/store/">
             <label class="orderLabel">
                 <select name="by" id="">
-                    <option value="latest">최신순</option>
-                    <option value="price">가격순</option>
+                    <option th:selected="${paging.getBy() == 'latest'}" value="latest">최신순</option>
+                    <option th:selected="${paging.getBy() == 'price'}" value="price">가격순</option>
                 </select>
             </label>
             <label class="searchLabel">
-                <input name="keyword" minlength="1" maxlength="50" placeholder="굿즈 이름을 입력하세요. (1자 이상 50자 이하)" type="search">
+                <input th:value="${paging.getKeyword()}" name="keyword" minlength="1" maxlength="50" placeholder="굿즈 이름을 입력하세요. (1자 이상 50자 이하)" type="search">
             </label>
             <input value="검색" type="submit">
         </form>
@@ -55,18 +55,26 @@
         </div>
     </section>
 
-    <section class="paging-container">
-        <ul class="front-back-ul">
-            <li><a href="#"><i class="fa-solid fa-arrow-left"></i></a></li>
+    <input class="currentPageHidden" th:value="${paging.getRequestPage()}" type="hidden">
+    <section th:if="${paging.getTotalPage() > 1}" class="paging-container">
+        <ul th:if="${paging.isShowPrev()}" class="front-back-ul">
+            <li><a href=""><i class="fa-solid fa-arrow-left"></i></a></li>
         </ul>
-        <ul class="paging-ul">
-            <li><a href="#">1</a></li>
+        <ul th:each="num : ${#numbers.sequence(paging.getMinPage(), paging.getMaxPage())}" class="paging-ul">
+            <li><a th:class="${num}" th:href="@{/store/ (page=${num}, by=${paging.getBy()}, keyword=${paging.getKeyword()})}" th:text="${num}">1</a></li>
         </ul>
-        <ul class="front-back-ul">
-            <li><a href="#"><i class="fa-solid fa-arrow-right"></i></a></li>
+        <ul th:if="${paging.isShowNext()}" class="front-back-ul">
+            <li><a href=""><i class="fa-solid fa-arrow-right"></i></a></li>
         </ul>
     </section>
 </main>
 <th:block th:replace="~{layouts/footer.html :: footer}"></th:block>
 </body>
 </html>
+<script th:if="${paging.getTotalPage() > 1}">
+    const currentPageHidden = document.querySelector('.currentPageHidden').value;
+    const currentPageATag = document.getElementsByClassName(currentPageHidden);
+    console.log(currentPageATag[0]);
+    currentPageATag[0].style.backgroundColor='#009fff';
+    currentPageATag[0].style.color='white';
+</script>

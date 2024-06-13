@@ -1,9 +1,7 @@
 package dev.hcs.mytournament.controllers;
 
-import dev.hcs.mytournament.entities.GoodsEntity;
-import dev.hcs.mytournament.entities.GoodsImageEntity;
-import dev.hcs.mytournament.entities.TournamentEntity;
-import dev.hcs.mytournament.entities.UserEntity;
+import dev.hcs.mytournament.dtos.SearchDto;
+import dev.hcs.mytournament.entities.*;
 import dev.hcs.mytournament.results.Result;
 import dev.hcs.mytournament.survices.StoreService;
 import jakarta.servlet.http.HttpSession;
@@ -32,10 +30,19 @@ public class StoreController {
     }
 
     @RequestMapping(value = "/", method = RequestMethod.GET, produces = MediaType.TEXT_HTML_VALUE)
-    public ModelAndView getStore() {
-        GoodsEntity[] goodsList = this.storeService.getGoods();
+    public ModelAndView getStore(
+            @RequestParam(value = "by", required = false, defaultValue = "latest") String by,
+            @RequestParam(value = "keyword", required = false, defaultValue = "") String keyword,
+            @RequestParam(value = "page", required = false, defaultValue = "1") int page,
+            SearchDto search
+    ) {
+        search.setBy(by);
+        search.setKeyword(keyword);
+        search.setRequestPage(page);
+        GoodsEntity[] goodsList = this.storeService.getGoods(search);
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("goodsList", goodsList);
+        modelAndView.addObject("paging", search);
         modelAndView.setViewName("/store/index");
         return modelAndView;
     }
@@ -99,5 +106,16 @@ public class StoreController {
                 .contentType(MediaType.parseMediaType(goodsImage.getImageContentType()))
                 .contentLength(goodsImage.getImage().length)
                 .body(goodsImage.getImage());
+    }
+
+    // 굿즈 주문
+    @RequestMapping(value = "/order", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public String postOrder(GoodsOrderEntity goodsOrder, UserAddressEntity userAddress, HttpSession session) {
+        UserEntity user = (UserEntity) session.getAttribute("user");
+        Result result = this.storeService.orderGoods(goodsOrder, userAddress, user);
+        JSONObject responseObject = new JSONObject();
+        responseObject.put("result", result.name().toLowerCase());
+        return responseObject.toString();
     }
 }

@@ -147,6 +147,22 @@
           flex-direction: column;
           justify-content: flex-start;
 
+          > .address-finder.-visible {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 50;
+            background-color: #212121a0;
+            padding: 100vh 100vh;
+
+            > .dialog {
+              width: 500px;
+              height: 600px;
+              z-index: 100;
+              background-color: #eeeeee;
+            }
+          }
 
           > .address-input {
             align-items: stretch;
@@ -262,11 +278,11 @@
             }
 
             > .amount-box {
+              width: 500px;
               align-items: center;
               display: flex;
               flex-direction: row;
-              justify-content: flex-start;
-              gap: 10rem;
+              justify-content: space-between;
 
               > .amount-select {
                 align-items: center;
