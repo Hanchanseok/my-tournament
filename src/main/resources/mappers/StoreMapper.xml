@@ -110,6 +110,16 @@
         WHERE `user_email` = #{userEmail}
         LIMIT 1;
     </select>
+    
+    <select id="selectUserAddressByEmail" parameterType="string" resultType="dev.hcs.mytournament.entities.UserAddressEntity">
+        SELECT `index`              AS `index`,
+               `user_email`         AS `userEmail`,
+               `address_postal`     AS `addressPostal`,
+               `address_primary`    AS `addressPrimary`,
+               `address_secondary`  AS `addressSecondary`
+        FROM `worldcup`.`user_address`
+        WHERE `user_email` = #{userEmail}
+    </select>
 
     <update id="updateGoods" parameterType="dev.hcs.mytournament.entities.GoodsEntity">
         UPDATE `worldcup`.`goods`
@@ -125,4 +135,10 @@
         WHERE `index` = #{index}
         LIMIT 1
     </update>
+
+    <delete id="deleteMyAddress" parameterType="int">
+        DELETE FROM `worldcup`.`user_address`
+        WHERE `index` = #{index}
+        LIMIT 1
+    </delete>
 </mapper>

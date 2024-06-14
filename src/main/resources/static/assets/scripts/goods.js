@@ -50,6 +50,7 @@ buyForm['findAddress'].onclick = function () {
 // 수량 조절
 const decreaseButton = document.querySelector('.decrease-button');
 const increaseButton = document.querySelector('.increase-button');
+const resetButton = document.querySelector('.reset-button');
 const amountInput = document.querySelector('.amount-input');
 const goodsStoke = document.querySelector('.goods-stoke').innerText;
 const goodsPrice = document.querySelector('.goods-price').innerText;
@@ -71,6 +72,13 @@ increaseButton.onclick = () => {
     selectedPrice.innerText = '';
     selectedPrice.innerText = +goodsPrice * amount + ' 원';
     amountInput.value = amount;
+}
+
+resetButton.onclick = () => {
+    let amount = 1;
+    selectedPrice.innerText = '';
+    selectedPrice.innerText = +goodsPrice * amount + ' 원';
+    amountInput.value = 1;
 }
 
 /***************** 주문 *******************/
@@ -124,3 +132,46 @@ buyForm.onsubmit = (e) => {
     xhr.open('POST', '/store/order');
     xhr.send(formData);
 }
+
+
+// 저장된 주소 넣기 및 저장된 내 주소 삭제
+const savedAddress = document.querySelectorAll('.saved-address');
+
+savedAddress.forEach(e => {
+    const addressPostal = e.nextElementSibling;
+    const addressPrimary = addressPostal.nextElementSibling;
+    const addressSecondary = addressPrimary.nextElementSibling;
+    const addressIndex = addressSecondary.nextElementSibling;
+    const deleteButton = addressIndex.nextElementSibling;
+    e.onclick = () => {
+        buyForm['addressPostal'].value = addressPostal.value;
+        buyForm['addressPrimary'].value = addressPrimary.value;
+        buyForm['addressSecondary'].value = addressSecondary.value;
+    }
+
+    deleteButton.onclick = () => {
+        const xhr = new XMLHttpRequest();
+        const formData = new FormData();
+        formData.append("addressIndex", addressIndex.value);
+        xhr.onreadystatechange = function() {
+            if(xhr.readyState !== XMLHttpRequest.DONE) {
+                return;
+            }
+            if(xhr.status < 200 || xhr.status >= 300) {
+                alert('알 수 없는 오류가 발생하였습니다.');
+                return;
+            }
+            const responseObject = JSON.parse(xhr.responseText);
+            if (responseObject['result'] === 'failure') {
+                alert('알 수 없는 이유로, 주소 삭제에 실패하였습니다. 다시 시도해 주세요.');
+            } else if (responseObject['result'] === 'success') {
+                location.reload();
+            } else {
+                alert('서버가 알 수 없는 응답을 반환하였습니다. 잠시 후 다시 시도해 주세요.');
+            }
+        }
+        xhr.open('DELETE', '/store/myAddress');
+        xhr.send(formData);
+    }
+});
+

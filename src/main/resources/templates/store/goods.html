@@ -64,13 +64,13 @@
                     <div class="address-finder">
                         <div class="dialog"></div>
                     </div>
-                    <div class="saved-address-container">
-                        <div class="saved-address-box">
-                            <span class="saved-address">522011 대구 달서구 장기동 초록나라아파트 XX동 XX호</span>
-                            <input class="delete-saved-address" value="X" type="button">
-                        </div>
-                        <div class="saved-address-box">
-                            <span class="saved-address">522011 대구 달서구 장기동 초록나라아파트 XX동 XX호</span>
+                    <div th:if="${session.get('user') != null}" class="saved-address-container">
+                        <div th:each="addr : ${userAddress}" class="saved-address-box">
+                            <span class="saved-address" th:text="${addr.getAddressPostal() + ' ' + addr.getAddressPrimary() + ' ' + addr.getAddressSecondary()}"></span>
+                            <input class="myAddressPostal" th:value="${addr.getAddressPostal()}" type="hidden">
+                            <input class="myAddressPrimary" th:value="${addr.getAddressPrimary()}" type="hidden">
+                            <input class="myAddressSecondary" th:value="${addr.getAddressSecondary()}" type="hidden">
+                            <input class="myAddressIndex" th:value="${addr.getIndex()}" type="hidden">
                             <input class="delete-saved-address" value="X" type="button">
                         </div>
                     </div>

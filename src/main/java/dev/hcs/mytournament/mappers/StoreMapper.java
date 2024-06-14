@@ -31,5 +31,9 @@ public interface StoreMapper {
 
     UserAddressEntity selectUserAddress(@Param("userEmail") String userEmail);
 
+    UserAddressEntity[] selectUserAddressByEmail(@Param("userEmail") String userEmail);
+
     int updateGoods(GoodsEntity goods);
+
+    int deleteMyAddress(@Param("index") int index);
 }

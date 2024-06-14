@@ -29,6 +29,7 @@ public class StoreController {
         this.storeService = storeService;
     }
 
+    // 상점 홈페이지
     @RequestMapping(value = "/", method = RequestMethod.GET, produces = MediaType.TEXT_HTML_VALUE)
     public ModelAndView getStore(
             @RequestParam(value = "by", required = false, defaultValue = "latest") String by,
@@ -47,13 +48,20 @@ public class StoreController {
         return modelAndView;
     }
 
+    // 굿즈 판매 페이지
     @RequestMapping(value = "/goods", method = RequestMethod.GET, produces = MediaType.TEXT_HTML_VALUE)
-    public ModelAndView getGoods(@RequestParam(value = "index", required = false, defaultValue = "1") int index) {
+    public ModelAndView getGoods(
+            @RequestParam(value = "index", required = false, defaultValue = "1") int index,
+            HttpSession session
+    ) {
+        UserEntity user = (UserEntity) session.getAttribute("user");
         GoodsEntity goods = this.storeService.getGoodsByIndex(index);
         GoodsImageEntity[] goodsImages = this.storeService.getGoodsImageByGoodsIndex(index);
+        UserAddressEntity[] userAddress = this.storeService.selectUserAddresses(user);
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("goods", goods);
         modelAndView.addObject("goodsImages", goodsImages);
+        modelAndView.addObject("userAddress", userAddress);
         modelAndView.setViewName("/store/goods");
         return modelAndView;
     }
@@ -114,6 +122,16 @@ public class StoreController {
     public String postOrder(GoodsOrderEntity goodsOrder, UserAddressEntity userAddress, HttpSession session) {
         UserEntity user = (UserEntity) session.getAttribute("user");
         Result result = this.storeService.orderGoods(goodsOrder, userAddress, user);
+        JSONObject responseObject = new JSONObject();
+        responseObject.put("result", result.name().toLowerCase());
+        return responseObject.toString();
+    }
+
+    // 저장된 내 주소 삭제
+    @RequestMapping(value = "/myAddress", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public String deleteMyAddress(@RequestParam("addressIndex")int index) {
+        Result result = this.storeService.deleteMyAddress(index);
         JSONObject responseObject = new JSONObject();
         responseObject.put("result", result.name().toLowerCase());
         return responseObject.toString();

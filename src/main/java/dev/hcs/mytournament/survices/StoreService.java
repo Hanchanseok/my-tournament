@@ -127,21 +127,35 @@ public class StoreService {
         dbGoods.setStoke(dbGoods.getStoke() - goodsOrder.getAmount());  // 주문량으로 재고 빼기
         this.storeMapper.updateGoods(dbGoods);  // 굿즈 정보 수정
 
-        UserAddressEntity dbUserAddress = this.storeMapper.selectUserAddress(user.getEmail());
-        // db에 유저 주소가 없다면 해당 주소를 추가
-        if (dbUserAddress == null) {
+        UserAddressEntity[] dbUserAddress = this.storeMapper.selectUserAddressByEmail(user.getEmail()); // 유저 주소 목록들 조회
+        int count = 0;
+        for (int i = 0; i < dbUserAddress.length; i++) {
+            if (dbUserAddress[i].getAddressPostal().equals(userAddress.getAddressPostal()) && dbUserAddress[i].getAddressPrimary().equals(userAddress.getAddressPrimary()) && dbUserAddress[i].getAddressSecondary().equals(userAddress.getAddressSecondary())) {
+                count++;    // 유저 주소 조회하고 같은 주소가 있으면 count + 1
+            }
+        }
+        if (count == 0) {    // 같은 주소가 없다.
             userAddress.setUserEmail(user.getEmail());
-            this.storeMapper.insertUserAddress(userAddress);
-        } else if (!dbUserAddress.getAddressPostal().equals(userAddress.getAddressPostal()) && !dbUserAddress.getAddressPrimary().equals(userAddress.getAddressPrimary()) && !dbUserAddress.getAddressSecondary().equals(userAddress.getAddressSecondary())) {
-            // 만약 유저 주소는 있는데, 같은 주소가 아니라면 주소 추가
-            userAddress.setUserEmail(user.getEmail());
-            this.storeMapper.insertUserAddress(userAddress);
+            this.storeMapper.insertUserAddress(userAddress);    // 유저 주소에 추가
         }
 
         goodsOrder.setUserEmail(user.getEmail());
         goodsOrder.setOrderAt(LocalDateTime.now());
         goodsOrder.setPaid(false);
         return this.storeMapper.insertGoodsOrder(goodsOrder) > 0
+                ? CommonResult.SUCCESS
+                : CommonResult.FAILURE;
+    }
+
+    public UserAddressEntity[] selectUserAddresses(UserEntity user) {
+        if (user == null) {
+            return null;
+        }
+        return this.storeMapper.selectUserAddressByEmail(user.getEmail());
+    }
+
+    public Result deleteMyAddress(int index) {
+        return this.storeMapper.deleteMyAddress(index) > 0
                 ? CommonResult.SUCCESS
                 : CommonResult.FAILURE;
     }
