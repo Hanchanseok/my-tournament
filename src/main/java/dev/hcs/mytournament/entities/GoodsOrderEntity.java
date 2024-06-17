@@ -13,9 +13,11 @@ public class GoodsOrderEntity {
     private String userEmail;
     private int amount;
     private int price;
+    private int discount;
     private String addressPostal;
     private String addressPrimary;
     private String addressSecondary;
     private LocalDateTime orderAt;
     private boolean isPaid;
+    private boolean isDelivered;
 }

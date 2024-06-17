@@ -123,7 +123,7 @@ buyForm.onsubmit = (e) => {
         } else if (responseObject['result'] === 'failure') {
             alert('알 수 없는 이유로 주문을 하지 못하였습니다. 다시 시도해 주세요.');
         } else if (responseObject['result'] === 'success') {
-            alert('주문을 완료하였습니다.');
+            location.href = `/store/purchaseOrder?index=${responseObject['orderIndex']}`
         } else {
             alert('서버가 알 수 없는 응답을 반환하였습니다. 잠시 후 다시 시도해 주세요.');
         }
@@ -175,3 +175,37 @@ savedAddress.forEach(e => {
     }
 });
 
+// 찜하기
+const wishlistButton = document.querySelector('.wishlist-button');
+
+wishlistButton.onclick = (e) => {
+    e.preventDefault();
+    const xhr = new XMLHttpRequest();
+    const formData = new FormData();
+    formData.append("goodsIndex", buyForm['goodsIndex'].value);
+    xhr.onreadystatechange = function() {
+        if(xhr.readyState !== XMLHttpRequest.DONE) {
+            return;
+        }
+        if(xhr.status < 200 || xhr.status >= 300) {
+            alert('알 수 없는 오류가 발생하였습니다.');
+            return;
+        }
+        const responseObject = JSON.parse(xhr.responseText);
+        if (responseObject['result'] === 'failure') {
+            alert('알 수 없는 이유로, 제품을 위시리스트에 등록하지 못했습니다. 다시 시도해 주세요.');
+        } else if (responseObject['result'] === 'success') {
+            alert('찜하기 완료, 마이페이지에서 확인해 주세요.');
+        } else if (responseObject['result'] === 'failure_none_login') {
+            alert('로그인이 필요한 서비스입니다. 로그인 페이지로 이동합니다.');
+            location.href = '/user/login'
+        } else if (responseObject['result'] === 'failure_already_wishlist') {
+            alert('이미 찜한 제품입니다. 마이페이지에서 확인해 주세요.');
+        } else {
+            alert('서버가 알 수 없는 응답을 반환하였습니다. 잠시 후 다시 시도해 주세요.');
+        }
+
+    }
+    xhr.open('POST', '/store/wishlist');
+    xhr.send(formData);
+}

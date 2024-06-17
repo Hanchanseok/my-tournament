@@ -124,6 +124,22 @@ public class StoreController {
         Result result = this.storeService.orderGoods(goodsOrder, userAddress, user);
         JSONObject responseObject = new JSONObject();
         responseObject.put("result", result.name().toLowerCase());
+        responseObject.put("orderIndex", goodsOrder.getIndex());
+        return responseObject.toString();
+    }
+
+    // 굿즈 주문 취소
+    @RequestMapping(value = "/order", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public String deleteOrder(
+            @RequestParam("index") int index,
+            @RequestParam("amount") int amount,
+            HttpSession session
+    ) {
+        UserEntity user = (UserEntity) session.getAttribute("user");
+        Result result = this.storeService.deleteGoodsOrder(index, user, amount);
+        JSONObject responseObject = new JSONObject();
+        responseObject.put("result", result.name().toLowerCase());
         return responseObject.toString();
     }
 
@@ -135,5 +151,30 @@ public class StoreController {
         JSONObject responseObject = new JSONObject();
         responseObject.put("result", result.name().toLowerCase());
         return responseObject.toString();
+    }
+
+    // 굿즈 찜하기
+    @RequestMapping(value = "/wishlist", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public String postWishlist(
+            @RequestParam("goodsIndex")int goodsIndex,
+            HttpSession session
+    ) {
+        UserEntity user = (UserEntity) session.getAttribute("user");
+        Result result = this.storeService.postWishlist(user, goodsIndex);
+        JSONObject responseObject = new JSONObject();
+        responseObject.put("result", result.name().toLowerCase());
+        return responseObject.toString();
+    }
+
+    // 굿즈 주문서 페이지
+    @RequestMapping(value = "/purchaseOrder", method = RequestMethod.GET, produces = MediaType.TEXT_HTML_VALUE)
+    public ModelAndView getPurchaseOrder(
+            @RequestParam(value = "index", required = true) int index
+    ) {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("goodsOrder", this.storeService.goodsOrderByIndex(index));
+        modelAndView.setViewName("/store/purchaseOrder");
+        return modelAndView;
     }
 }

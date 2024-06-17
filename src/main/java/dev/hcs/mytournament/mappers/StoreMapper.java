@@ -1,10 +1,8 @@
 package dev.hcs.mytournament.mappers;
 
+import dev.hcs.mytournament.dtos.GoodsOrderDto;
 import dev.hcs.mytournament.dtos.SearchDto;
-import dev.hcs.mytournament.entities.GoodsEntity;
-import dev.hcs.mytournament.entities.GoodsImageEntity;
-import dev.hcs.mytournament.entities.GoodsOrderEntity;
-import dev.hcs.mytournament.entities.UserAddressEntity;
+import dev.hcs.mytournament.entities.*;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.security.core.parameters.P;
@@ -29,6 +27,10 @@ public interface StoreMapper {
 
     int insertUserAddress(UserAddressEntity userAddress);
 
+    GoodsOrderDto selectGoodsOrderByIndex(@Param("index") int index);
+
+    int deleteGoodsOrder(@Param("index") int index);
+
     UserAddressEntity selectUserAddress(@Param("userEmail") String userEmail);
 
     UserAddressEntity[] selectUserAddressByEmail(@Param("userEmail") String userEmail);
@@ -36,4 +38,9 @@ public interface StoreMapper {
     int updateGoods(GoodsEntity goods);
 
     int deleteMyAddress(@Param("index") int index);
+
+    int insertWishlist(GoodsWishlistEntity goodsWishlist);
+
+    int selectWishlistCount(@Param("userEmail") String userEmail,
+                       @Param("goodsIndex") int goodsIndex);
 }

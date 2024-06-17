@@ -15,6 +15,7 @@ public class GoodsEntity {
     private String title;
     private String content;
     private int price;
+    private int discount;
     private int stoke;
     private LocalDateTime createdAt;
     private boolean isSale;

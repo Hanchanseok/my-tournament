@@ -8,8 +8,8 @@
             keyColumn="index"
             keyProperty="index"
             parameterType="dev.hcs.mytournament.entities.GoodsEntity">
-        INSERT INTO `worldcup`.`goods`(`thumbnail`, `thumbnail_file_name`, `thumbnail_content_type`, `title`, `content`, `price`, `stoke`, `created_at`, `is_sale`)
-        VALUES (#{thumbnail}, #{thumbnailFileName}, #{thumbnailContentType}, #{title}, #{content}, #{price}, #{stoke}, #{createdAt}, #{isSale})
+        INSERT INTO `worldcup`.`goods`(`thumbnail`, `thumbnail_file_name`, `thumbnail_content_type`, `title`, `content`, `price`, `discount`, `stoke`, `created_at`, `is_sale`)
+        VALUES (#{thumbnail}, #{thumbnailFileName}, #{thumbnailContentType}, #{title}, #{content}, #{price}, #{discount}, #{stoke}, #{createdAt}, #{isSale})
     </insert>
 
     <insert id="insertGoodsImage" parameterType="dev.hcs.mytournament.entities.GoodsImageEntity">
@@ -25,6 +25,7 @@
                `title`                      AS `title`,
                `content`                    AS `content`,
                `price`                      AS `price`,
+               `discount`                   AS `discount`,
                `stoke`                      AS `stoke`,
                `created_at`                 AS `createdAt`,
                `is_sale`                    AS `isSale`
@@ -52,6 +53,7 @@
                `title`                      AS `title`,
                `content`                    AS `content`,
                `price`                      AS `price`,
+               `discount`                   AS `discount`,
                `stoke`                      AS `stoke`,
                `created_at`                 AS `createdAt`,
                `is_sale`                    AS `isSale`
@@ -92,13 +94,43 @@
         WHERE `goods_index` = #{goodsIndex}
     </select>
 
-    <insert id="insertGoodsOrder" parameterType="dev.hcs.mytournament.entities.GoodsOrderEntity">
-        INSERT INTO `worldcup`.`goods_order`(`goods_index`, `user_email`, `amount`, `price`, `address_postal`, `address_primary`, `address_secondary`, `order_at`, `is_paid`) VALUES (#{goodsIndex}, #{userEmail}, #{amount}, #{price}, #{addressPostal}, #{addressPrimary}, #{addressSecondary}, #{orderAt}, #{isPaid})
+    <insert id="insertGoodsOrder"
+            useGeneratedKeys="true"
+            keyColumn="index"
+            keyProperty="index"
+            parameterType="dev.hcs.mytournament.entities.GoodsOrderEntity">
+        INSERT INTO `worldcup`.`goods_order`(`goods_index`, `user_email`, `amount`, `price`, `discount`, `address_postal`, `address_primary`, `address_secondary`, `order_at`, `is_paid`, `is_delivered`) VALUES (#{goodsIndex}, #{userEmail}, #{amount}, #{price}, #{discount}, #{addressPostal}, #{addressPrimary}, #{addressSecondary}, #{orderAt}, #{isPaid}, #{isDelivered})
     </insert>
 
     <insert id="insertUserAddress" parameterType="dev.hcs.mytournament.entities.UserAddressEntity">
         INSERT INTO `worldcup`.`user_address`(`user_email`, `address_postal`, `address_primary`, `address_secondary`) VALUES (#{userEmail}, #{addressPostal}, #{addressPrimary}, #{addressSecondary});
     </insert>
+
+    <select id="selectGoodsOrderByIndex" parameterType="int" resultType="dev.hcs.mytournament.dtos.GoodsOrderDto">
+        SELECT `order`.`index`                  AS `index`,
+               `order`.`goods_index`            AS `goodsIndex`,
+               `order`.`user_email`             AS `userEmail`,
+               `order`.`amount`                 AS `amount`,
+               `order`.`price`                  AS `price`,
+               `order`.`discount`               AS `discount`,
+               `order`.`address_postal`         AS `addressPostal`,
+               `order`.`address_primary`        AS `addressPrimary`,
+               `order`.`address_secondary`      AS `addressSecondary`,
+               `order`.`order_at`               AS `orderAt`,
+               `order`.`is_paid`                AS `isPaid`,
+               `order`.`is_delivered`           AS `isDelivered`,
+               `g`.`title`                      AS `title`
+        FROM `worldcup`.`goods_order` AS `order`
+        LEFT JOIN `worldcup`.`goods` AS `g` on `g`.`index` = `order`.`goods_index`
+        WHERE `order`.`index` = #{index}
+        LIMIT 1
+    </select>
+
+    <delete id="deleteGoodsOrder" parameterType="int">
+        DELETE FROM `worldcup`.`goods_order`
+        WHERE `index` = #{index}
+        LIMIT 1;
+    </delete>
 
     <select id="selectUserAddress" parameterType="string" resultType="dev.hcs.mytournament.entities.UserAddressEntity">
         SELECT `index`              AS `index`,
@@ -129,6 +161,7 @@
                 `title`                      = #{title},
                 `content`                    = #{content},
                 `price`                      = #{price},
+                `discount`                   = #{discount},
                 `stoke`                      = #{stoke},
                 `created_at`                 = #{createdAt},
                 `is_sale`                    = #{isSale}
@@ -141,4 +174,16 @@
         WHERE `index` = #{index}
         LIMIT 1
     </delete>
+
+    <insert id="insertWishlist" parameterType="dev.hcs.mytournament.entities.GoodsWishlistEntity">
+        INSERT INTO `worldcup`.`goods_wishlist`(`user_email`, `goods_index`, `created_at`)
+        VALUES (#{userEmail}, #{goodsIndex}, #{createdAt})
+    </insert>
+
+    <select id="selectWishlistCount" resultType="int">
+        SELECT COUNT(0)
+        FROM `worldcup`.`goods_wishlist`
+        WHERE `user_email` = #{userEmail} AND `goods_index` = #{goodsIndex}
+        LIMIT 1
+    </select>
 </mapper>

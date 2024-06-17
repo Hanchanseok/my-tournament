@@ -5,7 +5,7 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>굿즈 이름</title>
+    <title th:text="${goods.getTitle()}"></title>
     <link rel="stylesheet" type="text/css" th:href="@{/assets/styles/goods.css}">
     <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
     <script defer type="text/javascript" th:src="@{/assets/scripts/goods.js}"></script>
@@ -93,7 +93,7 @@
                     </div>
                     <div class="order-button-box">
                         <input class="wishlist-button" value="찜하기" type="button">
-                        <input class="order-button" value="주문하기" type="submit">
+                        <input th:disabled="${goods.isSale() == false}" class="order-button" value="주문하기" type="submit">
                     </div>
                 </div>
             </form>

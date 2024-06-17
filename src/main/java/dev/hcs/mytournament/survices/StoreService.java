@@ -1,12 +1,15 @@
 package dev.hcs.mytournament.survices;
 
+import dev.hcs.mytournament.dtos.GoodsOrderDto;
 import dev.hcs.mytournament.dtos.SearchDto;
 import dev.hcs.mytournament.entities.*;
 import dev.hcs.mytournament.mappers.StoreMapper;
 import dev.hcs.mytournament.results.CommonResult;
 import dev.hcs.mytournament.results.Result;
+import dev.hcs.mytournament.results.store.DeleteOrderResult;
 import dev.hcs.mytournament.results.store.OrderResult;
 import dev.hcs.mytournament.results.store.UploadGoodsResult;
+import dev.hcs.mytournament.results.store.WishlistResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 @Service
 public class StoreService {
@@ -141,7 +145,9 @@ public class StoreService {
 
         goodsOrder.setUserEmail(user.getEmail());
         goodsOrder.setOrderAt(LocalDateTime.now());
+        goodsOrder.setDiscount(dbGoods.getDiscount());
         goodsOrder.setPaid(false);
+        goodsOrder.setDelivered(false);
         return this.storeMapper.insertGoodsOrder(goodsOrder) > 0
                 ? CommonResult.SUCCESS
                 : CommonResult.FAILURE;
@@ -156,6 +162,50 @@ public class StoreService {
 
     public Result deleteMyAddress(int index) {
         return this.storeMapper.deleteMyAddress(index) > 0
+                ? CommonResult.SUCCESS
+                : CommonResult.FAILURE;
+    }
+
+    // 굿즈 찜하기
+    public Result postWishlist(UserEntity user, int goodsIndex) {
+        if (user == null) {
+            return WishlistResult.FAILURE_NONE_LOGIN;   // 로그인 유저가 아닐경우
+        }
+        if (this.storeMapper.selectWishlistCount(user.getEmail(), goodsIndex) > 0) {
+            return WishlistResult.FAILURE_ALREADY_WISHLIST; // 이미 찜한 것이라면
+        }
+        GoodsWishlistEntity goodsWishlist = new GoodsWishlistEntity();
+        goodsWishlist.setUserEmail(user.getEmail());
+        goodsWishlist.setGoodsIndex(goodsIndex);
+        goodsWishlist.setCreatedAt(LocalDateTime.now());
+        return this.storeMapper.insertWishlist(goodsWishlist) > 0
+                ? CommonResult.SUCCESS
+                : CommonResult.FAILURE;
+    }
+
+    // 인덱스별 굿즈 주문내역 조회
+    public GoodsOrderDto goodsOrderByIndex(int index) {
+        return this.storeMapper.selectGoodsOrderByIndex(index);
+    }
+
+    // 굿즈 주문 취소
+    @Transactional
+    public Result deleteGoodsOrder(int index, UserEntity user, int amount) {
+        // 비로그인 상태이거나, 해당 굿즈를 주문한 유저가 아니라면... 실패
+        GoodsOrderDto dbGoodsOrder = this.storeMapper.selectGoodsOrderByIndex(index);
+        if (user == null || !Objects.equals(user.getEmail(), dbGoodsOrder.getUserEmail())) {
+            return DeleteOrderResult.FAILURE_WRONG_USER;
+        }
+
+        // 주문을 취소했으면 취소된 수량을 굿즈 재고에 다시 더함
+        if (dbGoodsOrder.getAmount() != amount) {
+            return CommonResult.FAILURE;    // 수량이 맞는지 확인
+        }
+        GoodsEntity dbGoods = this.storeMapper.selectGoodsByIndex(dbGoodsOrder.getGoodsIndex());
+        dbGoods.setStoke(dbGoods.getStoke() + amount);
+        this.storeMapper.updateGoods(dbGoods);
+
+        return this.storeMapper.deleteGoodsOrder(index) > 0
                 ? CommonResult.SUCCESS
                 : CommonResult.FAILURE;
     }
