@@ -1,10 +1,13 @@
 package dev.hcs.mytournament.controllers;
 
+import dev.hcs.mytournament.dtos.SearchDto;
+import dev.hcs.mytournament.entities.GoodsEntity;
 import dev.hcs.mytournament.entities.TournamentCommentEntity;
 import dev.hcs.mytournament.entities.TournamentEntity;
 import dev.hcs.mytournament.entities.UserEntity;
 import dev.hcs.mytournament.results.Result;
 import dev.hcs.mytournament.survices.AdminService;
+import dev.hcs.mytournament.survices.StoreService;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -19,10 +22,12 @@ import org.springframework.web.servlet.ModelAndView;
 @RequestMapping(value = "/admin")
 public class AdminController {
     private final AdminService adminService;
+    private final StoreService storeService;
 
     @Autowired
-    public AdminController(AdminService adminService) {
+    public AdminController(AdminService adminService, StoreService storeService) {
         this.adminService = adminService;
+        this.storeService = storeService;
     }
 
     @RequestMapping(value = "/recognize", method = RequestMethod.GET, produces = MediaType.TEXT_HTML_VALUE)
@@ -95,6 +100,23 @@ public class AdminController {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("comment", comment);
         modelAndView.setViewName("/admin/commentDetail");
+        return modelAndView;
+    }
+
+    // 굿즈 관리 페이지로
+    @RequestMapping(value = "/goodsManage", method = RequestMethod.GET, produces = MediaType.TEXT_HTML_VALUE)
+    public ModelAndView getGoodsManage(
+            @RequestParam(value = "by", required = false, defaultValue = "latest") String by,
+            @RequestParam(value = "page", required = false, defaultValue = "1") int page,
+            SearchDto search
+    ) {
+        search.setBy(by);
+        search.setRequestPage(page);
+        GoodsEntity[] goodsList = this.storeService.getGoods(search);
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("goodsList", goodsList);
+        modelAndView.addObject("paging", search);
+        modelAndView.setViewName("/admin/goodsManage");
         return modelAndView;
     }
 }

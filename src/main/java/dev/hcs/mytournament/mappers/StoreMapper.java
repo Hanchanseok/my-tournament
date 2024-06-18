@@ -27,7 +27,11 @@ public interface StoreMapper {
 
     int insertUserAddress(UserAddressEntity userAddress);
 
-    GoodsOrderDto selectGoodsOrderByIndex(@Param("index") int index);
+    GoodsOrderDto getGoodsOrderByIndex(@Param("index") int index);
+
+    GoodsOrderEntity selectGoodsOrderByIndex(@Param("index") int index);
+
+    int updateGoodsOrder(GoodsOrderEntity goodsOrder);
 
     int deleteGoodsOrder(@Param("index") int index);
 
@@ -43,4 +47,6 @@ public interface StoreMapper {
 
     int selectWishlistCount(@Param("userEmail") String userEmail,
                        @Param("goodsIndex") int goodsIndex);
+
+    GoodsOrderDto[] getGoodsOrderByEmail(@Param("userEmail") String userEmail);
 }

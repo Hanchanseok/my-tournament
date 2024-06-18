@@ -37,14 +37,17 @@
   justify-content: flex-start;
 
   > .manage-table {
+    margin-top: 5rem;
     border: 1px solid #e0e0e0;
     width: 1000px;
 
     > thead > tr > th{
+      height: 2rem;
       background-color: #e0e0e0;
     }
 
     > tbody > tr > th {
+      height: 2rem;
       background-color: #e0e0e0;
     }
 
@@ -61,6 +64,25 @@
 
         &:hover {
           background-color: darken(#009fff, 10%);
+        }
+      }
+    }
+
+    > tfoot {
+      text-align: center;
+      height: 2rem;
+
+      > tr > td > section {
+        align-items: center;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        gap: 0.5rem;
+
+        > ul > li > a {
+          font-size: 1.1rem;
+          text-decoration: none;
+          color: #009fff;
         }
       }
     }

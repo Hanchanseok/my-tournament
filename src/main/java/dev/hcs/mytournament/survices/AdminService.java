@@ -1,9 +1,10 @@
 package dev.hcs.mytournament.survices;
 
-import dev.hcs.mytournament.entities.TournamentCommentEntity;
-import dev.hcs.mytournament.entities.TournamentEntity;
-import dev.hcs.mytournament.entities.UserEntity;
+import dev.hcs.mytournament.dtos.GoodsOrderDto;
+import dev.hcs.mytournament.dtos.SearchDto;
+import dev.hcs.mytournament.entities.*;
 import dev.hcs.mytournament.mappers.AdminMapper;
+import dev.hcs.mytournament.mappers.StoreMapper;
 import dev.hcs.mytournament.mappers.TournamentMapper;
 import dev.hcs.mytournament.mappers.UserMapper;
 import dev.hcs.mytournament.results.CommonResult;
@@ -16,12 +17,14 @@ public class AdminService {
     private final UserMapper userMapper;
     private final TournamentMapper tournamentMapper;
     private final AdminMapper adminMapper;
+    private final StoreMapper storeMapper;
 
     @Autowired
-    public AdminService(UserMapper userMapper, TournamentMapper tournamentMapper, AdminMapper adminMapper) {
+    public AdminService(UserMapper userMapper, TournamentMapper tournamentMapper, AdminMapper adminMapper, StoreMapper storeMapper) {
         this.userMapper = userMapper;
         this.tournamentMapper = tournamentMapper;
         this.adminMapper = adminMapper;
+        this.storeMapper = storeMapper;
     }
 
     public TournamentEntity[] getTournaments() {
@@ -99,5 +102,10 @@ public class AdminService {
         return this.tournamentMapper.deleteTournamentComment(index) > 0
                 ? CommonResult.SUCCESS
                 : CommonResult.FAILURE;
+    }
+
+    // 굿즈 목록들
+    GoodsEntity[] getGoods() {
+        return null;
     }
 }

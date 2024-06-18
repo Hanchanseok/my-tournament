@@ -105,6 +105,16 @@
             }
           }
 
+          .discount-detail {
+            display: none;
+          }
+
+          .discount-detail.show {
+            color: red;
+            font-size: 0.9rem;
+            display: block;
+          }
+
           > .spring {
             flex-grow: 1;
           }

@@ -1,5 +1,6 @@
 package dev.hcs.mytournament.controllers;
 
+import dev.hcs.mytournament.dtos.GoodsOrderDto;
 import dev.hcs.mytournament.dtos.SearchDto;
 import dev.hcs.mytournament.entities.*;
 import dev.hcs.mytournament.results.Result;
@@ -176,5 +177,30 @@ public class StoreController {
         modelAndView.addObject("goodsOrder", this.storeService.goodsOrderByIndex(index));
         modelAndView.setViewName("/store/purchaseOrder");
         return modelAndView;
+    }
+
+    // 굿즈 결제
+    @RequestMapping(value = "/purchaseOrder", method = RequestMethod.PATCH, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public String patchPurchaseOrder(
+            GoodsOrderEntity goodsOrder,
+            HttpSession session
+    ) {
+        UserEntity user = (UserEntity) session.getAttribute("user");
+        Result result = this.storeService.payGoods(goodsOrder, user);
+        JSONObject responseObject = new JSONObject();
+        responseObject.put("result", result.name().toLowerCase());
+        return responseObject.toString();
+    }
+
+    // 해당 유저의 아직 결재 안 된 제품 목록 불러오기
+    @RequestMapping(value = "/orderList", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public String getOrderList(HttpSession session) {
+        UserEntity user = (UserEntity) session.getAttribute("user");
+        GoodsOrderDto[] goodsOrder = this.storeService.getOrderList(user);
+        JSONObject responseObject = new JSONObject();
+        responseObject.put("goodsOrder", goodsOrder);
+        return responseObject.toString();
     }
 }

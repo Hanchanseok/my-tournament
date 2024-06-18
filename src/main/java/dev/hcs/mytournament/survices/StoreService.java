@@ -90,7 +90,7 @@ public class StoreService {
             search.setBy(null);
         }
 
-        search.setTotalCount(this.storeMapper.getGoodsTotalCount(search));    // 전체 업로드 대회들 갯수
+        search.setTotalCount(this.storeMapper.getGoodsTotalCount(search));    // 전체 업로드 굿즈들 갯수
         search.setMaxPage(search.getTotalCount() / search.getCountPerPage() +
                 ( search.getTotalCount() % search.getCountPerPage() == 0 ? 0 : 1 ));    // 최대 페이지
         search.setMinPage(1);                                                           // 최소 페이지
@@ -185,14 +185,14 @@ public class StoreService {
 
     // 인덱스별 굿즈 주문내역 조회
     public GoodsOrderDto goodsOrderByIndex(int index) {
-        return this.storeMapper.selectGoodsOrderByIndex(index);
+        return this.storeMapper.getGoodsOrderByIndex(index);
     }
 
     // 굿즈 주문 취소
     @Transactional
     public Result deleteGoodsOrder(int index, UserEntity user, int amount) {
         // 비로그인 상태이거나, 해당 굿즈를 주문한 유저가 아니라면... 실패
-        GoodsOrderDto dbGoodsOrder = this.storeMapper.selectGoodsOrderByIndex(index);
+        GoodsOrderDto dbGoodsOrder = this.storeMapper.getGoodsOrderByIndex(index);
         if (user == null || !Objects.equals(user.getEmail(), dbGoodsOrder.getUserEmail())) {
             return DeleteOrderResult.FAILURE_WRONG_USER;
         }
@@ -208,5 +208,26 @@ public class StoreService {
         return this.storeMapper.deleteGoodsOrder(index) > 0
                 ? CommonResult.SUCCESS
                 : CommonResult.FAILURE;
+    }
+
+    // 굿즈 결제
+    public Result payGoods(GoodsOrderEntity goodsOrder, UserEntity user) {
+        GoodsOrderEntity dbGoodsOrder = this.storeMapper.selectGoodsOrderByIndex(goodsOrder.getIndex());
+        // 비로그인 상태이거나, 해당 굿즈를 주문한 유저가 아니라면... 실패
+        if (user == null || !Objects.equals(user.getEmail(), dbGoodsOrder.getUserEmail())) {
+            return CommonResult.FAILURE;
+        }
+        dbGoodsOrder.setPaid(true);     // 결제여부 True
+        return this.storeMapper.updateGoodsOrder(dbGoodsOrder) > 0
+                ? CommonResult.SUCCESS
+                : CommonResult.FAILURE;
+    }
+
+    // 아직 결재 안된 제품 목록
+    public GoodsOrderDto[] getOrderList(UserEntity user) {
+        if (user == null) {
+            return null;
+        }
+        return this.storeMapper.getGoodsOrderByEmail(user.getEmail());
     }
 }

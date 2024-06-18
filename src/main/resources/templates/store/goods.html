@@ -9,6 +9,7 @@
     <link rel="stylesheet" type="text/css" th:href="@{/assets/styles/goods.css}">
     <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
     <script defer type="text/javascript" th:src="@{/assets/scripts/goods.js}"></script>
+    <script defer type="text/javascript" th:src="@{/assets/scripts/orderList.js}"></script>
     <script src="https://kit.fontawesome.com/0500497c40.js" crossorigin="anonymous"></script>
 </head>
 <body>
@@ -138,6 +139,7 @@
         </section>
 
     </section>
+    <th:block th:replace="~{layouts/shoppingCart.html :: shopping-cart}"></th:block>
 </main>
 <th:block th:replace="~{layouts/footer.html :: footer}"></th:block>
 </body>

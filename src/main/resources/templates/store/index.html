@@ -8,6 +8,7 @@
     <title>상점</title>
     <link rel="stylesheet" type="text/css" th:href="@{/assets/styles/index.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/assets/styles/store.css}">
+    <script defer type="text/javascript" th:src="@{/assets/scripts/orderList.js}"></script>
     <script src="https://kit.fontawesome.com/0500497c40.js" crossorigin="anonymous"></script>
 </head>
 <body>
@@ -67,6 +68,7 @@
             <li><a href=""><i class="fa-solid fa-arrow-right"></i></a></li>
         </ul>
     </section>
+    <th:block th:replace="~{layouts/shoppingCart.html :: shopping-cart}"></th:block>
 </main>
 <th:block th:replace="~{layouts/footer.html :: footer}"></th:block>
 </body>
