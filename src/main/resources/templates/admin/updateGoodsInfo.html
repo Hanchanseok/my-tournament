@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>굿즈 정보 수정</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/assets/styles/manage.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/assets/styles/common.css}">
+    <script defer type="text/javascript" th:src="@{/assets/scripts/updateGoods.js}"></script>
+</head>
+<script th:if="${session.get('user') == null || session.user.isAdmin == false}">
+    alert('잘못된 접근입니다.');
+    location.href='/'
+</script>
+<body>
+    <main class="update-goods-info-main">
+        <section class="update-goods-info-container">
+            <form class="update-goods-info-form">
+                <div class="goods-title">
+                    <label>
+                        <span>굿즈 이름</span>
+                        <input th:value="${goods.getTitle()}" autofocus required name="title" minlength="2" maxlength="50" type="text" placeholder="2자 이상 50자 이하">
+                    </label>
+                    <label>
+                        <span>굿즈 설명</span>
+                        <textarea th:text="${goods.getContent()}" required name="content" minlength="1" maxlength="1000" id="" cols="30" rows="10" placeholder="1자 이상 1000자 이하"></textarea>
+                    </label>
+                    <label>
+                        <span>가격</span>
+                        <input th:value="${goods.getPrice()}" required name="price" value="0" min="0" type="number">
+                    </label>
+                    <label>
+                        <span>할인</span>
+                        <input th:value="${goods.getDiscount()}" required name="discount" value="0" min="0" type="number">
+                    </label>
+                    <label>
+                        <span>재고</span>
+                        <input th:value="${goods.getStoke()}" required name="stoke" value="0" min="0" type="number">
+                    </label>
+                </div>
+                <div class="goods-images">
+                    <div class="image-box">
+                        <label class="thumbnail-select-box">
+                            <span>썸네일 선택</span>
+                            <input class="thumbnail-select" name="thumbnail" checked type="radio" hidden>
+                        </label>
+                        <label class="show-image">
+                            <img src="/assets/images/no-image.png" alt="">
+                            <input hidden required class="goods-image-file" accept=".jpg, .jpeg, .png" type="file">
+                        </label>
+                    </div>
+                    <div class="image-box">
+                        <label class="thumbnail-select-box">
+                            <span>썸네일 선택</span>
+                            <input class="thumbnail-select" name="thumbnail" type="radio" hidden>
+                        </label>
+                        <label class="show-image">
+                            <img src="/assets/images/no-image.png" alt="">
+                            <input hidden required class="goods-image-file" accept=".jpg, .jpeg, .png" type="file">
+                        </label>
+                    </div>
+                    <div class="image-box">
+                        <label class="thumbnail-select-box">
+                            <span>썸네일 선택</span>
+                            <input class="thumbnail-select" name="thumbnail" type="radio" hidden>
+                        </label>
+                        <label class="show-image">
+                            <img src="/assets/images/no-image.png" alt="">
+                            <input hidden required class="goods-image-file" accept=".jpg, .jpeg, .png" type="file">
+                        </label>
+                    </div>
+                    <div class="image-box">
+                        <label class="thumbnail-select-box">
+                            <span>썸네일 선택</span>
+                            <input class="thumbnail-select" name="thumbnail" type="radio" hidden>
+                        </label>
+                        <label class="show-image">
+                            <img src="/assets/images/no-image.png" alt="">
+                            <input hidden required class="goods-image-file" accept=".jpg, .jpeg, .png" type="file">
+                        </label>
+                    </div>
+                    <div class="image-box">
+                        <label class="thumbnail-select-box">
+                            <span>썸네일 선택</span>
+                            <input class="thumbnail-select" name="thumbnail" type="radio" hidden>
+                        </label>
+                        <label class="show-image">
+                            <img src="/assets/images/no-image.png" alt="">
+                            <input hidden required class="goods-image-file" accept=".jpg, .jpeg, .png" type="file">
+                        </label>
+                    </div>
+                </div>
+                <input value="수정하기" type="submit">
+            </form>
+        </section>
+    </main>
+</body>
+</html>

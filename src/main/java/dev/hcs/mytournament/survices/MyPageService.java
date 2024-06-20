@@ -1,5 +1,6 @@
 package dev.hcs.mytournament.survices;
 
+import dev.hcs.mytournament.dtos.SearchDto;
 import dev.hcs.mytournament.dtos.TournamentCommentDto;
 import dev.hcs.mytournament.entities.TournamentEntity;
 import dev.hcs.mytournament.entities.UserEntity;
@@ -48,15 +49,19 @@ public class MyPageService {
     }
 
     // 이메일로 내 토너먼트 전부 불러오기
-    public TournamentEntity[] getMyTournaments(UserEntity user) {
+    public TournamentEntity[] getMyTournaments(UserEntity user, SearchDto search) {
         if (user == null) return null;
-        return this.myPageMapper.selectTournamentsByEmail(user.getEmail());
+        search.setTotalCount(this.myPageMapper.countTournamentsByEmail(user.getEmail()));
+        search.setUserEmail(user.getEmail());
+        return this.myPageMapper.selectTournamentsByEmail(search);
     }
 
     // 이메일로 내 댓글 전부 불러오기
-    public TournamentCommentDto[] getMyComments(UserEntity user) {
+    public TournamentCommentDto[] getMyComments(UserEntity user, SearchDto search) {
         if (user == null) return null;
-        return this.myPageMapper.selectCommentsByEmail(user.getEmail());
+        search.setTotalCount(this.tournamentMapper.selectCommentCountByEmail(user.getEmail()));
+        search.setUserEmail(user.getEmail());
+        return this.myPageMapper.selectCommentsByEmail(search);
     }
 
     // 정보 수정 시 비밀번호 입력한게 맞는지 확인

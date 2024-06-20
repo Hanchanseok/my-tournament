@@ -165,6 +165,7 @@
           padding: 1.2rem;
           border: 1px solid #e0e0e0;
           background-color: #ffffff;
+          cursor: pointer;
         }
       }
     }
@@ -172,11 +173,13 @@
     > .front-back-ul:first-child > li > a{
       border-top-left-radius: 1.2rem;
       border-bottom-left-radius: 1.2rem;
+      cursor: pointer;
     }
 
     > .front-back-ul:last-child > li > a{
       border-top-right-radius: 1.2rem;
       border-bottom-right-radius: 1.2rem;
+      cursor: pointer;
     }
   }
 }

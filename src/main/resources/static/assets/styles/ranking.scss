@@ -6,6 +6,46 @@
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
+
+  .paging-container {
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-bottom: 5rem;
+
+    > .paging-ul, .front-back-ul {
+      align-items: center;
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+
+      > li {
+        font-size: 1.2rem;
+
+        > a {
+          text-decoration: none;
+          color: #757575;
+          padding: 1.2rem;
+          border: 1px solid #e0e0e0;
+          background-color: #ffffff;
+          cursor: pointer;
+        }
+      }
+    }
+
+    > .front-back-ul:first-child > li > a{
+      border-top-left-radius: 1.2rem;
+      border-bottom-left-radius: 1.2rem;
+      cursor: pointer;
+    }
+
+    > .front-back-ul:last-child > li > a{
+      border-top-right-radius: 1.2rem;
+      border-bottom-right-radius: 1.2rem;
+      cursor: pointer;
+    }
+  }
 }
 
 .ranking-container {
@@ -60,7 +100,6 @@
   flex-direction: column;
   justify-content: center;
   gap: 1.2rem;
-  margin-bottom: 5rem;
 
   > .none-login {
     border: 2px solid #757575;

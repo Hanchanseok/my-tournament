@@ -1,6 +1,7 @@
 package dev.hcs.mytournament.controllers;
 
 import dev.hcs.mytournament.dtos.RankingDto;
+import dev.hcs.mytournament.dtos.SearchDto;
 import dev.hcs.mytournament.dtos.TournamentCommentDto;
 import dev.hcs.mytournament.entities.TournamentCommentEntity;
 import dev.hcs.mytournament.entities.TournamentEntity;
@@ -101,14 +102,21 @@ public class TournamentController {
 
     // 랭킹 조회
     @RequestMapping(value = "/ranking", method = RequestMethod.GET, produces = MediaType.TEXT_HTML_VALUE)
-    public ModelAndView getRanking(@RequestParam("index") int index) {
+    public ModelAndView getRanking(
+            @RequestParam("index") int index,
+            @RequestParam(value = "page",required = false, defaultValue = "1") int page,
+            SearchDto search
+    ) {
+        search.setRequestPage(page);
+        search.setCountPerPage(5);
         RankingDto[] products = this.tournamentService.getRanking(index);
         TournamentEntity tournament = this.tournamentService.get(index);
-        TournamentCommentDto[] comments = this.tournamentService.getComments(index);
+        TournamentCommentDto[] comments = this.tournamentService.getComments(index, search);
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("products", products);
         modelAndView.addObject("tournament", tournament);
         modelAndView.addObject("comments", comments);
+        modelAndView.addObject("paging", search);
         modelAndView.setViewName("/tournament/ranking");
         return modelAndView;
     }

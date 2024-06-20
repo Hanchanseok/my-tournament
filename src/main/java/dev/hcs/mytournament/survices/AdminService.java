@@ -27,8 +27,9 @@ public class AdminService {
         this.storeMapper = storeMapper;
     }
 
-    public TournamentEntity[] getTournaments() {
-        return this.adminMapper.selectTournaments();
+    public TournamentEntity[] getTournaments(SearchDto search) {
+        search.setTotalCount(this.adminMapper.selectTournamentsCount());
+        return this.adminMapper.selectTournaments(search);
     }
 
     // 토너먼트 승인
@@ -49,8 +50,9 @@ public class AdminService {
                 : CommonResult.FAILURE;
     }
 
-    public UserEntity[] getUsers() {
-        return this.adminMapper.selectUsers();
+    public UserEntity[] getUsers(SearchDto search) {
+        search.setTotalCount(this.adminMapper.selectUsersCount());
+        return this.adminMapper.selectUsers(search);
     }
 
     // 유저 계정 정지
@@ -72,8 +74,9 @@ public class AdminService {
     }
 
     // 신고받은 댓글들 모두 조회
-    public TournamentCommentEntity[] getReportedComments() {
-        return this.adminMapper.selectReportedComments();
+    public TournamentCommentEntity[] getReportedComments(SearchDto search) {
+        search.setTotalCount(this.adminMapper.selectReportedCommentsCount());
+        return this.adminMapper.selectReportedComments(search);
     }
 
     // 신고받은 댓글 하나 조회
@@ -104,8 +107,8 @@ public class AdminService {
                 : CommonResult.FAILURE;
     }
 
-    // 굿즈 목록들
-    GoodsEntity[] getGoods() {
-        return null;
+    // 인덱스별 해당 굿즈 정보 불러오기
+    public GoodsEntity getGoodsByIndex(int index) {
+        return this.storeMapper.selectGoodsByIndex(index);
     }
 }

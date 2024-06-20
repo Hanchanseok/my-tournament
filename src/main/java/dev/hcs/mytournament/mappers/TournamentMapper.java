@@ -36,7 +36,9 @@ public interface TournamentMapper {
 
     int insertTournamentComment(TournamentCommentEntity comment);
 
-    TournamentCommentDto[] selectTournamentComments(int tournamentIndex);
+    TournamentCommentDto[] selectTournamentComments(SearchDto search);
+
+    int selectTournamentCommentsCount(int tournamentIndex);
 
     TournamentCommentEntity selectTournamentCommentByIndex(int index);
 

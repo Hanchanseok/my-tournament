@@ -56,7 +56,7 @@
                     <input value="작성" type="submit">
                 </form>
             </div>
-            <div class="comments-list">
+            <div id="comments-list" class="comments-list">
                 <div class="comment-box" th:each="comment : ${comments}">
                     <div class="comment-info">
                         <input class="comment-index" th:value="${comment.getIndex()}" type="hidden">
@@ -79,7 +79,26 @@
                 </form>
             </div>
         </section>
+        <input class="currentPageHidden" th:value="${paging.getRequestPage()}" type="hidden">
+        <section th:if="${paging.getTotalPage() > 1}" class="paging-container">
+            <ul th:if="${paging.isShowPrev()}" class="front-back-ul">
+                <li><a th:href="@{/tournament/ranking (index=${tournament.getIndex()}, page=${paging.getBeginPage() - 1})}"><i class="fa-solid fa-arrow-left"></i></a></li>
+            </ul>
+            <ul th:each="num : ${#numbers.sequence(paging.getBeginPage(), paging.getEndPage())}" class="paging-ul">
+                <li><a th:class="${num}" th:href="@{/tournament/ranking (index=${tournament.getIndex()}, page=${num})}" th:text="${num}">1</a></li>
+            </ul>
+            <ul th:if="${paging.isShowNext()}" class="front-back-ul">
+                <li><a th:href="@{/tournament/ranking (index=${tournament.getIndex()}, page=${paging.getEndPage() + 1})}"><i class="fa-solid fa-arrow-right"></i></a></li>
+            </ul>
+        </section>
     </main>
     <footer th:replace="layouts/footer ::  footer"></footer>
 </body>
 </html>
+<script th:if="${paging.getTotalPage() > 1}">
+    const currentPageHidden = document.querySelector('.currentPageHidden').value;
+    const currentPageATag = document.getElementsByClassName(currentPageHidden);
+    console.log(currentPageATag[0]);
+    currentPageATag[0].style.backgroundColor='#e74c3c';
+    currentPageATag[0].style.color='white';
+</script>

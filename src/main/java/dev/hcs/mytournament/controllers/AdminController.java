@@ -31,9 +31,14 @@ public class AdminController {
     }
 
     @RequestMapping(value = "/recognize", method = RequestMethod.GET, produces = MediaType.TEXT_HTML_VALUE)
-    public ModelAndView getRecognize() {
+    public ModelAndView getRecognize(
+            @RequestParam(value = "page", required = false, defaultValue = "1") int page,
+            SearchDto search
+    ) {
+        search.setRequestPage(page);
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("tournaments", this.adminService.getTournaments());
+        modelAndView.addObject("tournaments", this.adminService.getTournaments(search));
+        modelAndView.addObject("paging", search);
         modelAndView.setViewName("/admin/recognize");
         return modelAndView;
     }
@@ -50,11 +55,15 @@ public class AdminController {
     }
 
     @RequestMapping(value = "/accounts", method = RequestMethod.GET, produces = MediaType.TEXT_HTML_VALUE)
-    public ModelAndView getAccounts() {
-        UserEntity[] users = this.adminService.getUsers();
+    public ModelAndView getAccounts(
+            @RequestParam(value = "page", required = false, defaultValue = "1") int page,
+            SearchDto search
+    ) {
+        search.setRequestPage(page);
         ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("users", this.adminService.getUsers(search));
+        modelAndView.addObject("paging", search);
         modelAndView.setViewName("/admin/accounts");
-        modelAndView.addObject("users", users);
         return modelAndView;
     }
 
@@ -68,10 +77,14 @@ public class AdminController {
     }
 
     @RequestMapping(value = "/reportedComments", method = RequestMethod.GET, produces = MediaType.TEXT_HTML_VALUE)
-    public ModelAndView getReportedComments() {
-        TournamentCommentEntity[] comments = this.adminService.getReportedComments();
+    public ModelAndView getReportedComments(
+            @RequestParam(value = "page", required = false, defaultValue = "1") int page,
+            SearchDto search
+    ) {
+        search.setRequestPage(page);
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("comments", comments);
+        modelAndView.addObject("comments", this.adminService.getReportedComments(search));
+        modelAndView.addObject("paging", search);
         modelAndView.setViewName("/admin/reportedComments");
         return modelAndView;
     }
@@ -117,6 +130,17 @@ public class AdminController {
         modelAndView.addObject("goodsList", goodsList);
         modelAndView.addObject("paging", search);
         modelAndView.setViewName("/admin/goodsManage");
+        return modelAndView;
+    }
+
+    // 굿즈 수정 페이지로(팝업)
+    @RequestMapping(value = "/updateGoodsInfo", method = RequestMethod.GET, produces = MediaType.TEXT_HTML_VALUE)
+    public ModelAndView getUpdateGoodsInfo(
+            @RequestParam(value = "index",required = false, defaultValue = "1")int index
+    ) {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("goods", this.adminService.getGoodsByIndex(index));
+        modelAndView.setViewName("/admin/updateGoodsInfo");
         return modelAndView;
     }
 }

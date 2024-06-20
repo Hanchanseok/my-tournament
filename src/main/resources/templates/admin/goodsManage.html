@@ -29,6 +29,7 @@
             <th>재고</th>
             <th>등록일짜</th>
             <th>판매 여부</th>
+            <th>정보 수정</th>
         </tr>
         </thead>
         <tbody>
@@ -42,6 +43,9 @@
             <td>
                 <span style="color: #009fff" th:if="${goods.isSale()}">판매</span>
                 <span style="color: red" th:if="${!goods.isSale()}">판매 중단</span>
+            </td>
+            <td>
+                <a onclick="window.open(this.href, '_blank', 'width=800, height=800'); return false;" th:href="@{/admin/updateGoodsInfo (index=${goods.getIndex()})}">수정</a>
             </td>
         </tr>
         </tbody>

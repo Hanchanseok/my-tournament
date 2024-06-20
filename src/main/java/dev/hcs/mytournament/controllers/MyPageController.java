@@ -1,5 +1,6 @@
 package dev.hcs.mytournament.controllers;
 
+import dev.hcs.mytournament.dtos.SearchDto;
 import dev.hcs.mytournament.entities.UserEntity;
 import dev.hcs.mytournament.results.CommonResult;
 import dev.hcs.mytournament.results.Result;
@@ -40,20 +41,32 @@ public class MyPageController {
 
     // 내 토너먼트 페이지
     @RequestMapping(value = "/myTournament", method = RequestMethod.GET, produces = MediaType.TEXT_HTML_VALUE)
-    public ModelAndView getMyTournament(HttpSession session) {
+    public ModelAndView getMyTournament(
+            HttpSession session,
+            @RequestParam(value = "page", required = false, defaultValue = "1") int page,
+            SearchDto search
+    ) {
+        search.setRequestPage(page);
         UserEntity user = (UserEntity) session.getAttribute("user");
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("tournaments", this.myPageService.getMyTournaments(user));
+        modelAndView.addObject("tournaments", this.myPageService.getMyTournaments(user, search));
+        modelAndView.addObject("paging", search);
         modelAndView.setViewName("/myPage/myTournament");
         return modelAndView;
     }
 
     // 내 댓글 페이지
     @RequestMapping(value = "/myComment", method = RequestMethod.GET, produces = MediaType.TEXT_HTML_VALUE)
-    public ModelAndView getMyComment(HttpSession session) {
+    public ModelAndView getMyComment(
+            HttpSession session,
+            @RequestParam(value = "page", required = false, defaultValue = "1") int page,
+            SearchDto search
+    ) {
+        search.setRequestPage(page);
         UserEntity user = (UserEntity) session.getAttribute("user");
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("comments", this.myPageService.getMyComments(user));
+        modelAndView.addObject("comments", this.myPageService.getMyComments(user, search));
+        modelAndView.addObject("paging", search);
         modelAndView.setViewName("/myPage/myComment");
         return modelAndView;
     }

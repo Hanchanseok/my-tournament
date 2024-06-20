@@ -40,8 +40,32 @@
                 </td>
             </tr>
             </tbody>
+            <tfoot th:if="${paging.getTotalPage() > 1}">
+            <tr>
+                <td colspan="7">
+                    <input class="currentPageHidden" th:value="${paging.getRequestPage()}" type="hidden">
+                    <section th:if="${paging.getTotalPage() > 1}" class="paging-container">
+                        <ul th:if="${paging.isShowPrev()}" class="front-back-ul">
+                            <li><a href=""><i class="fa-solid fa-arrow-left"></i></a></li>
+                        </ul>
+                        <ul th:each="num : ${#numbers.sequence(paging.getBeginPage(), paging.getEndPage())}" class="paging-ul">
+                            <li><a th:class="${num}" th:href="@{/myPage/myTournament (page=${num})}" th:text="${num}">1</a></li>
+                        </ul>
+                        <ul th:if="${paging.isShowNext()}" class="front-back-ul">
+                            <li><a th:href="@{/myPage/myTournament (page=${paging.getEndPage() + 1})}"><i class="fa-solid fa-arrow-right"></i></a></li>
+                        </ul>
+                    </section>
+                </td>
+            </tr>
+            </tfoot>
         </table>
     </main>
 <th:block th:replace="~{layouts/footer.html :: footer}"></th:block>
 </body>
 </html>
+<script th:if="${paging.getTotalPage() > 1}">
+    const currentPageHidden = document.querySelector('.currentPageHidden').value;
+    const currentPageATag = document.getElementsByClassName(currentPageHidden);
+    console.log(currentPageATag[0]);
+    currentPageATag[0].style.color='#005f99';
+</script>

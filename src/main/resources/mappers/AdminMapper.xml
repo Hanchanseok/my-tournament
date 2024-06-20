@@ -4,7 +4,7 @@
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="dev.hcs.mytournament.mappers.AdminMapper">
 
-    <select id="selectTournaments" resultType="dev.hcs.mytournament.entities.TournamentEntity">
+    <select id="selectTournaments" parameterType="dev.hcs.mytournament.dtos.SearchDto" resultType="dev.hcs.mytournament.entities.TournamentEntity">
         SELECT `index`                      AS `index`,
                `user_email`                 AS `userEmail`,
                `thumbnail`                  AS `thumbnail`,
@@ -17,10 +17,17 @@
                `modified_at`                AS `modifiedAt`,
                `is_recognized`               AS `isRecognized`
         FROM `worldcup`.`tournament`
-        ORDER BY `created_at` DESC;
+        ORDER BY `created_at` DESC
+        LIMIT #{countPerPage} OFFSET #{offset}
     </select>
 
-    <select id="selectUsers" resultType="dev.hcs.mytournament.entities.UserEntity">
+    <select id="selectTournamentsCount" resultType="int">
+        SELECT COUNT(0)
+        FROM `worldcup`.`tournament`
+        ORDER BY `created_at` DESC
+    </select>
+
+    <select id="selectUsers" parameterType="dev.hcs.mytournament.dtos.SearchDto" resultType="dev.hcs.mytournament.entities.UserEntity">
         SELECT `email`        AS `email`,
                `password`     AS `password`,
                `nickname`     AS `nickname`,
@@ -31,9 +38,16 @@
                `is_kakao`     AS `isKakao`
         FROM `worldcup`.`users`
         ORDER BY `created_at` DESC
+        LIMIT #{countPerPage} OFFSET #{offset}
     </select>
 
-    <select id="selectReportedComments" resultType="dev.hcs.mytournament.entities.TournamentCommentEntity">
+    <select id="selectUsersCount" resultType="int">
+        SELECT COUNT(0)
+        FROM `worldcup`.`users`
+        ORDER BY `created_at` DESC
+    </select>
+
+    <select id="selectReportedComments" parameterType="dev.hcs.mytournament.dtos.SearchDto" resultType="dev.hcs.mytournament.entities.TournamentCommentEntity">
         SELECT `index`              AS `index`,
                `tournament_index`   AS `tournamentIndex`,
                `user_email`         AS `userEmail`,
@@ -41,6 +55,14 @@
                `created_at`         AS `createdAt`,
                `modified_at`        AS `modified_at`,
                `is_reported`        AS `isReported`
+        FROM `worldcup`.`tournament_comment`
+        WHERE `is_reported` = true
+        ORDER BY `created_at` DESC
+        LIMIT #{countPerPage} OFFSET #{offset}
+    </select>
+
+    <select id="selectReportedCommentsCount" resultType="int">
+        SELECT COUNT(0)
         FROM `worldcup`.`tournament_comment`
         WHERE `is_reported` = true
         ORDER BY `created_at` DESC

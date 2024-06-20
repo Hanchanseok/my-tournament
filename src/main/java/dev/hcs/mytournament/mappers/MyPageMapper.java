@@ -1,11 +1,14 @@
 package dev.hcs.mytournament.mappers;
 
+import dev.hcs.mytournament.dtos.SearchDto;
 import dev.hcs.mytournament.dtos.TournamentCommentDto;
 import dev.hcs.mytournament.entities.TournamentEntity;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 @Mapper
 public interface MyPageMapper {
-    TournamentEntity[] selectTournamentsByEmail(String userEmail);
-    TournamentCommentDto[] selectCommentsByEmail(String userEmail);
+    TournamentEntity[] selectTournamentsByEmail(SearchDto search);
+    int countTournamentsByEmail(String userEmail);
+    TournamentCommentDto[] selectCommentsByEmail(SearchDto search);
 }

@@ -152,7 +152,7 @@
         INSERT INTO `worldcup`.`tournament_comment`(`tournament_index`, `user_email`, `content`, `created_at`, `modified_at`, `is_reported`) VALUES (#{tournamentIndex}, #{userEmail}, #{content}, #{createdAt}, #{modifiedAt}, #{isReported})
     </insert>
 
-    <select id="selectTournamentComments" parameterType="int" resultType="dev.hcs.mytournament.dtos.TournamentCommentDto">
+    <select id="selectTournamentComments" parameterType="dev.hcs.mytournament.dtos.SearchDto" resultType="dev.hcs.mytournament.dtos.TournamentCommentDto">
         SELECT `comment`.`index`              AS `index`,
                `comment`.`tournament_index`   AS `tournamentIndex`,
                `comment`.`user_email`         AS `userEmail`,
@@ -163,6 +163,15 @@
                `user`.`nickname`           AS `userNickname`
         FROM `worldcup`.`tournament_comment` AS `comment`
             LEFT JOIN `worldcup`.`users` AS `user` on `comment`.`user_email` = `user`.`email`
+        WHERE `tournament_index` = #{tournamentIndex}
+        ORDER By `comment`.`created_at` DESC
+        LIMIT #{countPerPage} OFFSET #{offset}
+    </select>
+
+    <select id="selectTournamentCommentsCount" parameterType="int" resultType="int">
+        SELECT COUNT(0)
+        FROM `worldcup`.`tournament_comment` AS `comment`
+                 LEFT JOIN `worldcup`.`users` AS `user` on `comment`.`user_email` = `user`.`email`
         WHERE `tournament_index` = #{tournamentIndex}
         ORDER By `comment`.`created_at` DESC
     </select>

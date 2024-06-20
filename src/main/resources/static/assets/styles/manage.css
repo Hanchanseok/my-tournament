@@ -480,4 +480,124 @@ main {
   background-color: #414141;
 }
 
+.update-goods-info-main {
+  margin: 1rem;
+  border: 4px solid #747474;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.update-goods-info-main > .update-goods-info-container {
+  align-items: stretch;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+.update-goods-info-main > .update-goods-info-container > .update-goods-info-form {
+  align-items: stretch;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 2rem;
+}
+.update-goods-info-main > .update-goods-info-container > .update-goods-info-form > input[type=submit] {
+  font-size: 1.5rem;
+  font-family: inherit;
+  padding: 0.5rem 0;
+  background-color: #e74c3c;
+  color: #eeeeee;
+  border: none;
+  cursor: pointer;
+  border-radius: 0.2rem;
+}
+.update-goods-info-main > .update-goods-info-container > .update-goods-info-form > input[type=submit]:hover {
+  background-color: #d62c1a;
+}
+.update-goods-info-main > .update-goods-info-container > .update-goods-info-form > input[type=submit]:active {
+  background-color: #a82315;
+}
+.update-goods-info-main > .update-goods-info-container > .update-goods-info-form > .goods-title {
+  align-items: stretch;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 0.75rem;
+}
+.update-goods-info-main > .update-goods-info-container > .update-goods-info-form > .goods-title > label {
+  align-items: stretch;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+.update-goods-info-main > .update-goods-info-container > .update-goods-info-form > .goods-title > label:focus-within > span {
+  color: #009fff;
+}
+.update-goods-info-main > .update-goods-info-container > .update-goods-info-form > .goods-title > label:focus-within > textarea {
+  border: 1px solid #009fff;
+}
+.update-goods-info-main > .update-goods-info-container > .update-goods-info-form > .goods-title > label:focus-within > input {
+  border: 1px solid #009fff;
+}
+.update-goods-info-main > .update-goods-info-container > .update-goods-info-form > .goods-title > label > input {
+  border: 1px solid #e0e0e0;
+  outline: none;
+  width: 30rem;
+  height: 1.5rem;
+  font-family: inherit;
+  font-size: 0.9rem;
+}
+.update-goods-info-main > .update-goods-info-container > .update-goods-info-form > .goods-title > label > textarea {
+  border: 1px solid #e0e0e0;
+  outline: none;
+  resize: none;
+  height: 5rem;
+  font-family: inherit;
+  font-size: 0.9rem;
+}
+.update-goods-info-main > .update-goods-info-container > .update-goods-info-form > .goods-title > label > span {
+  font-size: 0.75rem;
+  color: #747474;
+}
+.update-goods-info-main > .update-goods-info-container > .update-goods-info-form > .goods-images {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.update-goods-info-main > .update-goods-info-container > .update-goods-info-form > .goods-images > .image-box {
+  align-items: stretch;
+  display: flex;
+  flex-direction: column;
+  justify-content: stretch;
+  width: 80px;
+  height: 90px;
+}
+.update-goods-info-main > .update-goods-info-container > .update-goods-info-form > .goods-images > .image-box > .thumbnail-select-box:has(input:checked) + .show-image {
+  border: 2px solid #009fff;
+}
+.update-goods-info-main > .update-goods-info-container > .update-goods-info-form > .goods-images > .image-box > .thumbnail-select-box:has(input:checked) {
+  color: #009fff;
+}
+.update-goods-info-main > .update-goods-info-container > .update-goods-info-form > .goods-images > .image-box > .show-image {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border: 1px solid #adadad;
+  cursor: pointer;
+  overflow: hidden;
+}
+.update-goods-info-main > .update-goods-info-container > .update-goods-info-form > .goods-images > .image-box > .show-image > img {
+  width: 80px;
+  height: 90px;
+}
+.update-goods-info-main > .update-goods-info-container > .update-goods-info-form > .goods-images > .image-box > .thumbnail-select-box {
+  text-align: center;
+  cursor: pointer;
+  border: none;
+  font-size: 0.75rem;
+  color: #747474;
+}
+
 /*# sourceMappingURL=manage.css.map */

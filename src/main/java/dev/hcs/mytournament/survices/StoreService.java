@@ -90,18 +90,7 @@ public class StoreService {
             search.setBy(null);
         }
 
-        search.setTotalCount(this.storeMapper.getGoodsTotalCount(search));    // 전체 업로드 굿즈들 갯수
-        search.setMaxPage(search.getTotalCount() / search.getCountPerPage() +
-                ( search.getTotalCount() % search.getCountPerPage() == 0 ? 0 : 1 ));    // 최대 페이지
-        search.setMinPage(1);                                                           // 최소 페이지
-        search.setOffset(search.getCountPerPage() * (search.getRequestPage() - 1));     // 거를 게시글 수
-
-        search.setTotalPage( (int)(Math.ceil( search.getTotalCount()/(double)search.getCountPerPage() )) );  // 전체 페이지 수 구하기
-        search.setBeginPage( ((search.getRequestPage() - 1)/search.getNaviSize()) * search.getNaviSize() + 1 );   // 시작 페이지 번호 구하기
-        search.setEndPage(Math.min(search.getBeginPage() + search.getNaviSize() -1, search.getTotalPage()));        // 끝 페이지 번호 구하기
-
-        search.setShowPrev( search.getBeginPage() != 1);        // 이전 표시 여부
-        search.setShowNext( search.getEndPage() != search.getTotalPage() ); // 다음 표시 여부
+        search.setTotalCount(this.storeMapper.getGoodsTotalCount(search));
         return this.storeMapper.selectGoods(search);
     }
 

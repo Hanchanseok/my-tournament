@@ -3,7 +3,7 @@
         "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="dev.hcs.mytournament.mappers.MyPageMapper">
-    <select id="selectTournamentsByEmail" resultType="dev.hcs.mytournament.entities.TournamentEntity">
+    <select id="selectTournamentsByEmail" parameterType="dev.hcs.mytournament.dtos.SearchDto" resultType="dev.hcs.mytournament.entities.TournamentEntity">
         SELECT `index`                      AS `index`,
                `user_email`                 AS `userEmail`,
                `thumbnail`                  AS `thumbnail`,
@@ -18,9 +18,17 @@
         FROM `worldcup`.`tournament`
         WHERE `user_email` = #{userEmail}
         ORDER BY `created_at` DESC
+        LIMIT #{countPerPage} OFFSET #{offset}
     </select>
 
-    <select id="selectCommentsByEmail" resultType="dev.hcs.mytournament.dtos.TournamentCommentDto">
+    <select id="countTournamentsByEmail" parameterType="string" resultType="int">
+        SELECT COUNT(0)
+        FROM `worldcup`.`tournament`
+        WHERE `user_email` = #{userEmail}
+        ORDER BY `created_at` DESC
+    </select>
+
+    <select id="selectCommentsByEmail" parameterType="dev.hcs.mytournament.dtos.SearchDto" resultType="dev.hcs.mytournament.dtos.TournamentCommentDto">
         SELECT `comments`.`index`              AS `index`,
                `comments`.`tournament_index`   AS `tournamentIndex`,
                `comments`.`user_email`         AS `userEmail`,
@@ -33,5 +41,6 @@
             LEFT JOIN `worldcup`.`tournament` AS `tournaments` ON `comments`.`tournament_index` = `tournaments`.`index`
         WHERE `comments`.`user_email` = #{userEmail}
         ORDER BY `comments`.`created_at` DESC
+        LIMIT #{countPerPage} OFFSET #{offset}
     </select>
 </mapper>
