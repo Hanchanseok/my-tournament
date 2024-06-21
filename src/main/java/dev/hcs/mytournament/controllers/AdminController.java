@@ -5,9 +5,11 @@ import dev.hcs.mytournament.entities.GoodsEntity;
 import dev.hcs.mytournament.entities.TournamentCommentEntity;
 import dev.hcs.mytournament.entities.TournamentEntity;
 import dev.hcs.mytournament.entities.UserEntity;
+import dev.hcs.mytournament.results.CommonResult;
 import dev.hcs.mytournament.results.Result;
 import dev.hcs.mytournament.survices.AdminService;
 import dev.hcs.mytournament.survices.StoreService;
+import jakarta.servlet.http.HttpSession;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -16,7 +18,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+
+import java.io.IOException;
 
 @Controller
 @RequestMapping(value = "/admin")
@@ -140,7 +145,24 @@ public class AdminController {
     ) {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("goods", this.adminService.getGoodsByIndex(index));
+        modelAndView.addObject("goodsImages", this.adminService.getGoodsImages(index));
         modelAndView.setViewName("/admin/updateGoodsInfo");
         return modelAndView;
+    }
+
+    // 굿즈 수정
+    @RequestMapping(value = "/updateGoodsInfo", method = RequestMethod.PATCH, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public String patchUpdateGoodsInfo(
+            @RequestParam(value = "files", required = false) MultipartFile[] files,
+            GoodsEntity goods,
+            @RequestParam(value = "deletedImagesIndex", required = false) int[] deletedImagesIndex,
+            HttpSession session
+    ) throws IOException {
+        UserEntity user = (UserEntity) session.getAttribute("user");
+        Result result = this.adminService.goodsModify(goods, files, deletedImagesIndex, user);
+        JSONObject responseObject = new JSONObject();
+        responseObject.put("result", result.name().toLowerCase());
+        return responseObject.toString();
     }
 }

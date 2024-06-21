@@ -6,6 +6,8 @@ import dev.hcs.mytournament.entities.TournamentCommentEntity;
 import dev.hcs.mytournament.entities.TournamentEntity;
 import dev.hcs.mytournament.entities.UserEntity;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Mapper
 public interface AdminMapper {
@@ -20,4 +22,9 @@ public interface AdminMapper {
     TournamentCommentEntity[] selectReportedComments(SearchDto search);
 
     int selectReportedCommentsCount();
+
+    int updateGoods(GoodsEntity goods);
+
+    int deleteGoodsImage(int index);
+
 }

@@ -41,6 +41,15 @@
     border: 1px solid #e0e0e0;
     width: 1000px;
 
+    a {
+      color: #e74c3c;
+      text-decoration: none;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+
     > thead > tr > th{
       height: 2rem;
       background-color: #e0e0e0;
@@ -364,7 +373,18 @@
       display: flex;
       flex-direction: column;
       justify-content: flex-start;
-      gap: 2rem;
+      gap: 0.2rem;
+
+      > input[type="button"] {
+        font-size: 1.2rem;
+        font-family: inherit;
+        padding: 0.2rem 0;
+        background-color: #747474;
+        color: #eeeeee;
+        border: none;
+        cursor: pointer;
+        border-radius: 0.2rem;
+      }
 
       > input[type="submit"] {
         font-size: 1.5rem;
@@ -391,6 +411,36 @@
         flex-direction: column;
         justify-content: flex-start;
         gap: 0.75rem;
+
+        > .is-sale {
+          align-items: center;
+          display: flex;
+          flex-direction: row;
+          justify-content: flex-start;
+
+          > label {
+            align-items: center;
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-start;
+
+            &:focus-within {
+              > span {
+                color: #009fff;
+              }
+            }
+            > span {
+              font-size: 1rem;
+              color: #747474;
+            }
+
+            > input[type="checkbox"] {
+              height: 1rem;
+            }
+          }
+
+
+        }
 
         > label {
           align-items: stretch;
@@ -421,6 +471,10 @@
             font-size: 0.9rem;
           }
 
+          > input[type="checkbox"]:checked + .sale-ture {
+            color: #009fff;
+          }
+
           > textarea {
             border: 1px solid #e0e0e0;
             outline: none;
@@ -441,7 +495,9 @@
         align-items: center;
         display: flex;
         flex-direction: row;
-        justify-content: space-between;
+        justify-content: flex-start;
+        gap: 1.3125rem;
+        margin: 1.5rem 0;
 
         > .image-box {
           align-items: stretch;
@@ -449,14 +505,29 @@
           flex-direction: column;
           justify-content: stretch;
           width: 80px;
-          height: 90px;
+          height: 80px;
+          position: relative;
 
-          > .thumbnail-select-box:has(input:checked) + .show-image {
-            border: 2px solid #009fff;
+          &:hover > .image-delete-button > input {
+            opacity: 0.85;
           }
 
-          > .thumbnail-select-box:has(input:checked) {
-            color: #009fff;
+          > .image-delete-button {
+
+            > input {
+              position: absolute;
+              top: 0;
+              right: 0;
+              cursor: pointer;
+              border: none;
+              opacity: 0.1;
+              color: #eeeeee;
+              background-color: #414141;
+
+              &:active {
+                background-color: #212121;
+              }
+            }
           }
 
           > .show-image {
@@ -471,7 +542,7 @@
 
             > img {
               width: 80px;
-              height: 90px;
+              height: 80px;
             }
           }
 

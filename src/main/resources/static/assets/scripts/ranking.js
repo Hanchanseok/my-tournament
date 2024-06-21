@@ -1,5 +1,16 @@
-const commentForm = document.getElementById('comment-form');
+// 페이징 눌렀을 시 아래로 스크롤
+const url = new URL(window.location.href);  // url 객체
 
+const urlParams = url.searchParams;         // 해당 주소에서 파라미터들 가져오기
+console.log(urlParams.get("index"));        // ?index=1 일 경우 1
+console.log(urlParams.get("page"));         // ?page=2 일 경우 2
+
+if (urlParams.get("page") != null) {
+    window.scrollTo(0, document.body.scrollHeight);
+}
+
+
+const commentForm = document.getElementById('comment-form');
 // 댓글 작성
 try {
     commentForm.onsubmit = (e) => {

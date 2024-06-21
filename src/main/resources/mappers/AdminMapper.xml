@@ -67,4 +67,21 @@
         WHERE `is_reported` = true
         ORDER BY `created_at` DESC
     </select>
+
+    <update id="updateGoods" parameterType="dev.hcs.mytournament.entities.GoodsEntity">
+        UPDATE `worldcup`.`goods`
+        SET `title`         = #{title},
+            `content`       = #{content},
+            `price`         = #{price},
+            `discount`      = #{discount},
+            `stoke`         = #{stoke},
+            `is_sale`       = #{isSale}
+        WHERE `index` = #{index}
+        LIMIT 1
+    </update>
+
+    <delete id="deleteGoodsImage" parameterType="int">
+        DELETE FROM `worldcup`.`goods_image`
+        WHERE `index` = #{index}
+    </delete>
 </mapper>

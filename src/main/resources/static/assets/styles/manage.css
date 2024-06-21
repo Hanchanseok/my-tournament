@@ -226,6 +226,13 @@ main {
   border: 1px solid #e0e0e0;
   width: 1000px;
 }
+.manage-main > .manage-table a {
+  color: #e74c3c;
+  text-decoration: none;
+}
+.manage-main > .manage-table a:hover {
+  text-decoration: underline;
+}
 .manage-main > .manage-table > thead > tr > th {
   height: 2rem;
   background-color: #e0e0e0;
@@ -499,7 +506,17 @@ main {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  gap: 2rem;
+  gap: 0.2rem;
+}
+.update-goods-info-main > .update-goods-info-container > .update-goods-info-form > input[type=button] {
+  font-size: 1.2rem;
+  font-family: inherit;
+  padding: 0.2rem 0;
+  background-color: #747474;
+  color: #eeeeee;
+  border: none;
+  cursor: pointer;
+  border-radius: 0.2rem;
 }
 .update-goods-info-main > .update-goods-info-container > .update-goods-info-form > input[type=submit] {
   font-size: 1.5rem;
@@ -524,6 +541,28 @@ main {
   justify-content: flex-start;
   gap: 0.75rem;
 }
+.update-goods-info-main > .update-goods-info-container > .update-goods-info-form > .goods-title > .is-sale {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+}
+.update-goods-info-main > .update-goods-info-container > .update-goods-info-form > .goods-title > .is-sale > label {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+}
+.update-goods-info-main > .update-goods-info-container > .update-goods-info-form > .goods-title > .is-sale > label:focus-within > span {
+  color: #009fff;
+}
+.update-goods-info-main > .update-goods-info-container > .update-goods-info-form > .goods-title > .is-sale > label > span {
+  font-size: 1rem;
+  color: #747474;
+}
+.update-goods-info-main > .update-goods-info-container > .update-goods-info-form > .goods-title > .is-sale > label > input[type=checkbox] {
+  height: 1rem;
+}
 .update-goods-info-main > .update-goods-info-container > .update-goods-info-form > .goods-title > label {
   align-items: stretch;
   display: flex;
@@ -547,6 +586,9 @@ main {
   font-family: inherit;
   font-size: 0.9rem;
 }
+.update-goods-info-main > .update-goods-info-container > .update-goods-info-form > .goods-title > label > input[type=checkbox]:checked + .sale-ture {
+  color: #009fff;
+}
 .update-goods-info-main > .update-goods-info-container > .update-goods-info-form > .goods-title > label > textarea {
   border: 1px solid #e0e0e0;
   outline: none;
@@ -563,7 +605,9 @@ main {
   align-items: center;
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: flex-start;
+  gap: 1.3125rem;
+  margin: 1.5rem 0;
 }
 .update-goods-info-main > .update-goods-info-container > .update-goods-info-form > .goods-images > .image-box {
   align-items: stretch;
@@ -571,13 +615,24 @@ main {
   flex-direction: column;
   justify-content: stretch;
   width: 80px;
-  height: 90px;
+  height: 80px;
+  position: relative;
 }
-.update-goods-info-main > .update-goods-info-container > .update-goods-info-form > .goods-images > .image-box > .thumbnail-select-box:has(input:checked) + .show-image {
-  border: 2px solid #009fff;
+.update-goods-info-main > .update-goods-info-container > .update-goods-info-form > .goods-images > .image-box:hover > .image-delete-button > input {
+  opacity: 0.85;
 }
-.update-goods-info-main > .update-goods-info-container > .update-goods-info-form > .goods-images > .image-box > .thumbnail-select-box:has(input:checked) {
-  color: #009fff;
+.update-goods-info-main > .update-goods-info-container > .update-goods-info-form > .goods-images > .image-box > .image-delete-button > input {
+  position: absolute;
+  top: 0;
+  right: 0;
+  cursor: pointer;
+  border: none;
+  opacity: 0.1;
+  color: #eeeeee;
+  background-color: #414141;
+}
+.update-goods-info-main > .update-goods-info-container > .update-goods-info-form > .goods-images > .image-box > .image-delete-button > input:active {
+  background-color: #212121;
 }
 .update-goods-info-main > .update-goods-info-container > .update-goods-info-form > .goods-images > .image-box > .show-image {
   align-items: center;
@@ -590,7 +645,7 @@ main {
 }
 .update-goods-info-main > .update-goods-info-container > .update-goods-info-form > .goods-images > .image-box > .show-image > img {
   width: 80px;
-  height: 90px;
+  height: 80px;
 }
 .update-goods-info-main > .update-goods-info-container > .update-goods-info-form > .goods-images > .image-box > .thumbnail-select-box {
   text-align: center;

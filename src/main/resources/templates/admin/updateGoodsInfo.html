@@ -19,6 +19,7 @@
         <section class="update-goods-info-container">
             <form class="update-goods-info-form">
                 <div class="goods-title">
+                    <input th:value="${goods.getIndex()}" name="index" type="hidden">
                     <label>
                         <span>굿즈 이름</span>
                         <input th:value="${goods.getTitle()}" autofocus required name="title" minlength="2" maxlength="50" type="text" placeholder="2자 이상 50자 이하">
@@ -33,65 +34,23 @@
                     </label>
                     <label>
                         <span>할인</span>
-                        <input th:value="${goods.getDiscount()}" required name="discount" value="0" min="0" type="number">
+                        <input th:value="${goods.getDiscount()}" required name="discount" min="0" max="100" type="number">
                     </label>
                     <label>
                         <span>재고</span>
-                        <input th:value="${goods.getStoke()}" required name="stoke" value="0" min="0" type="number">
+                        <input th:value="${goods.getStoke()}" required name="stoke" min="0" type="number">
                     </label>
                 </div>
                 <div class="goods-images">
-                    <div class="image-box">
-                        <label class="thumbnail-select-box">
-                            <span>썸네일 선택</span>
-                            <input class="thumbnail-select" name="thumbnail" checked type="radio" hidden>
-                        </label>
+                    <div th:each="goodsImage : ${goodsImages}" class="image-box">
+                        <input class="goods-image-get-index" th:value="${goodsImage.getIndex()}" type="hidden">
                         <label class="show-image">
-                            <img src="/assets/images/no-image.png" alt="">
-                            <input hidden required class="goods-image-file" accept=".jpg, .jpeg, .png" type="file">
+                            <img class="file-image" th:src="@{/store/image (index=${goodsImage.getIndex()})}" src="/assets/images/no-image.png" alt="">
                         </label>
-                    </div>
-                    <div class="image-box">
-                        <label class="thumbnail-select-box">
-                            <span>썸네일 선택</span>
-                            <input class="thumbnail-select" name="thumbnail" type="radio" hidden>
-                        </label>
-                        <label class="show-image">
-                            <img src="/assets/images/no-image.png" alt="">
-                            <input hidden required class="goods-image-file" accept=".jpg, .jpeg, .png" type="file">
-                        </label>
-                    </div>
-                    <div class="image-box">
-                        <label class="thumbnail-select-box">
-                            <span>썸네일 선택</span>
-                            <input class="thumbnail-select" name="thumbnail" type="radio" hidden>
-                        </label>
-                        <label class="show-image">
-                            <img src="/assets/images/no-image.png" alt="">
-                            <input hidden required class="goods-image-file" accept=".jpg, .jpeg, .png" type="file">
-                        </label>
-                    </div>
-                    <div class="image-box">
-                        <label class="thumbnail-select-box">
-                            <span>썸네일 선택</span>
-                            <input class="thumbnail-select" name="thumbnail" type="radio" hidden>
-                        </label>
-                        <label class="show-image">
-                            <img src="/assets/images/no-image.png" alt="">
-                            <input hidden required class="goods-image-file" accept=".jpg, .jpeg, .png" type="file">
-                        </label>
-                    </div>
-                    <div class="image-box">
-                        <label class="thumbnail-select-box">
-                            <span>썸네일 선택</span>
-                            <input class="thumbnail-select" name="thumbnail" type="radio" hidden>
-                        </label>
-                        <label class="show-image">
-                            <img src="/assets/images/no-image.png" alt="">
-                            <input hidden required class="goods-image-file" accept=".jpg, .jpeg, .png" type="file">
-                        </label>
+                        <label class="image-delete-button"><input value="X" type="button"></label>
                     </div>
                 </div>
+                <input value="이미지 추가" class="add-image-button" type="button">
                 <input value="수정하기" type="submit">
             </form>
         </section>

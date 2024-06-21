@@ -11,6 +11,10 @@ import dev.hcs.mytournament.results.CommonResult;
 import dev.hcs.mytournament.results.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
 
 @Service
 public class AdminService {
@@ -110,5 +114,66 @@ public class AdminService {
     // 인덱스별 해당 굿즈 정보 불러오기
     public GoodsEntity getGoodsByIndex(int index) {
         return this.storeMapper.selectGoodsByIndex(index);
+    }
+
+    // 인덱스별 해당 굿즈의 이미지들 불러오기
+    public GoodsImageEntity[] getGoodsImages(int index) {
+        return this.storeMapper.selectGoodsImageByGoodsIndex(index);
+    }
+
+    // 굿즈 수정
+    @Transactional
+    public Result goodsModify(GoodsEntity goods, MultipartFile[] files, int[] deletedImagesIndex, UserEntity user) throws IOException {
+        // 관리자가 아닐 경우 수정 실패
+        if (user == null || !user.isAdmin()) {
+            return CommonResult.FAILURE;
+        }
+        if (goods == null) {
+            return CommonResult.FAILURE;
+        }
+        if (goods.getTitle().length() < 2 || goods.getTitle().length() > 50) {
+            return CommonResult.FAILURE;
+        }
+        if (goods.getContent().isEmpty() || goods.getContent().length() > 1000) {
+            return CommonResult.FAILURE;
+        }
+        if (goods.getDiscount() < 0 || goods.getDiscount() > 100) {
+            return CommonResult.FAILURE;
+        }
+        GoodsEntity dbGoods = this.storeMapper.selectGoodsByIndex(goods.getIndex());
+        if (dbGoods == null) {
+            return CommonResult.FAILURE;
+        }
+
+        // 기존의 이미지들이 삭제 되었을 경우
+        if (deletedImagesIndex != null) {
+            // 그 이미지들을 삭제
+            for (int i = 0; i < deletedImagesIndex.length; i++) {
+                this.adminMapper.deleteGoodsImage(deletedImagesIndex[i]);
+            }
+        }
+
+        // 만일 새로 추가한 이미지가 있을 경우 이미지 DB에 insert
+        if (files != null) {
+            GoodsImageEntity goodsImage = new GoodsImageEntity();
+            for (int i = 0; i < files.length; i++) {
+                MultipartFile file = files[i];
+                goodsImage.setGoodsIndex(goods.getIndex());
+                goodsImage.setImage(file.getBytes());
+                goodsImage.setImageFileName(file.getOriginalFilename());
+                goodsImage.setImageContentType(file.getContentType());
+                this.storeMapper.insertGoodsImage(goodsImage);
+            }
+        }
+
+        dbGoods.setTitle(goods.getTitle());
+        dbGoods.setContent(goods.getContent());
+        dbGoods.setPrice(goods.getPrice());
+        dbGoods.setDiscount(goods.getDiscount());
+        dbGoods.setStoke(goods.getStoke());
+        dbGoods.setSale(dbGoods.isSale());
+        return this.adminMapper.updateGoods(dbGoods) > 0
+                ? CommonResult.SUCCESS
+                : CommonResult.FAILURE;
     }
 }
