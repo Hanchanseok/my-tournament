@@ -176,4 +176,26 @@ public class AdminService {
                 ? CommonResult.SUCCESS
                 : CommonResult.FAILURE;
     }
+    
+    // 굿즈 판매 여부 전환
+    public Result changeGoodsSale(int index, UserEntity user) {
+        // 관리자가 아닐 경우 판매 여부 전환 실패
+        if (user == null || !user.isAdmin()) {
+            return CommonResult.FAILURE;
+        }
+        GoodsEntity dbGoods = this.storeMapper.selectGoodsByIndex(index);
+        if (dbGoods == null) {
+            return CommonResult.FAILURE;
+        }
+        // 만약 해당 굿즈의 판매여부가 false면 true로 true면 false로 변경
+        if (!dbGoods.isSale()) {
+            dbGoods.setSale(true);
+        } else {
+            dbGoods.setSale(false);
+        }
+
+        return this.adminMapper.updateGoods(dbGoods) > 0
+                ? CommonResult.SUCCESS
+                : CommonResult.FAILURE;
+    }
 }

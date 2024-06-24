@@ -138,7 +138,7 @@ public class UserController {
     // 로그인
     @RequestMapping(value = "/login", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public String postLogin(HttpSession session, UserEntity loginUser, Model model) {
+    public String postLogin(HttpSession session, UserEntity loginUser) {
         Result result = this.userService.login(loginUser);
         if (result == CommonResult.SUCCESS) {
             session.setAttribute("user", loginUser);

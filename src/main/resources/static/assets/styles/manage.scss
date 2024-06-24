@@ -384,6 +384,14 @@
         border: none;
         cursor: pointer;
         border-radius: 0.2rem;
+
+        &:hover {
+          background-color: darken(#747474, 10);
+        }
+
+        &:active {
+          background-color: darken(#747474, 20);
+        }
       }
 
       > input[type="submit"] {

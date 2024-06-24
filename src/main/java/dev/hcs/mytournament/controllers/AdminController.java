@@ -165,4 +165,18 @@ public class AdminController {
         responseObject.put("result", result.name().toLowerCase());
         return responseObject.toString();
     }
+
+    // 굿즈 판매 여부 전환
+    @RequestMapping(value = "/changeGoodsSale", method = RequestMethod.PATCH, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public String patchChangeGoodsSale(
+            @RequestParam(value = "index") int index,
+            HttpSession session
+    ) {
+        UserEntity user = (UserEntity) session.getAttribute("user");
+        Result result = this.adminService.changeGoodsSale(index, user);
+        JSONObject responseObject = new JSONObject();
+        responseObject.put("result", result.name().toLowerCase());
+        return responseObject.toString();
+    }
 }

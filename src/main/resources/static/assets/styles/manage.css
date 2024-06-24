@@ -518,6 +518,12 @@ main {
   cursor: pointer;
   border-radius: 0.2rem;
 }
+.update-goods-info-main > .update-goods-info-container > .update-goods-info-form > input[type=button]:hover {
+  background-color: #5b5b5b;
+}
+.update-goods-info-main > .update-goods-info-container > .update-goods-info-form > input[type=button]:active {
+  background-color: #414141;
+}
 .update-goods-info-main > .update-goods-info-container > .update-goods-info-form > input[type=submit] {
   font-size: 1.5rem;
   font-family: inherit;

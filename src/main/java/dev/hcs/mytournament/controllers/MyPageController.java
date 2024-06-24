@@ -161,4 +161,20 @@ public class MyPageController {
         responseObject.put("result", result.name().toLowerCase());
         return responseObject.toString();
     }
+
+    // 굿즈 찜 목록 페이지로
+    @RequestMapping(value = "/myWishlist", method = RequestMethod.GET, produces = MediaType.TEXT_HTML_VALUE)
+    public ModelAndView getMyWishlist(
+            HttpSession session,
+            @RequestParam(value = "page", required = false, defaultValue = "1") int page,
+            SearchDto search
+    ) {
+        search.setRequestPage(page);
+        UserEntity user = (UserEntity) session.getAttribute("user");
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("wishlists", this.myPageService.getMyWishlist(search, user));
+        modelAndView.addObject("paging", search);
+        modelAndView.setViewName("/myPage/myWishlist");
+        return modelAndView;
+    }
 }

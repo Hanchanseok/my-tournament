@@ -109,3 +109,31 @@ function commentDelete(index) {
     xhr.open('DELETE', '/admin/reportedComments');
     xhr.send(formData);
 }
+
+// 굿즈 판매여부 전환
+function changeSale(index) {
+    const xhr = new XMLHttpRequest();
+    const formData = new FormData();
+    formData.append("index", index);
+    xhr.onreadystatechange = function() {
+        if(xhr.readyState !== XMLHttpRequest.DONE) {
+            return;
+        }
+        if(xhr.status < 200 || xhr.status >= 300) {
+            alert('알 수 없는 오류가 발생하였습니다.');
+            return;
+        }
+        const responseObject = JSON.parse(xhr.responseText);
+        if (responseObject['result'] === 'success') {
+            alert('판매 여부 전환 완료!');
+            location.reload();
+        } else if (responseObject['result'] === 'failure') {
+            alert('알 수 없는 이유로 판매 여부 전환에 실패하였습니다. 다시 시도해 주세요.');
+        } else {
+            alert('서버가 알 수 없는 응답을 반환하였습니다. 잠시 후 다시 시도해 주세요.');
+        }
+
+    }
+    xhr.open('PATCH', '/admin/changeGoodsSale');
+    xhr.send(formData);
+}

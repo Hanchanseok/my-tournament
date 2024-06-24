@@ -42,7 +42,7 @@
                             <td class="goods-stoke" th:text="${goods.getStoke()}">12</td>
                             <td>
                                 <span th:if="${goods.isSale()}">판매</span>
-                                <span th:if="${!goods.isSale()}">판매 중단</span>
+                                <span th:if="${!goods.isSale()}" style="color: red">판매 중단</span>
                             </td>
                         </tr>
                         </tbody>

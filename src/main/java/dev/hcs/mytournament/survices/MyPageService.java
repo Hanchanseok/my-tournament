@@ -1,5 +1,6 @@
 package dev.hcs.mytournament.survices;
 
+import dev.hcs.mytournament.dtos.GoodsWishlistDto;
 import dev.hcs.mytournament.dtos.SearchDto;
 import dev.hcs.mytournament.dtos.TournamentCommentDto;
 import dev.hcs.mytournament.entities.TournamentEntity;
@@ -36,7 +37,7 @@ public class MyPageService {
         return this.userMapper.selectUserByEmail(user.getEmail());
     }
 
-    // 이메일로 토너먼트 불러오기
+    // 이메일로 토너먼트 갯수 불러오기
     public int getTournamentCount(UserEntity user) {
         if (user == null) return 0;
         return this.tournamentMapper.selectTournamentCountByEmail(user.getEmail());
@@ -134,5 +135,13 @@ public class MyPageService {
         return this.userMapper.updateUser(dbUser) > 0
                 ? UpdatePasswordResult.SUCCESS
                 : UpdatePasswordResult.FAILURE;
+    }
+
+    // 내가 찜한 굿즈 목록 조회
+    public GoodsWishlistDto[] getMyWishlist(SearchDto search, UserEntity user) {
+        if (user == null) return null;
+        search.setTotalCount(this.myPageMapper.countGoodsWishlistByEmail(user.getEmail()));
+        search.setUserEmail(user.getEmail());
+        return this.myPageMapper.selectGoodsWishlistByEmail(search);
     }
 }

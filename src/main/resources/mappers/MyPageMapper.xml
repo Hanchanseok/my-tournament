@@ -43,4 +43,24 @@
         ORDER BY `comments`.`created_at` DESC
         LIMIT #{countPerPage} OFFSET #{offset}
     </select>
+
+    <select id="selectGoodsWishlistByEmail" parameterType="dev.hcs.mytournament.dtos.SearchDto" resultType="dev.hcs.mytournament.dtos.GoodsWishlistDto">
+        SELECT `wishlist`.`user_email`      AS `userEmail`,
+               `wishlist`.`goods_index`     AS `goodsIndex`,
+               `wishlist`.`created_at`      AS `createdAt`,
+               `goods`.`title`              AS `title`,
+               `goods`.`index`              AS `index`
+        FROM `worldcup`.`goods_wishlist` AS `wishlist`
+        LEFT JOIN `worldcup`.`goods` AS `goods` on `goods`.`index` = `wishlist`.goods_index
+        WHERE `wishlist`.`user_email` = #{userEmail}
+        ORDER BY `wishlist`.`created_at` DESC
+        LIMIT #{countPerPage} OFFSET #{offset}
+    </select>
+
+    <select id="countGoodsWishlistByEmail" parameterType="string" resultType="int">
+        SELECT COUNT(0)
+        FROM `worldcup`.`goods_wishlist`
+        WHERE `user_email` = #{userEmail}
+        ORDER BY `created_at` DESC
+    </select>
 </mapper>

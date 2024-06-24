@@ -25,3 +25,5 @@ function commentDelete(index) {
     xhr.open('DELETE', '/tournament/ranking');
     xhr.send(formData);
 }
+
+// 내가 찜한 굿즈 삭제
