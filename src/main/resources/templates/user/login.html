@@ -11,6 +11,10 @@
         alert('이미 로그인 되어 있습니다. 홈 페이지로 이동합니다.');
         location.href = '/';
     </script>
+    <script th:if="${session.get('loginFailure') != null}">
+        alert('정지되었거나 삭제된 계정입니다.');
+        location.href = '/';
+    </script>
 </head>
 <body>
     <main id="user-main">

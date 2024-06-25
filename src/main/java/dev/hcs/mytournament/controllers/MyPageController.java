@@ -35,6 +35,7 @@ public class MyPageController {
         modelAndView.addObject("myInfo", this.myPageService.getUser(user));
         modelAndView.addObject("tournamentCount", this.myPageService.getTournamentCount(user));
         modelAndView.addObject("commentCount", this.myPageService.getCommentCount(user));
+        modelAndView.addObject("orderCount", this.myPageService.getOrderCount(user));
         modelAndView.setViewName("/myPage/myInfo");
         return modelAndView;
     }
@@ -175,6 +176,37 @@ public class MyPageController {
         modelAndView.addObject("wishlists", this.myPageService.getMyWishlist(search, user));
         modelAndView.addObject("paging", search);
         modelAndView.setViewName("/myPage/myWishlist");
+        return modelAndView;
+    }
+
+    // 굿즈 찜 목록 삭제
+    @RequestMapping(value = "/myWishlist", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public String deleteMyWishlist(
+            @RequestParam(value = "goodsIndex") int goodsIndex,
+            HttpSession session
+    ) {
+        UserEntity user = (UserEntity) session.getAttribute("user");
+        Result result = this.myPageService.deleteMyWishlist(goodsIndex, user);
+        JSONObject responseObject = new JSONObject();
+        responseObject.put("result", result.name().toLowerCase());
+        return responseObject.toString();
+    }
+
+
+    // 굿즈 주문내역 페이지로
+    @RequestMapping(value = "myGoodsOrder", method = RequestMethod.GET, produces = MediaType.TEXT_HTML_VALUE)
+    public ModelAndView getMyGoodsOrder(
+            @RequestParam(value = "page", required = false, defaultValue = "1")int page,
+            HttpSession session,
+            SearchDto search
+    ) {
+        UserEntity user = (UserEntity) session.getAttribute("user");
+        search.setRequestPage(page);
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("goodsOrders", this.myPageService.getMyGoodsOrder(search, user));
+        modelAndView.addObject("paging", search);
+        modelAndView.setViewName("/myPage/myGoodsOrder");
         return modelAndView;
     }
 }

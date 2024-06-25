@@ -34,13 +34,14 @@
                 <td><a th:text="${wishlist.getTitle()}" th:href="@{/store/goods (index=${wishlist.getIndex()})}"></a></td>
                 <td th:text="${#temporals.format(wishlist.getCreatedAt(), 'yyyy-MM-dd HH:mm:ss')}"></td>
                 <td>
+                    <input class="goods-index" th:value="${wishlist.getGoodsIndex()}" type="hidden">
                     <input value="삭제" class="delete-wishlist" type="button">
                 </td>
             </tr>
             </tbody>
             <tfoot th:if="${paging.getTotalPage() > 1}">
             <tr>
-                <td colspan="7">
+                <td colspan="4">
                     <input class="currentPageHidden" th:value="${paging.getRequestPage()}" type="hidden">
                     <section th:if="${paging.getTotalPage() > 1}" class="paging-container">
                         <ul th:if="${paging.isShowPrev()}" class="front-back-ul">

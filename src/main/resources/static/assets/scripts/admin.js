@@ -137,3 +137,30 @@ function changeSale(index) {
     xhr.open('PATCH', '/admin/changeGoodsSale');
     xhr.send(formData);
 }
+
+// 굿즈 주문 취소(관리자)
+function cancelOrder(index) {
+    const xhr = new XMLHttpRequest();
+    const formData = new FormData();
+    formData.append("index", index);
+    xhr.onreadystatechange = function() {
+        if(xhr.readyState !== XMLHttpRequest.DONE) {
+            return;
+        }
+        if(xhr.status < 200 || xhr.status >= 300) {
+            alert('알 수 없는 오류가 발생하였습니다.');
+            return;
+        }
+        const responseObject = JSON.parse(xhr.responseText);
+        if (responseObject['result'] === 'success') {
+            alert('주문을 취소하였습니다.');
+            location.reload();
+        } else if (responseObject['result'] === 'failure') {
+            alert('알 수 없는 이유로 주문 취소에 실패하였습니다. 다시 시도해 주세요.');
+        } else {
+            alert('서버가 알 수 없는 응답을 반환하였습니다. 잠시 후 다시 시도해 주세요.');
+        }
+    }
+    xhr.open('DELETE', '/admin/goodsOrder');
+    xhr.send(formData);
+}

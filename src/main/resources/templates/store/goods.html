@@ -32,6 +32,7 @@
                         <thead>
                         <tr>
                             <th>가격</th>
+                            <th>할인</th>
                             <th>재고</th>
                             <th>판매여부</th>
                         </tr>
@@ -39,6 +40,7 @@
                         <tbody>
                         <tr>
                             <td class="goods-price" th:text="${goods.getPrice()}">2,200</td>
+                            <td class="goods-discount" th:text="${goods.getDiscount() + '%'}"></td>
                             <td class="goods-stoke" th:text="${goods.getStoke()}">12</td>
                             <td>
                                 <span th:if="${goods.isSale()}">판매</span>

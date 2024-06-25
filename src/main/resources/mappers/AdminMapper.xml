@@ -84,4 +84,57 @@
         DELETE FROM `worldcup`.`goods_image`
         WHERE `index` = #{index}
     </delete>
+
+    <select id="selectGoodsOrder" parameterType="dev.hcs.mytournament.dtos.SearchDto" resultType="dev.hcs.mytournament.dtos.GoodsOrderDto">
+        SELECT `order`.`index`                  AS `index`,
+               `order`.`goods_index`            AS `goodsIndex`,
+               `order`.`user_email`             AS `userEmail`,
+               `order`.`amount`                 AS `amount`,
+               `order`.`price`                  AS `price`,
+               `order`.`discount`               AS `discount`,
+               `order`.`address_postal`         AS `addressPostal`,
+               `order`.`address_primary`        AS `addressPrimary`,
+               `order`.`address_secondary`      AS `addressSecondary`,
+               `order`.`order_at`               AS `orderAt`,
+               `order`.`is_paid`                AS `isPaid`,
+               `order`.`is_delivered`           AS `isDelivered`,
+               `g`.`title`                      AS `title`
+        FROM `worldcup`.`goods_order` AS `order`
+                 LEFT JOIN `worldcup`.`goods` AS `g` on `g`.`index` = `order`.`goods_index`
+        ORDER BY `order`.`order_at` DESC
+        LIMIT #{countPerPage} OFFSET #{offset}
+    </select>
+
+    <select id="countGoodsOrder" parameterType="string" resultType="int">
+        SELECT COUNT(0)
+        FROM `worldcup`.`goods_order`
+        ORDER BY `order_at` DESC
+    </select>
+
+    <delete id="deleteGoodsOrderByIndex" parameterType="int">
+        DELETE FROM `worldcup`.`goods_order`
+        WHERE `index` = #{index}
+        LIMIT 1
+    </delete>
+
+    <select id="selectGoodsOrderByIndex" parameterType="int" resultType="dev.hcs.mytournament.dtos.GoodsOrderDto">
+        SELECT `order`.`index`                  AS `index`,
+               `order`.`goods_index`            AS `goodsIndex`,
+               `order`.`user_email`             AS `userEmail`,
+               `order`.`amount`                 AS `amount`,
+               `order`.`price`                  AS `price`,
+               `order`.`discount`               AS `discount`,
+               `order`.`address_postal`         AS `addressPostal`,
+               `order`.`address_primary`        AS `addressPrimary`,
+               `order`.`address_secondary`      AS `addressSecondary`,
+               `order`.`order_at`               AS `orderAt`,
+               `order`.`is_paid`                AS `isPaid`,
+               `order`.`is_delivered`           AS `isDelivered`,
+               `g`.`title`                      AS `title`
+        FROM `worldcup`.`goods_order` AS `order`
+                 LEFT JOIN `worldcup`.`goods` AS `g` on `g`.`index` = `order`.`goods_index`
+        WHERE `order`.`index` = #{index}
+        ORDER BY `order`.`order_at` DESC
+        LIMIT 1
+    </select>
 </mapper>

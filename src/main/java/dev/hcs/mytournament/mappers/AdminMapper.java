@@ -1,5 +1,6 @@
 package dev.hcs.mytournament.mappers;
 
+import dev.hcs.mytournament.dtos.GoodsOrderDto;
 import dev.hcs.mytournament.dtos.SearchDto;
 import dev.hcs.mytournament.entities.GoodsEntity;
 import dev.hcs.mytournament.entities.TournamentCommentEntity;
@@ -27,4 +28,11 @@ public interface AdminMapper {
 
     int deleteGoodsImage(int index);
 
+    GoodsOrderDto[] selectGoodsOrder(SearchDto search);
+
+    int countGoodsOrder();
+
+    int deleteGoodsOrderByIndex(@Param("index")int index);
+
+    GoodsOrderDto selectGoodsOrderByIndex(@Param("index")int index);
 }

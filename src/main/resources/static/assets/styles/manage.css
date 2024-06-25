@@ -661,4 +661,27 @@ main {
   color: #747474;
 }
 
+.goods-order-detail-main {
+  margin: 1rem;
+  border: 4px solid #747474;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.goods-order-detail-main > .goods-order-detail-section > ul {
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 0.75rem;
+}
+.goods-order-detail-main > .goods-order-detail-section > ul > li {
+  color: #414141;
+}
+.goods-order-detail-main > .goods-order-detail-section > ul > li > h1 {
+  color: #212121;
+  font-weight: 400;
+}
+
 /*# sourceMappingURL=manage.css.map */

@@ -5,7 +5,7 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>신고 댓글 관리</title>
+    <title>굿즈 주문목록</title>
     <link rel="stylesheet" type="text/css" th:href="@{/assets/styles/manage.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/assets/styles/index.css}">
     <script defer type="text/javascript" th:src="@{/assets/scripts/admin.js}"></script>
@@ -23,36 +23,46 @@
         <thead>
         <tr>
             <th>넘버</th>
-            <th>이메일</th>
-            <th>내용</th>
-            <th>등록 날짜</th>
-            <th>문제 없음</th>
-            <th>삭제</th>
+            <th>주문자</th>
+            <th>굿즈 이름</th>
+            <th>상세 정보</th>
+            <th>구매</th>
+            <th>배송</th>
+            <th>주문 취소</th>
         </tr>
         </thead>
         <tbody>
-        <tr th:each="comment : ${comments}">
-            <th class="comment-index" th:text="${comment.getIndex()}"></th>
-            <td th:text="${comment.getUserEmail()}"></td>
-            <td><a onclick="window.open(this.href, '_blank', 'width=600, height=400'); return false;" th:href="@{/admin/commentDetail (index=${comment.getIndex()})}">상세 보기</a></td>
-            <td th:text="${#temporals.format(comment.getCreatedAt(), 'yyyy-MM-dd HH:mm:ss')}"></td>
-            <td><input th:onclick="'commentNa(' + ${comment.getIndex()} + ');'" class="comment-na-button" value="문제 없음" type="button"></td>
-            <td><input th:onclick="'commentDelete(' + ${comment.getIndex()} + ');'" class="comment-delete-button" value="삭제" type="button"></td>
+        <tr th:each="goodsOrder : ${goodsOrders}">
+            <th th:text="${goodsOrder.getIndex()}"></th>
+            <td th:text="${goodsOrder.getUserEmail()}"></td>
+            <td><a th:href="@{/store/goods (index=${goodsOrder.getGoodsIndex()})}" th:text="${goodsOrder.getTitle()}"></a></td>
+            <td><a onclick="window.open(this.href, '_blank', 'width=500, height=500'); return false;" th:href="@{/admin/goodsOrderDetail (index=${goodsOrder.getIndex()})}">상세 정보</a></td>
+            <td>
+                <span style="color: red" th:if="${goodsOrder.isPaid() == false}">보류</span>
+                <span style="color: #009fff" th:if="${goodsOrder.isPaid() == true}">구매 확정</span>
+            </td>
+            <td>
+                <span style="color: red" th:if="${goodsOrder.isDelivered() == false}">배송 중</span>
+                <a th:if="${goodsOrder.isDelivered() == true}" style="color: #009fff" href="#">배송 완료</a>
+            </td>
+            <td>
+                <input th:onclick=" 'cancelOrder(' + ${goodsOrder.getIndex()} + ');' " class="cancel-order" value="취소" type="button">
+            </td>
         </tr>
         </tbody>
         <tfoot th:if="${paging.getTotalPage() > 1}">
         <tr>
-            <td colspan="6">
+            <td colspan="7">
                 <input class="currentPageHidden" th:value="${paging.getRequestPage()}" type="hidden">
                 <section th:if="${paging.getTotalPage() > 1}" class="paging-container">
                     <ul th:if="${paging.isShowPrev()}" class="front-back-ul">
-                        <li><a th:href="@{/admin/reportedComments (page=${paging.getBeginPage() - 1})}"><i class="fa-solid fa-arrow-left"></i></a></li>
+                        <li><a th:href="@{/admin/goodsOrder (page=${paging.getBeginPage() - 1})}"><i class="fa-solid fa-arrow-left"></i></a></li>
                     </ul>
                     <ul th:each="num : ${#numbers.sequence(paging.getBeginPage(), paging.getEndPage())}" class="paging-ul">
-                        <li><a th:class="${num}" th:href="@{/admin/reportedComments (page=${num})}" th:text="${num}">1</a></li>
+                        <li><a th:class="${num}" th:href="@{/admin/goodsOrder (page=${num})}" th:text="${num}">1</a></li>
                     </ul>
                     <ul th:if="${paging.isShowNext()}" class="front-back-ul">
-                        <li><a th:href="@{/admin/reportedComments (page=${paging.getEndPage() + 1})}"><i class="fa-solid fa-arrow-right"></i></a></li>
+                        <li><a th:href="@{/admin/goodsOrder (page=${paging.getEndPage() + 1})}"><i class="fa-solid fa-arrow-right"></i></a></li>
                     </ul>
                 </section>
             </td>

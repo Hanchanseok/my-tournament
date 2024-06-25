@@ -53,6 +53,8 @@ public class KakaoLoginController {
         // 로그인
         UserEntity loginUser = this.kakaoService.kakaoLogin(userInfo, user);
         if (loginUser == null) {
+            // 로그인 페이지로 가서 정지 혹은 삭제된 계정이라는 걸 알리기
+            session.setAttribute("loginFailure", "loginFailure");
             return "redirect:/user/login";
         }
         session.setAttribute("user", loginUser);

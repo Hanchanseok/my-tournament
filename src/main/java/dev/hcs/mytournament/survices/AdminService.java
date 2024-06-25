@@ -198,4 +198,25 @@ public class AdminService {
                 ? CommonResult.SUCCESS
                 : CommonResult.FAILURE;
     }
+
+    // 굿즈 주문목록
+    public GoodsOrderDto[] getGoodsOrders(SearchDto search, UserEntity user) {
+        if (user == null) return null;
+        search.setTotalCount(this.adminMapper.countGoodsOrder());
+        return this.adminMapper.selectGoodsOrder(search);
+    }
+
+    // 유저들의 굿즈 주문 취소/삭제
+    public Result deleteGoodsOrder(int index, UserEntity user) {
+        if (user == null || !user.isAdmin()) return CommonResult.FAILURE;
+        return this.adminMapper.deleteGoodsOrderByIndex(index) > 0
+                ? CommonResult.SUCCESS
+                : CommonResult.FAILURE;
+    }
+
+    // 해당 주문 상세
+    public GoodsOrderDto getGoodsOrderByIndex(int index, UserEntity user) {
+        if (user == null || !user.isAdmin()) return null;
+        return this.adminMapper.selectGoodsOrderByIndex(index);
+    }
 }

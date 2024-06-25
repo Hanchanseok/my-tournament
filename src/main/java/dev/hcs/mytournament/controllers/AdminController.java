@@ -179,4 +179,47 @@ public class AdminController {
         responseObject.put("result", result.name().toLowerCase());
         return responseObject.toString();
     }
+
+    // 굿즈 주문목록 페이지
+    @RequestMapping(value = "/goodsOrder", method = RequestMethod.GET, produces = MediaType.TEXT_HTML_VALUE)
+    public ModelAndView getGoodsOrder(
+            @RequestParam(value = "page", required = false, defaultValue = "1") int page,
+            HttpSession session,
+            SearchDto search
+    ) {
+        search.setRequestPage(page);
+        UserEntity user = (UserEntity) session.getAttribute("user");
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("goodsOrders", this.adminService.getGoodsOrders(search, user));
+        modelAndView.addObject("paging", search);
+        modelAndView.setViewName("/admin/goodsOrder");
+        return modelAndView;
+    }
+
+    // 유저들의 굿즈 주문 취소/삭제
+    @RequestMapping(value = "/goodsOrder", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public String deleteGoodsOrder(
+            @RequestParam("index")int index,
+            HttpSession session
+    ) {
+        UserEntity user = (UserEntity) session.getAttribute("user");
+        Result result = this.adminService.deleteGoodsOrder(index, user);
+        JSONObject responseObject = new JSONObject();
+        responseObject.put("result", result.name().toLowerCase());
+        return responseObject.toString();
+    }
+
+    // 굿즈 주문 상세 페이지
+    @RequestMapping(value = "/goodsOrderDetail", method = RequestMethod.GET, produces = MediaType.TEXT_HTML_VALUE)
+    public ModelAndView getGoodsOrderDetail(
+            @RequestParam("index") int index,
+            HttpSession session
+    ) {
+        UserEntity user = (UserEntity) session.getAttribute("user");
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("goodsOrder", this.adminService.getGoodsOrderByIndex(index, user));
+        modelAndView.setViewName("/admin/goodsOrderDetail");
+        return modelAndView;
+    }
 }

@@ -1,8 +1,10 @@
 package dev.hcs.mytournament.survices;
 
+import dev.hcs.mytournament.dtos.GoodsOrderDto;
 import dev.hcs.mytournament.dtos.GoodsWishlistDto;
 import dev.hcs.mytournament.dtos.SearchDto;
 import dev.hcs.mytournament.dtos.TournamentCommentDto;
+import dev.hcs.mytournament.entities.GoodsWishlistEntity;
 import dev.hcs.mytournament.entities.TournamentEntity;
 import dev.hcs.mytournament.entities.UserEntity;
 import dev.hcs.mytournament.mappers.MyPageMapper;
@@ -47,6 +49,12 @@ public class MyPageService {
     public int getCommentCount(UserEntity user) {
         if (user == null) return 0;
         return this.tournamentMapper.selectCommentCountByEmail(user.getEmail());
+    }
+
+    // 이메일로 주문 갯수 가져오기
+    public int getOrderCount(UserEntity user) {
+        if (user == null) return 0;
+        return this.myPageMapper.countGoodsOrderByEmail(user.getEmail());
     }
 
     // 이메일로 내 토너먼트 전부 불러오기
@@ -143,5 +151,27 @@ public class MyPageService {
         search.setTotalCount(this.myPageMapper.countGoodsWishlistByEmail(user.getEmail()));
         search.setUserEmail(user.getEmail());
         return this.myPageMapper.selectGoodsWishlistByEmail(search);
+    }
+
+    // 굿즈 찜 삭제
+    public Result deleteMyWishlist(int goodsIndex, UserEntity user) {
+        if (user == null) {
+            return CommonResult.FAILURE;
+        }
+        GoodsWishlistEntity dbWishlist = this.myPageMapper.selectGoodsWishlist(goodsIndex, user.getEmail());
+        if (dbWishlist == null) {
+            return CommonResult.FAILURE;
+        }
+        return this.myPageMapper.deleteGoodsWishlist(goodsIndex, user.getEmail()) > 0
+                ? CommonResult.SUCCESS
+                : CommonResult.FAILURE;
+    }
+
+    // 내 굿즈 주문내역
+    public GoodsOrderDto[] getMyGoodsOrder(SearchDto search, UserEntity user) {
+        if (user == null) return null;
+        search.setUserEmail(user.getEmail());
+        search.setTotalCount(this.myPageMapper.countGoodsOrderByEmail(search.getUserEmail()));
+        return this.myPageMapper.selectGoodsOrderByEmail(search);
     }
 }

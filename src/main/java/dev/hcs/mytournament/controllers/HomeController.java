@@ -30,11 +30,14 @@ public class HomeController {
             @RequestParam(value = "by", required = false, defaultValue = "latest") String by,
             @RequestParam(value = "keyword", required = false, defaultValue = "") String keyword,
             @RequestParam(value = "page", required = false, defaultValue = "1") int page,
-            SearchDto search
+            SearchDto search,
+            HttpSession session
     ) {
         search.setBy(by);
         search.setKeyword(keyword);
         search.setRequestPage(page);
+        // 만약 카카오 로그인 실패시(정지 or 삭제) 이곳으로 오게 되는데, 이 세션을 지워야 다시 로그인 페이지 이동 가능
+        session.setAttribute("loginFailure", null);
         TournamentEntity[] tournaments = tournamentService.getTournaments(search);
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("tournaments", tournaments);

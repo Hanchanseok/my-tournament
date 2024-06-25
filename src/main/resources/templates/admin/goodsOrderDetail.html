@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title th:text="${goodsOrder.getTitle()}"></title>
+    <link rel="stylesheet" type="text/css" th:href="@{/assets/styles/manage.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/assets/styles/common.css}">
+</head>
+<body>
+    <main class="goods-order-detail-main">
+        <section class="goods-order-detail-section">
+            <ul>
+                <li><h1 th:text="${goodsOrder.getTitle()}"></h1></li>
+                <li th:text="${'수량 : ' + goodsOrder.getAmount() + '개'}"></li>
+                <li th:text="${'원가 : ' + goodsOrder.getPrice() + ' 원'}"></li>
+                <li th:text="${'할인 : ' + goodsOrder.getDiscount() + '%'}"></li>
+                <li style="font-weight: 600" th:text="${'지불금액 : ' + (goodsOrder.getPrice() - (goodsOrder.getPrice() * goodsOrder.getDiscount()/100)) + ' 원'}"></li>
+                <li th:text="${'주소 : ' + goodsOrder.getAddressPostal() + ' ' + goodsOrder.getAddressPrimary() + ' ' + goodsOrder.getAddressSecondary()}"></li>
+                <li th:text="${'주문날짜 : ' + #temporals.format(goodsOrder.getOrderAt(), 'yyyy-MM-dd')}"></li>
+                <li th:text="${'이메일 : ' + goodsOrder.getUserEmail()}"></li>
+            </ul>
+        </section>
+    </main>
+</body>
+</html>
