@@ -501,20 +501,28 @@
         }
 
         > .comment-content {
+          align-items: flex-start;
+          display: flex;
+          flex-direction: row;
+          justify-content: flex-start;
 
           > span {
             color: #414141;
           }
+
+
+          > .comment-image {
+            width: 8rem;
+            height: 8rem;
+            border-radius: 0.5rem;
+            cursor: pointer;
+
+            &:hover {
+              filter: brightness(75%);
+            }
+          }
         }
       }
     }
-  }
-}
-
-// 반응형 웹이 안되네?
-@media screen and (max-width: 1199px) {
-  #goods-main > .goods-container > .goods-info {
-    flex-direction: row;
-    justify-content: space-between;
   }
 }

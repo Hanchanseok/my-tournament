@@ -207,8 +207,20 @@ public class AdminService {
     }
 
     // 유저들의 굿즈 주문 취소/삭제
+    @Transactional
     public Result deleteGoodsOrder(int index, UserEntity user) {
         if (user == null || !user.isAdmin()) return CommonResult.FAILURE;
+        // 해당 굿즈 주문 가져오기
+        GoodsOrderEntity dbGoodsOrder = this.adminMapper.selectGoodsOrderByIndex(index);
+        if (dbGoodsOrder == null) {
+            return CommonResult.FAILURE;
+        }
+        // 해당 굿즈 주문의 굿즈 인덱스로 굿즈 정보 가져오기
+        GoodsEntity dbGoods = this.storeMapper.selectGoodsByIndex(dbGoodsOrder.getGoodsIndex());
+        if (!dbGoodsOrder.isPaid()) {   // 만약 구매를 하지 않았다면, 굿즈 재고에 수량 다시 돌려줌
+            dbGoods.setStoke(dbGoods.getStoke() + dbGoodsOrder.getAmount());
+            this.storeMapper.updateGoods(dbGoods);
+        }
         return this.adminMapper.deleteGoodsOrderByIndex(index) > 0
                 ? CommonResult.SUCCESS
                 : CommonResult.FAILURE;

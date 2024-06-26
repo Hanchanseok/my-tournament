@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>리뷰 작성</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/assets/styles/manage.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/assets/styles/index.css}">
+    <script defer type="text/javascript" th:src="@{/assets/scripts/goodsReview.js}"></script>
+    <script th:if="${session.get('user') == null}">
+        alert('잘못된 접근입니다.');
+        window.close();
+    </script>
+</head>
+<body>
+    <main class="review-main">
+        <section class="review-container">
+            <form class="review-form">
+                <input th:value="${goodsOrderIndex}" name="goodsOrderIndex" type="hidden">
+                <label>
+                    <span>평점</span>
+                    <select autofocus name="rating" id="rating">
+                        <option value="1">☆</option>
+                        <option value="2">★</option>
+                        <option value="3">★☆</option>
+                        <option value="4">★★</option>
+                        <option value="5">★★☆</option>
+                        <option value="6">★★★</option>
+                        <option value="7">★★★☆</option>
+                        <option value="8">★★★★</option>
+                        <option value="9">★★★★☆</option>
+                        <option selected value="10">★★★★★</option>
+                    </select>
+                </label>
+                <label>
+                    <span>내용</span>
+                    <textarea required name="content" maxlength="1000" minlength="1" class="review-content" id="" cols="30" rows="10" placeholder="최대 1자 이상 1000자 이하"></textarea>
+                </label>
+                <div class="goods-images">
+<!--                    <div class="image-box">-->
+<!--                        <label class="show-image">-->
+<!--                            <img class="file-image" src="/assets/images/no-image.png" alt="">-->
+<!--                            <input hidden class="goods-image-file" accept=".jpg, .jpeg, .png" type="file">-->
+<!--                        </label>-->
+<!--                        <label class="image-delete-button"><input value="X" type="button"></label>-->
+<!--                    </div>-->
+                </div>
+                <input value="이미지 추가(최대 5개)" class="add-image-button" type="button">
+                <input value="작성완료" type="submit">
+            </form>
+        </section>
+    </main>
+</body>
+</html>

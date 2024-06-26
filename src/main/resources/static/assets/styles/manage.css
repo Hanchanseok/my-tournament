@@ -684,4 +684,142 @@ main {
   font-weight: 400;
 }
 
+.review-main {
+  margin: 1rem;
+  border: 4px solid #747474;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.review-main > .review-container {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.review-main > .review-container > .review-form {
+  align-items: stretch;
+  display: flex;
+  flex-direction: column;
+  justify-content: stretch;
+  gap: 0.25rem;
+}
+.review-main > .review-container > .review-form > label {
+  align-items: stretch;
+  display: flex;
+  flex-direction: column;
+  justify-content: stretch;
+}
+.review-main > .review-container > .review-form > label > span {
+  color: #747474;
+  font-size: 0.75rem;
+}
+.review-main > .review-container > .review-form > label > textarea {
+  outline: none;
+  border: 1px solid #e0e0e0;
+  resize: none;
+  font-family: inherit;
+}
+.review-main > .review-container > .review-form > label > select {
+  outline: none;
+  border: 1px solid #e0e0e0;
+  height: 2rem;
+  font-size: 1.125rem;
+  color: #e74c3c;
+  font-family: inherit;
+}
+.review-main > .review-container > .review-form > label:focus-within > span {
+  color: #009fff;
+}
+.review-main > .review-container > .review-form > label:focus-within > textarea {
+  border: 1px solid #009fff;
+}
+.review-main > .review-container > .review-form > label:focus-within > select {
+  border: 1px solid #009fff;
+}
+.review-main > .review-container > .review-form > .goods-images {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  gap: 1.1625rem;
+  margin: 1rem 0;
+  width: 25rem;
+}
+.review-main > .review-container > .review-form > .goods-images > .image-box {
+  align-items: stretch;
+  display: flex;
+  flex-direction: column;
+  justify-content: stretch;
+  width: 65px;
+  height: 65px;
+  position: relative;
+}
+.review-main > .review-container > .review-form > .goods-images > .image-box:hover > .image-delete-button > input {
+  opacity: 0.85;
+}
+.review-main > .review-container > .review-form > .goods-images > .image-box > .image-delete-button > input {
+  position: absolute;
+  top: 0;
+  right: 0;
+  cursor: pointer;
+  border: none;
+  opacity: 0.1;
+  color: #eeeeee;
+  background-color: #414141;
+}
+.review-main > .review-container > .review-form > .goods-images > .image-box > .image-delete-button > input:active {
+  background-color: #212121;
+}
+.review-main > .review-container > .review-form > .goods-images > .image-box > .show-image {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border: 1px solid #adadad;
+  cursor: pointer;
+  overflow: hidden;
+}
+.review-main > .review-container > .review-form > .goods-images > .image-box > .show-image > img {
+  width: 65px;
+  height: 65px;
+}
+.review-main > .review-container > .review-form > .goods-images > .image-box > .thumbnail-select-box {
+  text-align: center;
+  cursor: pointer;
+  border: none;
+  font-size: 0.75rem;
+  color: #747474;
+}
+.review-main > .review-container > .review-form > input[type=button], .review-main > .review-container > .review-form input[type=submit] {
+  font-family: inherit;
+  border: none;
+  cursor: pointer;
+  font-weight: 300;
+  color: #eeeeee;
+}
+.review-main > .review-container > .review-form > input[type=button] {
+  font-size: 1.1rem;
+  background-color: #757575;
+  padding: 0.25rem 0;
+}
+.review-main > .review-container > .review-form > input[type=button]:hover {
+  background-color: #5c5c5c;
+}
+.review-main > .review-container > .review-form > input[type=button]:active {
+  background-color: #424242;
+}
+.review-main > .review-container > .review-form > input[type=submit] {
+  font-size: 1.2rem;
+  background-color: #e74c3c;
+  padding: 0.5rem 0;
+}
+.review-main > .review-container > .review-form > input[type=submit]:hover {
+  background-color: #d62c1a;
+}
+.review-main > .review-container > .review-form > input[type=submit]:active {
+  background-color: #a82315;
+}
+
 /*# sourceMappingURL=manage.css.map */

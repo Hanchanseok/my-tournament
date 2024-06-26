@@ -46,9 +46,12 @@
                     <a th:if="${goodsOrder.isPaid() == false}" th:href="@{/store/purchaseOrder (index=${goodsOrder.getIndex()})}">보류</a>
                     <span style="color: #009fff" th:if="${goodsOrder.isPaid() == true}">구매 확정</span>
                 </td>
-                <td>
-                    <a th:if="${goodsOrder.isDelivered() == false}" href="#">리뷰하기</a>
+                <td th:if="${goodsOrder.isPaid() == true}">
+                    <a onclick="window.open(this.href, '_blank', 'width=600, height=600'); return false;" th:if="${goodsOrder.isDelivered() == false}" th:href="@{/myPage/myGoodsOrder/goodsReview (index=${goodsOrder.getIndex()})}">리뷰하기</a>
                     <a th:if="${goodsOrder.isDelivered() == true}" style="color: #009fff" href="#">배송 완료</a>
+                </td>
+                <td th:if="${goodsOrder.isPaid() == false}">
+
                 </td>
             </tr>
             </tbody>

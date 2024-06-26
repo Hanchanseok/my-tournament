@@ -4,12 +4,8 @@ import dev.hcs.mytournament.dtos.GoodsOrderDto;
 import dev.hcs.mytournament.dtos.GoodsWishlistDto;
 import dev.hcs.mytournament.dtos.SearchDto;
 import dev.hcs.mytournament.dtos.TournamentCommentDto;
-import dev.hcs.mytournament.entities.GoodsWishlistEntity;
-import dev.hcs.mytournament.entities.TournamentEntity;
-import dev.hcs.mytournament.entities.UserEntity;
-import dev.hcs.mytournament.mappers.MyPageMapper;
-import dev.hcs.mytournament.mappers.TournamentMapper;
-import dev.hcs.mytournament.mappers.UserMapper;
+import dev.hcs.mytournament.entities.*;
+import dev.hcs.mytournament.mappers.*;
 import dev.hcs.mytournament.regexes.UserRegex;
 import dev.hcs.mytournament.results.CommonResult;
 import dev.hcs.mytournament.results.Result;
@@ -19,18 +15,27 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
+import java.time.LocalDateTime;
 
 @Service
 public class MyPageService {
     private final UserMapper userMapper;
     private final TournamentMapper tournamentMapper;
     private final MyPageMapper myPageMapper;
+    private final AdminMapper adminMapper;
+    private final StoreMapper storeMapper;
 
     @Autowired
-    public MyPageService(UserMapper userMapper, TournamentMapper tournamentMapper, MyPageMapper myPageMapper) {
+    public MyPageService(UserMapper userMapper, TournamentMapper tournamentMapper, MyPageMapper myPageMapper, StoreService storeService, AdminMapper adminMapper, StoreMapper storeMapper) {
         this.userMapper = userMapper;
         this.tournamentMapper = tournamentMapper;
         this.myPageMapper = myPageMapper;
+        this.adminMapper = adminMapper;
+        this.storeMapper = storeMapper;
     }
 
     // 이메일로 유저 불러오기
@@ -173,5 +178,42 @@ public class MyPageService {
         search.setUserEmail(user.getEmail());
         search.setTotalCount(this.myPageMapper.countGoodsOrderByEmail(search.getUserEmail()));
         return this.myPageMapper.selectGoodsOrderByEmail(search);
+    }
+
+    // 굿즈 리뷰 작성
+    @Transactional
+    public Result writeReview(GoodsReviewEntity goodsReview, MultipartFile[] files, UserEntity user) throws IOException {
+        if (user == null) { // 비로그인일 경우 작성 불가
+            return CommonResult.FAILURE;
+        }
+        GoodsOrderEntity dbGoodsOrder = this.adminMapper.selectGoodsOrderByIndex(goodsReview.getGoodsOrderIndex());
+        if (dbGoodsOrder == null || !dbGoodsOrder.isPaid()) {
+            return CommonResult.FAILURE;    // 해당 주문이 없거나 비구매라면 실패
+        }
+        goodsReview.setGoodsIndex(dbGoodsOrder.getGoodsIndex());
+        goodsReview.setUserEmail(user.getEmail());
+        goodsReview.setCreatedAt(LocalDateTime.now());
+        goodsReview.setModifiedAt(null);
+        goodsReview.setReported(false);
+        this.myPageMapper.insertGoodsReview(goodsReview);   // 리뷰 작성
+
+        // 만약 등록한 이미지가 있다면 이미지를 DB에 추가
+        if (files != null) {
+            GoodsReviewImageEntity goodsReviewImage = new GoodsReviewImageEntity();
+            for (int i = 0; i < files.length; i++) {
+                MultipartFile file = files[i];
+                goodsReviewImage.setGoodsReviewIndex(goodsReview.getIndex());
+                goodsReviewImage.setImage(file.getBytes());
+                goodsReviewImage.setImageFileName(file.getOriginalFilename());
+                goodsReviewImage.setImageContentType(file.getContentType());
+                goodsReviewImage.setCreatedAt(LocalDateTime.now());
+                this.myPageMapper.insertGoodsReviewImage(goodsReviewImage);
+            }
+        }
+
+        dbGoodsOrder.setDelivered(true);    // 리뷰 작성하면 해당 주문 배송 완료
+        return this.storeMapper.updateGoodsOrder(dbGoodsOrder) > 0
+                ? CommonResult.SUCCESS
+                : CommonResult.FAILURE;
     }
 }

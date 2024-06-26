@@ -1,6 +1,8 @@
 package dev.hcs.mytournament.controllers;
 
 import dev.hcs.mytournament.dtos.SearchDto;
+import dev.hcs.mytournament.entities.GoodsReviewEntity;
+import dev.hcs.mytournament.entities.GoodsReviewImageEntity;
 import dev.hcs.mytournament.entities.UserEntity;
 import dev.hcs.mytournament.results.CommonResult;
 import dev.hcs.mytournament.results.Result;
@@ -15,7 +17,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+
+import java.io.IOException;
 
 @Controller
 @RequestMapping(value = "/myPage")
@@ -208,5 +213,29 @@ public class MyPageController {
         modelAndView.addObject("paging", search);
         modelAndView.setViewName("/myPage/myGoodsOrder");
         return modelAndView;
+    }
+
+    // 굿즈 리뷰 페이지로
+    @RequestMapping(value = "/myGoodsOrder/goodsReview", method = RequestMethod.GET, produces = MediaType.TEXT_HTML_VALUE)
+    public ModelAndView getGoodsReview(@RequestParam("index") int index) {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("goodsOrderIndex", index);
+        modelAndView.setViewName("/myPage/goodsReview");
+        return modelAndView;
+    }
+
+    // 굿즈 리뷰 작성
+    @RequestMapping(value = "/myGoodsOrder/goodsReview", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public String postGoodsReview(
+            GoodsReviewEntity goodsReview,
+            @RequestParam(value = "files", required = false)MultipartFile[] files,
+            HttpSession session
+    ) throws IOException {
+        UserEntity user = (UserEntity) session.getAttribute("user");
+        Result result = this.myPageService.writeReview(goodsReview, files, user);
+        JSONObject responseObject = new JSONObject();
+        responseObject.put("result", result.name().toLowerCase());
+        return responseObject.toString();
     }
 }

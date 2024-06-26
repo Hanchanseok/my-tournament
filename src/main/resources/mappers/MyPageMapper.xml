@@ -106,4 +106,18 @@
         WHERE `user_email` = #{userEmail}
         ORDER BY `order_at` DESC
     </select>
+
+    <insert id="insertGoodsReview"
+            useGeneratedKeys="true"
+            keyColumn="index"
+            keyProperty="index"
+            parameterType="dev.hcs.mytournament.entities.GoodsReviewEntity">
+        INSERT INTO `worldcup`.`goods_review` (`goods_index`, `goods_order_index`, `user_email`, `content`, `rating`, `created_at`, `modified_at`, `is_reported`)
+        VALUES (#{goodsIndex}, #{goodsOrderIndex}, #{userEmail}, #{content}, #{rating}, #{createdAt}, #{modifiedAt}, #{isReported})
+    </insert>
+
+    <insert id="insertGoodsReviewImage" parameterType="dev.hcs.mytournament.entities.GoodsReviewImageEntity">
+        INSERT INTO `worldcup`.`goods_review_image` (`goods_review_index`, `image`, `image_file_name`, `image_content_type`, `created_at`)
+        VALUES (#{goodsReviewIndex}, #{image}, #{imageFileName}, #{imageContentType}, #{createdAt})
+    </insert>
 </mapper>

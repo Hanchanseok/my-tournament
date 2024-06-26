@@ -9,6 +9,10 @@
     <link rel="stylesheet" type="text/css" th:href="@{/assets/styles/manage.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/assets/styles/common.css}">
     <script defer type="text/javascript" th:src="@{/assets/scripts/modifyNickname.js}"></script>
+    <script th:if="${session.get('user') == null}">
+        alert('잘못된 접근입니다.');
+        window.close();
+    </script>
 </head>
 <body>
     <main class="update-my-info-main">

@@ -8,6 +8,10 @@
     <title>업데이트 종류</title>
     <link rel="stylesheet" type="text/css" th:href="@{/assets/styles/manage.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/assets/styles/common.css}">
+    <script th:if="${session.get('user') == null}">
+        alert('잘못된 접근입니다.');
+        window.close();
+    </script>
 </head>
 <body>
     <main class="update-option-main">
