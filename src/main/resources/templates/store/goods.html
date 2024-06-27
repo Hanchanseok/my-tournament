@@ -50,6 +50,11 @@
                         </tbody>
                     </table>
                 </div>
+                <div class="goods-rating-box">
+                    <span><i class="fa-solid fa-star"></i></span>
+                    <span>평균 평점 : </span>
+                    <span th:if="${average != null}" th:text="${average}"></span>
+                </div>
             </div>
         </section>
         <section class="goods-order">

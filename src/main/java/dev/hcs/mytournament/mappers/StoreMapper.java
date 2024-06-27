@@ -49,4 +49,8 @@ public interface StoreMapper {
                        @Param("goodsIndex") int goodsIndex);
 
     GoodsOrderDto[] getGoodsOrderByEmail(@Param("userEmail") String userEmail);
+
+    double selectGoodsRating(@Param("totalRating") int totalRating, @Param("index") int index);
+
+    int selectGoodsTotalRating(@Param("index") int index);
 }

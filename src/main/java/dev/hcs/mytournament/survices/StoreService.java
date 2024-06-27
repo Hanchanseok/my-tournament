@@ -219,4 +219,10 @@ public class StoreService {
         }
         return this.storeMapper.getGoodsOrderByEmail(user.getEmail());
     }
+
+    // 굿즈 평균 평점 구하기
+    public double getAverage(int index) {
+        int totalRating = this.storeMapper.selectGoodsTotalRating(index);
+        return this.storeMapper.selectGoodsRating(totalRating, index);
+    }
 }

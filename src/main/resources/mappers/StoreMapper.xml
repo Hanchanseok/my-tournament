@@ -239,4 +239,17 @@
                  LEFT JOIN `worldcup`.`goods` AS `g` on `g`.`index` = `order`.`goods_index`
         WHERE `order`.`user_email` = #{userEmail} AND `order`.`is_paid` = false
     </select>
+
+    <select id="selectGoodsRating" resultType="double">
+        SELECT IFNULL(ROUND(#{totalRating} / COUNT(0), 1), 0)
+        FROM `worldcup`.`goods` AS `g`
+        LEFT JOIN `worldcup`.`goods_review` AS `review` on `g`.`index` = `review`.`goods_index`
+        WHERE `g`.`index` = #{index}
+    </select>
+
+    <select id="selectGoodsTotalRating" resultType="int">
+        SELECT IFNULL(SUM(`rating`), 0)
+        FROM `worldcup`.`goods_review`
+        WHERE `goods_index` = #{index}
+    </select>
 </mapper>

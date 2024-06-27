@@ -59,10 +59,12 @@ public class StoreController {
         GoodsEntity goods = this.storeService.getGoodsByIndex(index);
         GoodsImageEntity[] goodsImages = this.storeService.getGoodsImageByGoodsIndex(index);
         UserAddressEntity[] userAddress = this.storeService.selectUserAddresses(user);
+        double average = this.storeService.getAverage(index);
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("goods", goods);
         modelAndView.addObject("goodsImages", goodsImages);
         modelAndView.addObject("userAddress", userAddress);
+        modelAndView.addObject("average", average);
         modelAndView.setViewName("/store/goods");
         return modelAndView;
     }
