@@ -1,9 +1,6 @@
 package dev.hcs.mytournament.mappers;
 
-import dev.hcs.mytournament.dtos.GoodsOrderDto;
-import dev.hcs.mytournament.dtos.GoodsWishlistDto;
-import dev.hcs.mytournament.dtos.SearchDto;
-import dev.hcs.mytournament.dtos.TournamentCommentDto;
+import dev.hcs.mytournament.dtos.*;
 import dev.hcs.mytournament.entities.GoodsReviewEntity;
 import dev.hcs.mytournament.entities.GoodsReviewImageEntity;
 import dev.hcs.mytournament.entities.GoodsWishlistEntity;
@@ -35,4 +32,6 @@ public interface MyPageMapper {
     int insertGoodsReview(GoodsReviewEntity goodsReview);
 
     int insertGoodsReviewImage(GoodsReviewImageEntity goodsReviewImage);
+
+    GoodsReviewDto selectGoodsReviewByGoodsOrderIndex(@Param("index")int index);
 }

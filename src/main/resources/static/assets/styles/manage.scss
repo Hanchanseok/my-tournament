@@ -288,6 +288,33 @@
     flex-direction: column;
     justify-content: flex-start;
 
+    > .delete-my-account-form {
+      align-items: stretch;
+      display: flex;
+      flex-direction: column;
+      justify-content: stretch;
+      gap: 0.5rem;
+
+      > input[type='submit'] {
+        font-family: inherit;
+        padding: 0.3rem 0;
+        font-size: 1.1rem;
+        background-color: #e74c3c;
+        border: none;
+        cursor: pointer;
+        color: #eeeeee;
+        border-radius: 0.25rem;
+
+        &:hover {
+          background-color: darken(#e74c3c, 10);
+        }
+
+        &:active {
+          background-color: darken(#e74c3c, 20);
+        }
+      }
+    }
+
     > .update-my-info-form {
       align-items: stretch;
       display: flex;
@@ -606,6 +633,45 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
+
+    > .review-table {
+      margin: 2rem 0;
+      text-align: center;
+      width: 100%;
+      border: 1px solid #e0e0e0;
+
+      > thead {
+        background-color: #e0e0e0;
+
+        > tr {
+          width: 100rem;
+
+          > .star {
+            color: #e74c3c;
+          }
+
+          > td {
+            padding: 0 2rem;
+          }
+
+          > th {
+            padding: 0 1rem;
+          }
+        }
+      }
+
+      > tbody {
+        text-align: center;
+
+        > tr > th {
+          background-color: #e0e0e0;
+        }
+
+        > tr > td > img {
+          width: 12rem;
+        }
+      }
+    }
 
     > .review-form {
       align-items: stretch;

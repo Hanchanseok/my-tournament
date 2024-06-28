@@ -27,7 +27,7 @@
             <th>굿즈 이름</th>
             <th>상세 정보</th>
             <th>구매</th>
-            <th>배송</th>
+            <th>리뷰</th>
             <th>주문 취소</th>
         </tr>
         </thead>
@@ -42,8 +42,8 @@
                 <span style="color: #009fff" th:if="${goodsOrder.isPaid() == true}">구매 확정</span>
             </td>
             <td>
-                <span style="color: red" th:if="${goodsOrder.isDelivered() == false}">배송 중</span>
-                <a th:if="${goodsOrder.isDelivered() == true}" style="color: #009fff" href="#">배송 완료</a>
+                <span style="color: red" th:if="${goodsOrder.isDelivered() == false}">보류</span>
+                <span th:if="${goodsOrder.isDelivered() == true}" style="color: #009fff">작성 됨</span>
             </td>
             <td>
                 <input th:onclick=" 'cancelOrder(' + ${goodsOrder.getIndex()} + ');' " class="cancel-order" value="취소" type="button">

@@ -1,6 +1,7 @@
 package dev.hcs.mytournament.mappers;
 
 import dev.hcs.mytournament.dtos.GoodsOrderDto;
+import dev.hcs.mytournament.dtos.GoodsReviewDto;
 import dev.hcs.mytournament.dtos.SearchDto;
 import dev.hcs.mytournament.entities.*;
 import org.apache.ibatis.annotations.Mapper;
@@ -53,4 +54,14 @@ public interface StoreMapper {
     double selectGoodsRating(@Param("totalRating") int totalRating, @Param("index") int index);
 
     int selectGoodsTotalRating(@Param("index") int index);
+
+    GoodsReviewDto[] selectGoodsReviews(SearchDto search);
+
+    int countGoodsReviews(@Param("index")int index);
+
+    GoodsReviewImageEntity selectGoodsReviewImageByIndex(@Param("index")int index);
+
+    GoodsReviewDto selectGoodsReviewByIndex(@Param("index") int index);
+
+    GoodsReviewImageEntity[] selectGoodsReviewImageByReview(@Param("index") int index);
 }

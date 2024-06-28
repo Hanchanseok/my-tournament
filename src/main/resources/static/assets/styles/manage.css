@@ -432,6 +432,29 @@ main {
   flex-direction: column;
   justify-content: flex-start;
 }
+.update-my-info-main > .update-my-info-container > .delete-my-account-form {
+  align-items: stretch;
+  display: flex;
+  flex-direction: column;
+  justify-content: stretch;
+  gap: 0.5rem;
+}
+.update-my-info-main > .update-my-info-container > .delete-my-account-form > input[type=submit] {
+  font-family: inherit;
+  padding: 0.3rem 0;
+  font-size: 1.1rem;
+  background-color: #e74c3c;
+  border: none;
+  cursor: pointer;
+  color: #eeeeee;
+  border-radius: 0.25rem;
+}
+.update-my-info-main > .update-my-info-container > .delete-my-account-form > input[type=submit]:hover {
+  background-color: #d62c1a;
+}
+.update-my-info-main > .update-my-info-container > .delete-my-account-form > input[type=submit]:active {
+  background-color: #a82315;
+}
 .update-my-info-main > .update-my-info-container > .update-my-info-form {
   align-items: stretch;
   display: flex;
@@ -697,6 +720,36 @@ main {
   display: flex;
   flex-direction: column;
   justify-content: center;
+}
+.review-main > .review-container > .review-table {
+  margin: 2rem 0;
+  text-align: center;
+  width: 100%;
+  border: 1px solid #e0e0e0;
+}
+.review-main > .review-container > .review-table > thead {
+  background-color: #e0e0e0;
+}
+.review-main > .review-container > .review-table > thead > tr {
+  width: 100rem;
+}
+.review-main > .review-container > .review-table > thead > tr > .star {
+  color: #e74c3c;
+}
+.review-main > .review-container > .review-table > thead > tr > td {
+  padding: 0 2rem;
+}
+.review-main > .review-container > .review-table > thead > tr > th {
+  padding: 0 1rem;
+}
+.review-main > .review-container > .review-table > tbody {
+  text-align: center;
+}
+.review-main > .review-container > .review-table > tbody > tr > th {
+  background-color: #e0e0e0;
+}
+.review-main > .review-container > .review-table > tbody > tr > td > img {
+  width: 12rem;
 }
 .review-main > .review-container > .review-form {
   align-items: stretch;

@@ -10,6 +10,7 @@ public class SearchDto {
     private String userEmail;
     private int tournamentIndex;
     private String title;
+    private int goodsIndex;
 
     private int countPerPage = 12;   // 한 페이지당 보여줄 게시글 개수
     private int requestPage;        // 니가 요청한 페이지 번호

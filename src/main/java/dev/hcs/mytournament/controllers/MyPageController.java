@@ -1,5 +1,6 @@
 package dev.hcs.mytournament.controllers;
 
+import dev.hcs.mytournament.dtos.GoodsReviewDto;
 import dev.hcs.mytournament.dtos.SearchDto;
 import dev.hcs.mytournament.entities.GoodsReviewEntity;
 import dev.hcs.mytournament.entities.GoodsReviewImageEntity;
@@ -168,6 +169,26 @@ public class MyPageController {
         return responseObject.toString();
     }
 
+    // 회원 탈퇴 페이지
+    @RequestMapping(value = "/deleteMyAccount", method = RequestMethod.GET, produces = MediaType.TEXT_HTML_VALUE)
+    public ModelAndView getDeleteMyAccount() {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("/myPage/deleteMyAccount");
+        return modelAndView;
+    }
+
+    // 회원 탈퇴
+    @RequestMapping(value = "/deleteMyAccount", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public String deleteMyAccount(HttpSession session) {
+        UserEntity user = (UserEntity) session.getAttribute("user");
+        Result result = this.myPageService.deleteMyAccount(user);
+        session.setAttribute("user", null);
+        JSONObject responseObject = new JSONObject();
+        responseObject.put("result", result.name().toLowerCase());
+        return responseObject.toString();
+    }
+
     // 굿즈 찜 목록 페이지로
     @RequestMapping(value = "/myWishlist", method = RequestMethod.GET, produces = MediaType.TEXT_HTML_VALUE)
     public ModelAndView getMyWishlist(
@@ -237,5 +258,17 @@ public class MyPageController {
         JSONObject responseObject = new JSONObject();
         responseObject.put("result", result.name().toLowerCase());
         return responseObject.toString();
+    }
+
+    // 내가 쓴 굿즈 리뷰 페이지로
+    @RequestMapping(value = "/myGoodsOrder/myGoodsReview", method = RequestMethod.GET, produces = MediaType.TEXT_HTML_VALUE)
+    public ModelAndView getMyGoodsReview(@RequestParam("index") int index) {
+        GoodsReviewDto goodsReview = this.myPageService.getGoodsReviewByGoodsOrderIndex(index);
+        GoodsReviewImageEntity[] goodsReviewImages = this.myPageService.getGoodsReviewImages(goodsReview.getIndex());
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("goodsReview", goodsReview);
+        modelAndView.addObject("goodsReviewImages", goodsReviewImages);
+        modelAndView.setViewName("/myPage/myGoodsReview");
+        return modelAndView;
     }
 }

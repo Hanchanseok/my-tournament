@@ -107,14 +107,17 @@
             </form>
         </section>
         <section class="goods-comment">
-            <div class="goods-comment-box">
+            <div th:each="goodsReview : ${goodsReviews}" class="goods-comment-box">
                 <div class="comment-title">
                     <div>
-                        <span>유저1</span>
+                        <span th:text="${goodsReview.getNickname()}">유저1</span>
+                    </div>
+                    <div>
+                        <span th:text="${#temporals.format(goodsReview.getCreatedAt(), 'yyyy-MM-dd HH:mm')}"></span>
                     </div>
                     <div>
                         <span>평점</span>
-                        <span class="star">★★☆</span>
+                        <span class="star" th:text="${goodsReview.getRatingStar()}">★★☆</span>
                     </div>
                     <div class="spring"></div>
                     <div>
@@ -122,33 +125,37 @@
                     </div>
                 </div>
                 <div class="comment-content">
-                    <span>내용ㅁㅇㄴㄹㄴㅇㄻㄴㄷㄻㄴㄷㄹ내용ㅁㅇㄴㄹㄴㅇㄻㄴㄷㄻㄴㄷㄹ내용ㅁㅇㄴㄹㄴㅇㄻㄴㄷㄻㄴㄷㄹ내용ㅁㅇㄴㄹㄴㅇㄻㄴㄷㄻㄴㄷㄹ내용ㅁㅇㄴㄹㄴㅇㄻㄴㄷㄻㄴㄷㄹ내용ㅁㅇㄴㄹㄴㅇㄻㄴㄷㄻㄴㄷㄹ내용ㅁㅇㄴㄹㄴㅇㄻㄴㄷㄻㄴㄷㄹ내용ㅁㅇㄴㄹㄴㅇㄻㄴㄷㄻㄴㄷㄹ내용ㅁㅇㄴㄹㄴㅇㄻㄴㄷㄻㄴㄷㄹ내용ㅁㅇㄴㄹㄴㅇㄻㄴㄷㄻㄴㄷㄹ</span>
-                    <img class="comment-image" src="/assets/images/kakao_login_button.png" alt="">
-                </div>
-            </div>
-            <div class="goods-comment-box">
-                <div class="comment-title">
-                    <div>
-                        <span>유저1</span>
+                    <span th:text="${goodsReview.getContent()}"></span>
+                    <div class="comment-image" th:if="${goodsReview.getReviewImageIndex() != 0}">
+                        <span>전체 이미지</span>
+                        <img class="review-image" th:src="@{/store/reviewImage (index=${goodsReview.getReviewImageIndex()})}" alt="">
+                        <input th:value="${goodsReview.getIndex()}" type="hidden">
                     </div>
-                    <div>
-                        <span>평점</span>
-                        <span class="star">★★☆</span>
-                    </div>
-                    <div class="spring"></div>
-                    <div>
-                        <input class="report-comment-button" value="신고" type="button">
-                    </div>
-                </div>
-                <div class="comment-content">
-                    <span>내용ㅁㅇㄴㄹㄴㅇㄻㄴㄷㄻㄴㄷㄹ내용ㅁㅇㄴㄹㄴㅇㄻㄴㄷㄻㄴㄷㄹ내용ㅁㅇㄴㄹㄴㅇㄻㄴㄷㄻㄴㄷㄹ내용ㅁㅇㄴㄹㄴㅇㄻㄴㄷㄻㄴㄷㄹ내용ㅁㅇㄴㄹㄴㅇㄻㄴㄷㄻㄴㄷㄹ내용ㅁㅇㄴㄹㄴㅇㄻㄴㄷㄻㄴㄷㄹ내용ㅁㅇㄴㄹㄴㅇㄻㄴㄷㄻㄴㄷㄹ내용ㅁㅇㄴㄹㄴㅇㄻㄴㄷㄻㄴㄷㄹ내용ㅁㅇㄴㄹㄴㅇㄻㄴㄷㄻㄴㄷㄹ내용ㅁㅇㄴㄹㄴㅇㄻㄴㄷㄻㄴㄷㄹ</span>
                 </div>
             </div>
         </section>
-
+    </section>
+    <input class="currentPageHidden" th:value="${paging.getRequestPage()}" type="hidden">
+    <section th:if="${paging.getTotalPage() > 1}" class="paging-container">
+        <ul th:if="${paging.isShowPrev()}" class="front-back-ul">
+            <li><a th:href="@{/store/goods (index=${goods.getIndex()}, page=${paging.getBeginPage() - 1})}"><i class="fa-solid fa-arrow-left"></i></a></li>
+        </ul>
+        <ul th:each="num : ${#numbers.sequence(paging.getBeginPage(), paging.getEndPage())}" class="paging-ul">
+            <li><a th:class="${num}" th:href="@{/store/goods (index=${goods.getIndex()}, page=${num})}" th:text="${num}">1</a></li>
+        </ul>
+        <ul th:if="${paging.isShowNext()}" class="front-back-ul">
+            <li><a th:href="@{/store/goods (index=${goods.getIndex()}, page=${paging.getEndPage() + 1})}"><i class="fa-solid fa-arrow-right"></i></a></li>
+        </ul>
     </section>
     <th:block th:replace="~{layouts/shoppingCart.html :: shopping-cart}"></th:block>
 </main>
 <th:block th:replace="~{layouts/footer.html :: footer}"></th:block>
 </body>
 </html>
+<script th:if="${paging.getTotalPage() > 1}">
+    const currentPageHidden = document.querySelector('.currentPageHidden').value;
+    const currentPageATag = document.getElementsByClassName(currentPageHidden);
+    console.log(currentPageATag[0]);
+    currentPageATag[0].style.backgroundColor='#e74c3c';
+    currentPageATag[0].style.color='white';
+</script>

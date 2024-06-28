@@ -120,4 +120,21 @@
         INSERT INTO `worldcup`.`goods_review_image` (`goods_review_index`, `image`, `image_file_name`, `image_content_type`, `created_at`)
         VALUES (#{goodsReviewIndex}, #{image}, #{imageFileName}, #{imageContentType}, #{createdAt})
     </insert>
+
+    <select id="selectGoodsReviewByGoodsOrderIndex" parameterType="int" resultType="dev.hcs.mytournament.dtos.GoodsReviewDto">
+        SELECT `review`.`index`                     AS `index`,
+               `review`.`goods_index`                AS `goodsIndex`,
+               `review`.`goods_order_index`          AS `goodsOrderIndex`,
+               `review`.`user_email`                 AS `userEmail`,
+               `user`.`nickname`                    AS `nickname`,
+               `review`.`content`                    AS `content`,
+               CONCAT(REPEAT('★', `review`.`rating`/2-1), REPEAT('☆', `review`.`rating`%2))                     AS `ratingStar`,
+               `review`.`created_at`                 AS `createdAt`,
+               `review`.`modified_at`                AS `modifiedAt`,
+               `review`.`is_reported`                AS `isReported`
+        FROM `worldcup`.`goods_review` AS `review`
+                 LEFT JOIN `worldcup`.`users` AS `user` on `review`.`user_email` = `user`.`email`
+        WHERE `review`.`goods_order_index` = #{index}
+        LIMIT 1;
+    </select>
 </mapper>

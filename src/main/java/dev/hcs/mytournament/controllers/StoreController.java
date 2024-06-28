@@ -1,6 +1,7 @@
 package dev.hcs.mytournament.controllers;
 
 import dev.hcs.mytournament.dtos.GoodsOrderDto;
+import dev.hcs.mytournament.dtos.GoodsReviewDto;
 import dev.hcs.mytournament.dtos.SearchDto;
 import dev.hcs.mytournament.entities.*;
 import dev.hcs.mytournament.results.Result;
@@ -53,18 +54,25 @@ public class StoreController {
     @RequestMapping(value = "/goods", method = RequestMethod.GET, produces = MediaType.TEXT_HTML_VALUE)
     public ModelAndView getGoods(
             @RequestParam(value = "index", required = false, defaultValue = "1") int index,
-            HttpSession session
+            @RequestParam(value = "page", required = false, defaultValue = "1") int page,
+            HttpSession session,
+            SearchDto search
     ) {
+        search.setRequestPage(page);
+        search.setCountPerPage(5);
         UserEntity user = (UserEntity) session.getAttribute("user");
         GoodsEntity goods = this.storeService.getGoodsByIndex(index);
         GoodsImageEntity[] goodsImages = this.storeService.getGoodsImageByGoodsIndex(index);
         UserAddressEntity[] userAddress = this.storeService.selectUserAddresses(user);
+        GoodsReviewDto[] goodsReviews = this.storeService.getGoodsReviewDto(search, index);
         double average = this.storeService.getAverage(index);
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("goods", goods);
         modelAndView.addObject("goodsImages", goodsImages);
         modelAndView.addObject("userAddress", userAddress);
         modelAndView.addObject("average", average);
+        modelAndView.addObject("goodsReviews", goodsReviews);
+        modelAndView.addObject("paging", search);
         modelAndView.setViewName("/store/goods");
         return modelAndView;
     }
@@ -203,6 +211,34 @@ public class StoreController {
         GoodsOrderDto[] goodsOrder = this.storeService.getOrderList(user);
         JSONObject responseObject = new JSONObject();
         responseObject.put("goodsOrder", goodsOrder);
+        return responseObject.toString();
+    }
+
+    // 리뷰 이미지
+    @RequestMapping(value = "/reviewImage", method = RequestMethod.GET)
+    public ResponseEntity<byte[]> getReviewImage(@RequestParam("index") int index) {
+        GoodsReviewImageEntity reviewImage = this.storeService.getReviewImageByIndex(index);
+        if (reviewImage == null) {
+            return ResponseEntity.notFound().build();   // Not Found (404)
+        }
+        return ResponseEntity.ok()  // OK (200)
+                .contentType(MediaType.parseMediaType(reviewImage.getImageContentType()))
+                .contentLength(reviewImage.getImage().length)
+                .body(reviewImage.getImage());
+    }
+
+    // 해당 인덱스의 리뷰와 이미지들 불러옴
+    @RequestMapping(value = "/reviewDetail", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public String getReviewDetail(@RequestParam("index") int index) {
+        GoodsReviewDto goodsReview = this.storeService.getGoodsReviewByIndex(index);
+        GoodsReviewImageEntity[] goodsReviewImages = this.storeService.getGoodsReviewImage(index);
+        JSONObject responseObject = new JSONObject();
+        responseObject.put("nickname", goodsReview.getNickname());
+        responseObject.put("content", goodsReview.getContent());
+        responseObject.put("createdAt", goodsReview.getCreatedAt());
+        responseObject.put("ratingStar", goodsReview.getRatingStar());
+        responseObject.put("goodsReviewImages", goodsReviewImages);
         return responseObject.toString();
     }
 }

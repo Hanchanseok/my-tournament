@@ -252,4 +252,67 @@
         FROM `worldcup`.`goods_review`
         WHERE `goods_index` = #{index}
     </select>
+
+    <select id="selectGoodsReviews" parameterType="dev.hcs.mytournament.dtos.SearchDto" resultType="dev.hcs.mytournament.dtos.GoodsReviewDto">
+        SELECT `review`.`index`                     AS `index`,
+               `review`.`goods_index`                AS `goodsIndex`,
+               `review`.`goods_order_index`          AS `goodsOrderIndex`,
+               `review`.`user_email`                 AS `userEmail`,
+               `user`.`nickname`                    AS `nickname`,
+               `review`.`content`                    AS `content`,
+               CONCAT(REPEAT('★', `review`.`rating`/2-1), REPEAT('☆', `review`.`rating`%2))                     AS `ratingStar`,
+               `review`.`created_at`                 AS `createdAt`,
+               `review`.`modified_at`                AS `modifiedAt`,
+               `review`.`is_reported`                AS `isReported`,
+               `image`.`index`                       AS `reviewImageIndex`
+        FROM `worldcup`.`goods_review` AS `review`
+                 LEFT JOIN `worldcup`.`goods_review_image` AS `image` on `review`.`index` = `image`.goods_review_index
+                 LEFT JOIN `worldcup`.`users` AS `user` on `review`.`user_email` = `user`.`email`
+        WHERE `review`.`goods_index` = #{goodsIndex}
+        GROUP BY `review`.`index`
+        ORDER BY `review`.`created_at` DESC
+        LIMIT #{countPerPage} OFFSET #{offset}
+    </select>
+
+    <select id="countGoodsReviews" parameterType="int" resultType="int">
+        SELECT COUNT(0)
+        FROM `worldcup`.`goods_review`
+        WHERE `goods_index` = #{index}
+    </select>
+
+    <select id="selectGoodsReviewImageByIndex" parameterType="int" resultType="dev.hcs.mytournament.entities.GoodsReviewImageEntity">
+        SELECT `goods_review_index`     AS `goodsReviewIndex`,
+               `image`                  AS `image`,
+               `image_file_name`        AS `imageFileName`,
+               `image_content_type`     AS `imageContentType`,
+               `created_at`             AS `createdAt`
+        FROM `worldcup`.`goods_review_image`
+        WHERE `index` = #{index}
+        LIMIT 1
+    </select>
+
+    <select id="selectGoodsReviewByIndex" parameterType="int" resultType="dev.hcs.mytournament.dtos.GoodsReviewDto">
+        SELECT `review`.`index`                     AS `index`,
+               `review`.`goods_index`                AS `goodsIndex`,
+               `review`.`goods_order_index`          AS `goodsOrderIndex`,
+               `review`.`user_email`                 AS `userEmail`,
+               `user`.`nickname`                    AS `nickname`,
+               `review`.`content`                    AS `content`,
+               CONCAT(REPEAT('★', `review`.`rating`/2-1), REPEAT('☆', `review`.`rating`%2))     AS `ratingStar`,
+               `review`.`created_at`                 AS `createdAt`,
+               `review`.`modified_at`                AS `modifiedAt`,
+               `review`.`is_reported`                AS `isReported`
+        FROM `worldcup`.`goods_review` AS `review`
+                 LEFT JOIN `worldcup`.`users` AS `user` on `review`.`user_email` = `user`.`email`
+        WHERE `review`.`index` = #{index}
+        LIMIT 1;
+    </select>
+
+    <select id="selectGoodsReviewImageByReview" parameterType="int" resultType="dev.hcs.mytournament.entities.GoodsReviewImageEntity">
+        SELECT `index`                  AS `index`,
+               `goods_review_index`     AS `goodsReviewIndex`,
+               `created_at`             AS `createdAt`
+        FROM `worldcup`.`goods_review_image`
+        WHERE `goods_review_index` = #{index}
+    </select>
 </mapper>

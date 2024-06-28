@@ -1,9 +1,6 @@
 package dev.hcs.mytournament.survices;
 
-import dev.hcs.mytournament.dtos.GoodsOrderDto;
-import dev.hcs.mytournament.dtos.GoodsWishlistDto;
-import dev.hcs.mytournament.dtos.SearchDto;
-import dev.hcs.mytournament.dtos.TournamentCommentDto;
+import dev.hcs.mytournament.dtos.*;
 import dev.hcs.mytournament.entities.*;
 import dev.hcs.mytournament.mappers.*;
 import dev.hcs.mytournament.regexes.UserRegex;
@@ -150,6 +147,22 @@ public class MyPageService {
                 : UpdatePasswordResult.FAILURE;
     }
 
+    // 회원 탈퇴
+    public Result deleteMyAccount(UserEntity user) {
+        if (user == null) {
+            return CommonResult.FAILURE;
+        }
+        UserEntity dbUser = this.userMapper.selectUserByEmail(user.getEmail());
+        if (dbUser == null) {
+            return CommonResult.FAILURE;
+        }
+        dbUser.setDeleted(true);
+        user.setDeleted(true);
+        return this.userMapper.updateUser(dbUser) > 0
+                ? CommonResult.SUCCESS
+                : CommonResult.FAILURE;
+    }
+
     // 내가 찜한 굿즈 목록 조회
     public GoodsWishlistDto[] getMyWishlist(SearchDto search, UserEntity user) {
         if (user == null) return null;
@@ -215,5 +228,15 @@ public class MyPageService {
         return this.storeMapper.updateGoodsOrder(dbGoodsOrder) > 0
                 ? CommonResult.SUCCESS
                 : CommonResult.FAILURE;
+    }
+
+    // 해당 주문의 굿즈 리뷰
+    public GoodsReviewDto getGoodsReviewByGoodsOrderIndex(int index) {
+        return this.myPageMapper.selectGoodsReviewByGoodsOrderIndex(index);
+    }
+
+    // 해당 리뷰의 이미지들
+    public GoodsReviewImageEntity[] getGoodsReviewImages(int index) {
+        return this.storeMapper.selectGoodsReviewImageByReview(index);
     }
 }

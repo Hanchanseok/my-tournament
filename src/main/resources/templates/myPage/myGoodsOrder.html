@@ -30,7 +30,7 @@
                 <th>주소</th>
                 <th>주문 일자</th>
                 <th>구매</th>
-                <th>배송</th>
+                <th>리뷰</th>
             </tr>
             </thead>
             <tbody>
@@ -48,7 +48,7 @@
                 </td>
                 <td th:if="${goodsOrder.isPaid() == true}">
                     <a onclick="window.open(this.href, '_blank', 'width=600, height=600'); return false;" th:if="${goodsOrder.isDelivered() == false}" th:href="@{/myPage/myGoodsOrder/goodsReview (index=${goodsOrder.getIndex()})}">리뷰하기</a>
-                    <a th:if="${goodsOrder.isDelivered() == true}" style="color: #009fff" href="#">배송 완료</a>
+                    <a onclick="window.open(this.href, '_blank', 'width=600, height=600'); return false;" th:href="@{/myPage/myGoodsOrder/myGoodsReview (index=${goodsOrder.getIndex()})}" th:if="${goodsOrder.isDelivered() == true}" style="color: #009fff" href="#">리뷰 조회</a>
                 </td>
                 <td th:if="${goodsOrder.isPaid() == false}">
 

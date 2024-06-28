@@ -17,6 +17,90 @@ carouselNext.onclick = () => {
     carousel.style.transform = `translate3d(-${600 * index}px , 0, 0)`;
 }
 
+const reviewImage = document.querySelectorAll('.review-image');
+const goodsMain = document.querySelector('#goods-main');
+reviewImage.forEach(img => {
+    img.onclick = (e) => {
+        const index = img.nextElementSibling.value;
+        const xhr = new XMLHttpRequest();
+        const formData = new FormData();
+        xhr.onreadystatechange = function() {
+            if(xhr.readyState !== XMLHttpRequest.DONE) {
+                return;
+            }
+            if(xhr.status < 200 || xhr.status >= 300) {
+                alert('알 수 없는 오류가 발생하였습니다.');
+                return;
+            }
+
+            const responseObject = JSON.parse(xhr.responseText);
+            const nickname = responseObject['nickname'];
+            const content = responseObject['content'];
+            const createdAt = responseObject['createdAt'];
+            const ratingStar = responseObject['ratingStar'];
+            const goodsReviewImages = responseObject['goodsReviewImages'];
+            goodsMain.insertAdjacentHTML('beforeend',
+                `
+                <section class="review-image-detail">
+        <div class="review-image-box">
+            <div class="review-carousel-wrapper">
+                <i class="fa-solid fa-chevron-left review-carousel-prev"></i>
+                <div class="review-carousel">
+                    
+                </div>
+                <i class="fa-solid fa-chevron-right review-carousel-next"></i>
+            </div>
+            <div class="review-detail">
+                <span class="review-detail-nickname">${nickname}</span>
+                <span class="review-detail-content">${content}</span>
+                <span class="review-detail-star">${ratingStar}</span>
+            </div>
+        </div>
+    </section>
+            `);
+            const reviewCarouselDiv = document.querySelector('.review-carousel');
+            for (let i = 0; i < goodsReviewImages.length; i++) {
+                reviewCarouselDiv.insertAdjacentHTML(`beforeend`,
+                    `
+                    <img class="review-carousel-image" src="/store/reviewImage?index=${goodsReviewImages[i].index}" alt="">
+                    `);
+            }
+            reviewCarouselFunction();
+
+            const reviewImageDetail = document.querySelector('.review-image-detail');
+            reviewImageDetail.onclick = (e) => {
+                if (e.target !== e.currentTarget) return;
+                reviewImageDetail.remove();
+            }
+
+        }
+        xhr.open('GET', `/store/reviewDetail?index=${index}`);
+        xhr.send(formData);
+    };
+})
+
+// 캐러셀 2
+function reviewCarouselFunction() {
+    const reviewCarouselPrev = document.querySelector('.review-carousel-prev');
+    const reviewCarouselNext = document.querySelector('.review-carousel-next');
+    const reviewCarousel = document.querySelector('.review-carousel'); // 움직일 케러셀
+    let reviewIndex = 0;
+    const reviewCarouselCount = document.querySelectorAll('.review-carousel-image').length-1;
+
+    reviewCarouselPrev.onclick = (e) => {
+        if (reviewIndex === 0) return;
+        reviewIndex -= 1;
+        reviewCarousel.style.transform = `translate3d(-${800 * reviewIndex}px , 0, 0)`;
+};
+
+reviewCarouselNext.onclick = () => {
+    if (reviewIndex === reviewCarouselCount) return;
+    reviewIndex += 1;
+    reviewCarousel.style.transform = `translate3d(-${800 * reviewIndex}px , 0, 0)`;
+}
+
+}
+
 // 주소 api
 const buyForm = document.querySelector('.buy-form');
 const addressFinder = document.querySelector('.address-finder');

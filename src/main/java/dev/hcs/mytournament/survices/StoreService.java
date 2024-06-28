@@ -1,6 +1,7 @@
 package dev.hcs.mytournament.survices;
 
 import dev.hcs.mytournament.dtos.GoodsOrderDto;
+import dev.hcs.mytournament.dtos.GoodsReviewDto;
 import dev.hcs.mytournament.dtos.SearchDto;
 import dev.hcs.mytournament.entities.*;
 import dev.hcs.mytournament.mappers.StoreMapper;
@@ -224,5 +225,27 @@ public class StoreService {
     public double getAverage(int index) {
         int totalRating = this.storeMapper.selectGoodsTotalRating(index);
         return this.storeMapper.selectGoodsRating(totalRating, index);
+    }
+
+    // 리뷰 이미지 썸네일
+    public GoodsReviewImageEntity getReviewImageByIndex(int index) {
+        return this.storeMapper.selectGoodsReviewImageByIndex(index);
+    }
+
+    // 각 굿즈별 리뷰 목록들 가져오기
+    public GoodsReviewDto[] getGoodsReviewDto(SearchDto search, int index) {
+        search.setGoodsIndex(index);
+        search.setTotalCount(this.storeMapper.countGoodsReviews(index));
+        return this.storeMapper.selectGoodsReviews(search);
+    }
+
+    // 각 리뷰별 정보
+    public GoodsReviewDto getGoodsReviewByIndex(int index) {
+        return this.storeMapper.selectGoodsReviewByIndex(index);
+    }
+
+    // 각 리뷰별 이미지
+    public GoodsReviewImageEntity[] getGoodsReviewImage(int index) {
+        return this.storeMapper.selectGoodsReviewImageByReview(index);
     }
 }

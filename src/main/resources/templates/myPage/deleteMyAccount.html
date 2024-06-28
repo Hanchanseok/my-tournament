@@ -5,20 +5,22 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>업데이트 종류</title>
+    <title>내 닉네임 변경</title>
     <link rel="stylesheet" type="text/css" th:href="@{/assets/styles/manage.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/assets/styles/common.css}">
+    <script defer type="text/javascript" th:src="@{/assets/scripts/deleteAccount.js}"></script>
     <script th:if="${session.get('user') == null}">
         alert('잘못된 접근입니다.');
         window.close();
     </script>
 </head>
 <body>
-    <main class="update-option-main">
-        <section class="update-option-container">
-            <a href="/myPage/updateMyNickname">닉네임 변경</a>
-            <a th:if="${!session.user.isKakao()}" href="/myPage/updateMyPassword">비밀번호 변경</a>
-            <a href="/myPage/deleteMyAccount">회원 탈퇴</a>
+    <main class="update-my-info-main">
+        <section class="update-my-info-container">
+            <form class="delete-my-account-form">
+                <span>탈퇴하시겠습니까? 탈퇴 시, 회원님이 업로드한 토너먼트와 댓글은 삭제되지 않습니다.</span>
+                <input value="회원 탈퇴" type="submit">
+            </form>
         </section>
     </main>
 </body>
