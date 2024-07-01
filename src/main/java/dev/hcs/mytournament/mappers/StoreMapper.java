@@ -64,4 +64,6 @@ public interface StoreMapper {
     GoodsReviewDto selectGoodsReviewByIndex(@Param("index") int index);
 
     GoodsReviewImageEntity[] selectGoodsReviewImageByReview(@Param("index") int index);
+
+    int updateGoodsReview(GoodsReviewEntity goodsReview);
 }

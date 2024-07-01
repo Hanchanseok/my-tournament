@@ -20,6 +20,7 @@
 <th:block th:replace="~{layouts/adminAside.html :: admin-aside}"></th:block>
 <main class="manage-main">
     <table class="manage-table">
+        <caption>굿즈 관리</caption>
         <thead>
         <tr>
             <th>넘버</th>
@@ -31,6 +32,7 @@
             <th>정보 수정</th>
             <th>판매 여부</th>
             <th>판매 전환</th>
+            <th>삭제</th>
         </tr>
         </thead>
         <tbody>
@@ -51,11 +53,14 @@
             <td>
                 <input th:onclick=" 'changeSale(' + ${goods.getIndex()} + ');' " class="change-sale-button" value="전환" type="button">
             </td>
+            <td>
+                <input th:onclick=" 'deleteGoods(' + ${goods.getIndex()} + ');' " value="삭제" type="button">
+            </td>
         </tr>
         </tbody>
         <tfoot th:if="${paging.getTotalPage() > 1}">
         <tr>
-            <td colspan="9">
+            <td colspan="10">
                 <input class="currentPageHidden" th:value="${paging.getRequestPage()}" type="hidden">
                 <section th:if="${paging.getTotalPage() > 1}" class="paging-container">
                     <ul th:if="${paging.isShowPrev()}" class="front-back-ul">

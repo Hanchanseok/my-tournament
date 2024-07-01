@@ -105,6 +105,11 @@
     border: 2px solid #757575;
     padding: 2rem 30rem;
     border-radius: 0.5rem;
+
+    > a {
+      color: #e74c3c;
+      cursor: pointer;
+    }
   }
 
   > .write-comment > #comment-form {
@@ -116,19 +121,21 @@
 
     > input[type="submit"] {
       font-family: inherit;
-      border: 2px solid #e74c3c;
-      background-color: #eeeeee;
-      color: #e74c3c;
+      border: none;
+      background-color: #e74c3c;
+      color: #eeeeee;
       border-radius: 0.2rem;
       font-size: 1.2rem;
       padding: 0.425rem 0;
       cursor: pointer;
-      transition-duration: 0.2s;
       font-weight: 600;
 
       &:hover {
-        background-color: #e74c3c;
-        color: #e0e0e0;
+        background-color: darken(#e74c3c, 10);
+      }
+
+      &:active {
+        background-color: darken(#e74c3c, 20);
       }
     }
 
@@ -167,7 +174,11 @@
       display: flex;
       flex-direction: column;
       justify-content: flex-start;
-      gap: 0.2rem;
+      gap: 0.5rem;
+
+      > .comment-content {
+        color: #414141;
+      }
 
       > .comment-info {
         align-items: flex-start;
@@ -215,18 +226,21 @@
       }
 
       > input[type="button"], input[type="submit"] {
-        border: 1px solid #e74c3c;
-        background-color: #eeeeee;
-        color: #e74c3c;
-        font-size: 1.1rem;
+        border: none;
+        background-color: #e74c3c;
+        color: #eeeeee;
+        font-size: 1.2rem;
         font-weight: 500;
-        border-radius: 0.15rem;
+        border-radius: 0.2rem;
         cursor: pointer;
-        transition-duration: 0.2s;
+        padding: 0.25rem 0;
 
         &:hover {
-          background-color: #e74c3c;
-          color: #e0e0e0;
+          background-color: darken(#e74c3c, 10);
+        }
+
+        &:active {
+          background-color: darken(#e74c3c, 20);
         }
       }
     }

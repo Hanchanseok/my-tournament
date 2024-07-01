@@ -128,7 +128,7 @@
                `review`.`user_email`                 AS `userEmail`,
                `user`.`nickname`                    AS `nickname`,
                `review`.`content`                    AS `content`,
-               CONCAT(REPEAT('★', `review`.`rating`/2-1), REPEAT('☆', `review`.`rating`%2))                     AS `ratingStar`,
+               CONCAT(REPEAT('★', FLOOR(`review`.`rating`/2)), REPEAT('☆', `review`.`rating`%2))                     AS `ratingStar`,
                `review`.`created_at`                 AS `createdAt`,
                `review`.`modified_at`                AS `modifiedAt`,
                `review`.`is_reported`                AS `isReported`

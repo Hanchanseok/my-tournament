@@ -1,6 +1,7 @@
 package dev.hcs.mytournament.survices;
 
 import dev.hcs.mytournament.dtos.GoodsOrderDto;
+import dev.hcs.mytournament.dtos.GoodsReviewDto;
 import dev.hcs.mytournament.dtos.SearchDto;
 import dev.hcs.mytournament.entities.*;
 import dev.hcs.mytournament.mappers.AdminMapper;
@@ -9,6 +10,7 @@ import dev.hcs.mytournament.mappers.TournamentMapper;
 import dev.hcs.mytournament.mappers.UserMapper;
 import dev.hcs.mytournament.results.CommonResult;
 import dev.hcs.mytournament.results.Result;
+import dev.hcs.mytournament.results.user.PatchAdminResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -72,6 +74,26 @@ public class AdminService {
         } else {
             dbUser.setSuspended(false);
         }
+        return this.userMapper.updateUser(dbUser) > 0
+                ? CommonResult.SUCCESS
+                : CommonResult.FAILURE;
+    }
+
+    // 유저에게 관리자 권한 주기
+    public Result patchAdmin(String email, UserEntity user) {
+        if (user == null || !user.isAdmin()) return CommonResult.FAILURE;
+        UserEntity dbUser = this.userMapper.selectUserByEmail(email);
+        // db에 해당 유저가 없을 경우
+        if (dbUser == null) {
+            return CommonResult.FAILURE;
+        }
+        if (dbUser.isSuspended()) {
+            return PatchAdminResult.FAILURE_SUSPENDED_EMAIL;
+        }
+        if (dbUser.isDeleted()) {
+            return PatchAdminResult.FAILURE_DELETED_EMAIL;
+        }
+        dbUser.setAdmin(true);
         return this.userMapper.updateUser(dbUser) > 0
                 ? CommonResult.SUCCESS
                 : CommonResult.FAILURE;
@@ -166,6 +188,14 @@ public class AdminService {
             }
         }
 
+        GoodsImageEntity dbGoodsImage = this.adminMapper.selectOneGoodsImageByGoodsIndex(goods.getIndex());
+        if (dbGoodsImage == null) {
+            return CommonResult.FAILURE;
+        }
+
+        dbGoods.setThumbnail(dbGoodsImage.getImage());
+        dbGoods.setThumbnailFileName(dbGoodsImage.getImageFileName());
+        dbGoods.setThumbnailContentType(dbGoodsImage.getImageContentType());
         dbGoods.setTitle(goods.getTitle());
         dbGoods.setContent(goods.getContent());
         dbGoods.setPrice(goods.getPrice());
@@ -230,5 +260,56 @@ public class AdminService {
     public GoodsOrderDto getGoodsOrderByIndex(int index, UserEntity user) {
         if (user == null || !user.isAdmin()) return null;
         return this.adminMapper.selectGoodsOrderByIndex(index);
+    }
+
+    // 굿즈 리뷰 목록
+    public GoodsReviewDto[] getGoodsReviews(SearchDto search, UserEntity user) {
+        if (user == null || !user.isAdmin()) return null;
+        search.setTotalCount(this.adminMapper.countGoodsReviews());
+        return this.adminMapper.selectGoodsReviews(search);
+    }
+
+    // 해당 인덱스 굿즈 리뷰 가져오기
+    public GoodsReviewDto getGoodsReviewByIndex(int index) {
+        return this.adminMapper.selectGoodsReviewByIndex(index);
+    }
+
+    // 해당 굿즈 이미지들 가져오기
+    public GoodsReviewImageEntity[] getGoodsReviewImages(int index) {
+        return this.storeMapper.selectGoodsReviewImageByReview(index);
+    }
+
+    // 해당 리뷰 무혐의 처리
+    public Result reviewNa(int index, UserEntity user) {
+        if (user == null || !user.isAdmin()) return CommonResult.FAILURE;
+        GoodsReviewEntity dbGoodsReview = this.getGoodsReviewByIndex(index);
+        dbGoodsReview.setReported(false);
+        return this.storeMapper.updateGoodsReview(dbGoodsReview) > 0
+                ? CommonResult.SUCCESS
+                : CommonResult.FAILURE;
+    }
+
+    // 해당 리뷰 삭제
+    public Result deleteReview(int index, UserEntity user) {
+        if (user == null || !user.isAdmin()) return CommonResult.FAILURE;
+        return this.adminMapper.deleteGoodsReviewByIndex(index) > 0
+                ? CommonResult.SUCCESS
+                : CommonResult.FAILURE;
+    }
+
+    // 굿즈 삭제
+    public Result deleteGoods(int index, UserEntity user) {
+        if (user == null || !user.isAdmin()) return CommonResult.FAILURE;
+        return this.adminMapper.deleteGoodsByIndex(index) > 0
+                ? CommonResult.SUCCESS
+                : CommonResult.FAILURE;
+    }
+
+    // 토너먼트 삭제
+    public Result deleteTournament(int index, UserEntity user) {
+        if (user == null || !user.isAdmin()) return CommonResult.FAILURE;
+        return this.tournamentMapper.deleteTournamentByIndex(index) > 0
+                ? CommonResult.SUCCESS
+                : CommonResult.FAILURE;
     }
 }

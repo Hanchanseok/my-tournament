@@ -45,9 +45,9 @@ try {
 // 댓글 수정
 const updateButton = document.querySelectorAll('.update-button');
 const updateForm = document.getElementById('update-comment-form');
-const updateCancel = document.querySelector('.update-cancel');
 
-updateCancel.onclick = () => {
+updateForm.onclick = (e) => {
+    if (e.target !== e.currentTarget) return; // 부모 요소만 클릭되도록
     // 수정 취소를 누르면 form 이 사라진다.
     updateForm.style.display='none';
 }
@@ -148,6 +148,8 @@ reportButton.forEach(btn => {
                 alert('본인의 댓글은 신고할 수 없습니다.');
             } else if (responseObject['result'] === 'success') {
                 alert('신고 완료');
+            } else {
+                alert('서버가 알 수 없는 응답을 반환하였습니다. 잠시 후 다시 시도해 주세요.');
             }
 
         }

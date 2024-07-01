@@ -1,10 +1,8 @@
 package dev.hcs.mytournament.controllers;
 
+import dev.hcs.mytournament.dtos.GoodsReviewDto;
 import dev.hcs.mytournament.dtos.SearchDto;
-import dev.hcs.mytournament.entities.GoodsEntity;
-import dev.hcs.mytournament.entities.TournamentCommentEntity;
-import dev.hcs.mytournament.entities.TournamentEntity;
-import dev.hcs.mytournament.entities.UserEntity;
+import dev.hcs.mytournament.entities.*;
 import dev.hcs.mytournament.results.CommonResult;
 import dev.hcs.mytournament.results.Result;
 import dev.hcs.mytournament.survices.AdminService;
@@ -76,6 +74,20 @@ public class AdminController {
     @ResponseBody
     public String patchAccounts(@RequestParam(value = "email")String email) {
         Result result = this.adminService.suspendUser(email);
+        JSONObject responseObject = new JSONObject();
+        responseObject.put("result", result.name().toLowerCase());
+        return responseObject.toString();
+    }
+
+    // 해당 유저에게 관리자 권한 주기
+    @RequestMapping(value = "/patchAdmin", method = RequestMethod.PATCH, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public String patchAdmin(
+            @RequestParam(value = "email")String email,
+            HttpSession session
+    ) {
+        UserEntity user = (UserEntity) session.getAttribute("user");
+        Result result = this.adminService.patchAdmin(email, user);
         JSONObject responseObject = new JSONObject();
         responseObject.put("result", result.name().toLowerCase());
         return responseObject.toString();
@@ -221,5 +233,87 @@ public class AdminController {
         modelAndView.addObject("goodsOrder", this.adminService.getGoodsOrderByIndex(index, user));
         modelAndView.setViewName("/admin/goodsOrderDetail");
         return modelAndView;
+    }
+
+    // 굿즈 리뷰 목록 페이지
+    @RequestMapping(value = "/goodsReview", method = RequestMethod.GET, produces = MediaType.TEXT_HTML_VALUE)
+    public ModelAndView getGoodsReview(
+            @RequestParam(value = "page", required = false, defaultValue = "1") int page,
+            HttpSession session,
+            SearchDto search
+    ) {
+        search.setRequestPage(page);
+        UserEntity user = (UserEntity) session.getAttribute("user");
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("goodsReviews", this.adminService.getGoodsReviews(search, user));
+        modelAndView.addObject("paging", search);
+        modelAndView.setViewName("/admin/goodsReviewList");
+        return modelAndView;
+    }
+
+    // 굿즈 리뷰 상세 페이지
+    @RequestMapping(value = "/goodsReview/detail", method = RequestMethod.GET, produces = MediaType.TEXT_HTML_VALUE)
+    public ModelAndView getGoodsReviewDetail(@RequestParam("index") int index) {
+        GoodsReviewDto goodsReview = this.adminService.getGoodsReviewByIndex(index);
+        GoodsReviewImageEntity[] goodsReviewImages = this.adminService.getGoodsReviewImages(goodsReview.getIndex());
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("goodsReview", goodsReview);
+        modelAndView.addObject("goodsReviewImages", goodsReviewImages);
+        modelAndView.setViewName("/myPage/goodsReviewInfo");
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/goodsReview", method = RequestMethod.PATCH, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public String patchGoodsReview(
+            @RequestParam("index") int index,
+            HttpSession session
+    ) {
+        UserEntity user = (UserEntity) session.getAttribute("user");
+        Result result = this.adminService.reviewNa(index, user);
+        JSONObject responseObject = new JSONObject();
+        responseObject.put("result", result.name().toLowerCase());
+        return responseObject.toString();
+    }
+
+    @RequestMapping(value = "/goodsReview", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public String deleteGoodsReview(
+            @RequestParam("index") int index,
+            HttpSession session
+    ) {
+        UserEntity user = (UserEntity) session.getAttribute("user");
+        Result result = this.adminService.deleteReview(index, user);
+        JSONObject responseObject = new JSONObject();
+        responseObject.put("result", result.name().toLowerCase());
+        return responseObject.toString();
+    }
+
+    // 굿즈 삭제
+    @RequestMapping(value = "/deleteGoods", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public String deleteGoods(
+            @RequestParam("index") int index,
+            HttpSession session
+    ) {
+        UserEntity user = (UserEntity) session.getAttribute("user");
+        Result result = this.adminService.deleteGoods(index, user);
+        JSONObject responseObject = new JSONObject();
+        responseObject.put("result", result.name().toLowerCase());
+        return responseObject.toString();
+    }
+
+    // 토너먼트 삭제
+    @RequestMapping(value = "/deleteTournament", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public String deleteTournament(
+            @RequestParam("index") int index,
+            HttpSession session
+    ) {
+        UserEntity user = (UserEntity) session.getAttribute("user");
+        Result result = this.adminService.deleteTournament(index, user);
+        JSONObject responseObject = new JSONObject();
+        responseObject.put("result", result.name().toLowerCase());
+        return responseObject.toString();
     }
 }

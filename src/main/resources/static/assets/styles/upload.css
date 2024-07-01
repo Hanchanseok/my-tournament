@@ -172,6 +172,13 @@ main {
   justify-content: center;
   gap: 0.5rem;
 }
+#shopping-cart > .order-list > a {
+  color: #009fff;
+}
+#shopping-cart > .order-list > a:hover {
+  font-weight: 500;
+  color: #007fcc;
+}
 #shopping-cart > .order-list-count {
   display: none;
 }

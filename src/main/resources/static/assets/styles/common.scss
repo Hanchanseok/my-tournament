@@ -197,6 +197,15 @@ main {
     flex-direction: column;
     justify-content: center;
     gap: 0.5rem;
+
+    > a {
+      color: #009fff;
+
+      &:hover {
+        font-weight: 500;
+        color: darken(#009fff, 10);
+      }
+    }
   }
 
   > .order-list-count {

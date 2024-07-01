@@ -71,7 +71,11 @@ public class StoreController {
         modelAndView.addObject("goodsImages", goodsImages);
         modelAndView.addObject("userAddress", userAddress);
         modelAndView.addObject("average", average);
-        modelAndView.addObject("goodsReviews", goodsReviews);
+        if ( goodsReviews.length == 0 ) {
+            modelAndView.addObject("goodsReviews", null);
+        } else {
+            modelAndView.addObject("goodsReviews", goodsReviews);
+        }
         modelAndView.addObject("paging", search);
         modelAndView.setViewName("/store/goods");
         return modelAndView;
@@ -239,6 +243,20 @@ public class StoreController {
         responseObject.put("createdAt", goodsReview.getCreatedAt());
         responseObject.put("ratingStar", goodsReview.getRatingStar());
         responseObject.put("goodsReviewImages", goodsReviewImages);
+        return responseObject.toString();
+    }
+
+    // 리뷰 신고
+    @RequestMapping(value = "/reviewReport", method = RequestMethod.PATCH, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public String patchReviewReport(
+            @RequestParam("index") int index,
+            HttpSession session
+    ) {
+        UserEntity user = (UserEntity) session.getAttribute("user");
+        Result result = this.storeService.reportReview(index, user);
+        JSONObject responseObject = new JSONObject();
+        responseObject.put("result", result.name().toLowerCase());
         return responseObject.toString();
     }
 }

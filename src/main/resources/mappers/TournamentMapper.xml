@@ -217,4 +217,10 @@
         FROM `worldcup`.`tournament_comment`
         WHERE `user_email` = #{userEmail}
     </select>
+
+    <delete id="deleteTournamentByIndex" parameterType="int">
+        DELETE FROM `worldcup`.`tournament`
+        WHERE `index` = #{index}
+        LIMIT 1
+    </delete>
 </mapper>

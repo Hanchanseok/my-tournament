@@ -50,4 +50,5 @@ public interface TournamentMapper {
 
     int selectCommentCountByEmail(String userEmail);
 
+    int deleteTournamentByIndex(@Param("index") int index);
 }

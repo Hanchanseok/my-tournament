@@ -20,6 +20,7 @@
 <th:block th:replace="~{layouts/adminAside.html :: admin-aside}"></th:block>
     <main class="manage-main">
         <table class="manage-table">
+            <caption>토너먼트 승인</caption>
             <thead>
             <tr>
                 <th>넘버</th>
@@ -28,6 +29,7 @@
                 <th>상세 보기</th>
                 <th>승인 여부</th>
                 <th>승인 하기</th>
+                <th>삭제</th>
             </tr>
             </thead>
             <tbody>
@@ -39,11 +41,12 @@
                 <td th:if="${!tournament.isRecognized()}">X</td>
                 <td th:if="${tournament.isRecognized()}">O</td>
                 <td><input th:onclick=" 'recognize(' + ${tournament.getIndex()} + ');' " class="recognize-button" value="전환" type="button"></td>
+                <td><input th:onclick=" 'deleteTournament(' + ${tournament.getIndex()} + ');' " value="삭제" type="button"></td>
             </tr>
             </tbody>
             <tfoot th:if="${paging.getTotalPage() > 1}">
             <tr>
-                <td colspan="6">
+                <td colspan="7">
                     <input class="currentPageHidden" th:value="${paging.getRequestPage()}" type="hidden">
                     <section th:if="${paging.getTotalPage() > 1}" class="paging-container">
                         <ul th:if="${paging.isShowPrev()}" class="front-back-ul">

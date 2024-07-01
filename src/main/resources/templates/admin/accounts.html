@@ -20,6 +20,7 @@
 <th:block th:replace="~{layouts/adminAside.html :: admin-aside}"></th:block>
 <main class="manage-main">
     <table class="manage-table">
+        <caption>계정 관리</caption>
         <thead>
         <tr>
             <th>넘버</th>
@@ -30,6 +31,7 @@
             <th>탈퇴 여부</th>
             <th>정지 여부</th>
             <th>계정 정지</th>
+            <th>관리자</th>
         </tr>
         </thead>
         <tbody>
@@ -42,6 +44,7 @@
             <td><span th:if="${!user.isDeleted()}">X</span><span th:if="${user.isDeleted()}">O</span></td>
             <td><span th:if="${!user.isSuspended()}">X</span><span th:if="${user.isSuspended()}">O</span></td>
             <td><input th:onclick="suspend( [[${user.getEmail()}]] )" th:if="${!user.isAdmin()}" class="suspend-button" value="전환" type="button"></td>
+            <td><input th:onclick="patchAdmin( [[${user.getEmail()}]] )" th:if="${!user.isAdmin()}" value="권한 부여" type="button"></td>
         </tr>
         </tbody>
         <tfoot th:if="${paging.getTotalPage() > 1}">

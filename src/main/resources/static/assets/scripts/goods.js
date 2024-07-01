@@ -293,3 +293,32 @@ wishlistButton.onclick = (e) => {
     xhr.open('POST', '/store/wishlist');
     xhr.send(formData);
 }
+
+function reportReview(index) {
+    if (!confirm('댓글을 신고하시겠습니까?')) return;
+    const xhr = new XMLHttpRequest();
+    const formData = new FormData();
+    formData.append("index", index);
+    xhr.onreadystatechange = function() {
+        if(xhr.readyState !== XMLHttpRequest.DONE) {
+            return;
+        }
+        if(xhr.status < 200 || xhr.status >= 300) {
+            alert('알 수 없는 오류가 발생하였습니다.');
+            return;
+        }
+        const responseObject = JSON.parse(xhr.responseText);
+        if (responseObject['result'] === 'failure') {
+            alert('리뷰 신고에 실패하였습니다.');
+        } else if (responseObject['result'] === 'failure_report_own_comment') {
+            alert('본인의 리뷰는 신고할 수 없습니다.');
+        } else if (responseObject['result'] === 'success') {
+            alert('신고 완료');
+        } else {
+            alert('서버가 알 수 없는 응답을 반환하였습니다. 잠시 후 다시 시도해 주세요.');
+        }
+
+    }
+    xhr.open('PATCH', '/store/reviewReport');
+    xhr.send(formData);
+}

@@ -471,6 +471,14 @@
       flex-direction: column;
       justify-content: flex-start;
 
+      > .review-none {
+        text-align: center;
+        border: 2px solid #e0e0e0;
+        padding: 2rem 0;
+        border-radius: 0.5rem;
+        color: #757575;
+      }
+
       > .goods-comment-box {
         border: 1px solid #e0e0e0;
         padding: 1rem 1rem;

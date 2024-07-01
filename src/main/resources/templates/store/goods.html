@@ -107,6 +107,9 @@
             </form>
         </section>
         <section class="goods-comment">
+            <div th:if="${goodsReviews == null}" class="review-none">
+                아직 등록된 리뷰가 없습니다.
+            </div>
             <div th:each="goodsReview : ${goodsReviews}" class="goods-comment-box">
                 <div class="comment-title">
                     <div>
@@ -121,7 +124,7 @@
                     </div>
                     <div class="spring"></div>
                     <div>
-                        <input class="report-comment-button" value="신고" type="button">
+                        <input class="report-comment-button" th:onclick="'reportReview(' + ${goodsReview.getIndex()} + ');'" value="신고" type="button">
                     </div>
                 </div>
                 <div class="comment-content">

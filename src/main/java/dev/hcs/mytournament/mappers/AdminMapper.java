@@ -1,14 +1,13 @@
 package dev.hcs.mytournament.mappers;
 
 import dev.hcs.mytournament.dtos.GoodsOrderDto;
+import dev.hcs.mytournament.dtos.GoodsReviewDto;
 import dev.hcs.mytournament.dtos.SearchDto;
-import dev.hcs.mytournament.entities.GoodsEntity;
-import dev.hcs.mytournament.entities.TournamentCommentEntity;
-import dev.hcs.mytournament.entities.TournamentEntity;
-import dev.hcs.mytournament.entities.UserEntity;
+import dev.hcs.mytournament.entities.*;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Mapper
 public interface AdminMapper {
@@ -28,6 +27,8 @@ public interface AdminMapper {
 
     int deleteGoodsImage(int index);
 
+    GoodsImageEntity selectOneGoodsImageByGoodsIndex(int goodsIndex);
+
     GoodsOrderDto[] selectGoodsOrder(SearchDto search);
 
     int countGoodsOrder();
@@ -35,4 +36,14 @@ public interface AdminMapper {
     int deleteGoodsOrderByIndex(@Param("index")int index);
 
     GoodsOrderDto selectGoodsOrderByIndex(@Param("index")int index);
+
+    GoodsReviewDto[] selectGoodsReviews(SearchDto search);
+
+    int countGoodsReviews();
+
+    GoodsReviewDto selectGoodsReviewByIndex(@Param("index")int index);
+
+    int deleteGoodsReviewByIndex(@Param("index")int index);
+
+    int deleteGoodsByIndex(@Param("index") int index);
 }

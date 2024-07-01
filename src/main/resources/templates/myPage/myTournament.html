@@ -8,6 +8,7 @@
     <title>내 토너먼트</title>
     <link rel="stylesheet" type="text/css" th:href="@{/assets/styles/manage.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/assets/styles/index.css}">
+    <script defer type="text/javascript" th:src="@{/assets/scripts/myPage.js}"></script>
     <script src="https://kit.fontawesome.com/0500497c40.js" crossorigin="anonymous"></script>
     <script th:if="${session.get('user') == null}">
         alert('잘못된 접근입니다.');
@@ -19,6 +20,7 @@
 <th:block th:replace="~{layouts/myPageAside.html :: myPage-aside}"></th:block>
     <main class="manage-main">
         <table class="manage-table">
+            <caption>내 토너먼트</caption>
             <thead>
             <tr>
                 <th>넘버</th>
@@ -26,6 +28,7 @@
                 <th>업로드 날짜</th>
                 <th>상세 보기</th>
                 <th>승인 여부</th>
+                <th>삭제</th>
             </tr>
             </thead>
             <tbody>
@@ -38,11 +41,12 @@
                     <span th:if="${tournament.isRecognized()}">O</span>
                     <span th:if="${!tournament.isRecognized()}">X</span>
                 </td>
+                <td><input th:onclick=" 'deleteTournament(' + ${tournament.getIndex()} + ');' " value="삭제" type="button"></td>
             </tr>
             </tbody>
             <tfoot th:if="${paging.getTotalPage() > 1}">
             <tr>
-                <td colspan="5">
+                <td colspan="6">
                     <input class="currentPageHidden" th:value="${paging.getRequestPage()}" type="hidden">
                     <section th:if="${paging.getTotalPage() > 1}" class="paging-container">
                         <ul th:if="${paging.isShowPrev()}" class="front-back-ul">

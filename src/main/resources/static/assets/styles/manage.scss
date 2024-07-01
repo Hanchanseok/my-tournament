@@ -37,9 +37,16 @@
   justify-content: flex-start;
 
   > .manage-table {
-    margin-top: 5rem;
+    margin-top: 4rem;
     border: 1px solid #e0e0e0;
     width: 1000px;
+
+    > caption {
+      text-align: left;
+      margin-bottom: 2rem;
+      font-size: 2rem;
+      font-weight: 300;
+    }
 
     a {
       color: #e74c3c;

@@ -11,4 +11,5 @@ public class GoodsReviewDto extends GoodsReviewEntity {
     private String imageContentType;
     private int reviewImageIndex;
     private String nickname;
+    private String title;
 }

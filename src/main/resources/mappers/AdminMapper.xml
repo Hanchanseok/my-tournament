@@ -70,15 +70,30 @@
 
     <update id="updateGoods" parameterType="dev.hcs.mytournament.entities.GoodsEntity">
         UPDATE `worldcup`.`goods`
-        SET `title`         = #{title},
-            `content`       = #{content},
-            `price`         = #{price},
-            `discount`      = #{discount},
-            `stoke`         = #{stoke},
-            `is_sale`       = #{isSale}
+        SET `thumbnail`                 = #{thumbnail},
+            `thumbnail_file_name`       = #{thumbnailFileName},
+            `thumbnail_content_type`    = #{thumbnailContentType},
+            `title`                     = #{title},
+            `content`                   = #{content},
+            `price`                     = #{price},
+            `discount`                  = #{discount},
+            `stoke`                     = #{stoke},
+            `is_sale`                   = #{isSale}
         WHERE `index` = #{index}
         LIMIT 1
     </update>
+
+    <select id="selectOneGoodsImageByGoodsIndex" parameterType="int" resultType="dev.hcs.mytournament.entities.GoodsImageEntity">
+        SELECT `index`              AS `index`,
+               `goods_index`        AS `goodsIndex`,
+               `image`              AS `image`,
+               `image_file_name`    AS `imageFileName`,
+               `image_content_type` AS `imageContentType`
+        FROM `worldcup`.`goods_image`
+        WHERE `goods_index` = #{goodsIndex}
+        ORDER BY `index`
+        LIMIT 1
+    </select>
 
     <delete id="deleteGoodsImage" parameterType="int">
         DELETE FROM `worldcup`.`goods_image`
@@ -137,4 +152,55 @@
         ORDER BY `order`.`order_at` DESC
         LIMIT 1
     </select>
+
+    <select id="selectGoodsReviews" parameterType="dev.hcs.mytournament.dtos.SearchDto" resultType="dev.hcs.mytournament.dtos.GoodsReviewDto">
+        SELECT `review`.`index`                 AS `index`,
+               `review`.`goods_index`           AS `goodsIndex`,
+               `review`.`goods_order_index`     AS `goodsOrderIndex`,
+               `review`.`user_email`            AS `userEmail`,
+               `review`.`content`               AS `content`,
+               `review`.`rating`                AS `rating`,
+               `review`.`created_at`            AS `createdAt`,
+               `review`.`modified_at`           AS `modifiedAt`,
+               `review`.`is_reported`           AS `isReported`,
+               `goods`.`title`                  AS `title`
+        FROM `worldcup`.`goods_review` AS `review`
+            LEFT JOIN `worldcup`.`goods` AS `goods` on `goods`.`index` = `review`.`goods_index`
+        ORDER BY `review`.`created_at` DESC
+        LIMIT #{countPerPage} OFFSET #{offset}
+    </select>
+
+    <select id="countGoodsReviews" resultType="int">
+        SELECT COUNT(0)
+        FROM `worldcup`.`goods_review` AS `review`
+    </select>
+
+    <select id="selectGoodsReviewByIndex" parameterType="int" resultType="dev.hcs.mytournament.dtos.GoodsReviewDto">
+        SELECT `review`.`index`                     AS `index`,
+               `review`.`goods_index`                AS `goodsIndex`,
+               `review`.`goods_order_index`          AS `goodsOrderIndex`,
+               `review`.`user_email`                 AS `userEmail`,
+               `user`.`nickname`                    AS `nickname`,
+               `review`.`content`                    AS `content`,
+               CONCAT(REPEAT('★', FLOOR(`review`.`rating`/2)), REPEAT('☆', `review`.`rating`%2))                     AS `ratingStar`,
+               `review`.`created_at`                 AS `createdAt`,
+               `review`.`modified_at`                AS `modifiedAt`,
+               `review`.`is_reported`                AS `isReported`
+        FROM `worldcup`.`goods_review` AS `review`
+                 LEFT JOIN `worldcup`.`users` AS `user` on `review`.`user_email` = `user`.`email`
+        WHERE `review`.`index` = #{index}
+        LIMIT 1;
+    </select>
+    
+    <delete id="deleteGoodsReviewByIndex" parameterType="int">
+        DELETE FROM `worldcup`.`goods_review`
+        WHERE `index` = #{index}
+        LIMIT 1
+    </delete>
+
+    <delete id="deleteGoodsByIndex" parameterType="int">
+        DELETE FROM `worldcup`.`goods`
+        WHERE `index` = #{index}
+        LIMIT 1
+    </delete>
 </mapper>

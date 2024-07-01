@@ -260,7 +260,7 @@
                `review`.`user_email`                 AS `userEmail`,
                `user`.`nickname`                    AS `nickname`,
                `review`.`content`                    AS `content`,
-               CONCAT(REPEAT('★', `review`.`rating`/2-1), REPEAT('☆', `review`.`rating`%2))                     AS `ratingStar`,
+               CONCAT(REPEAT('★', FLOOR(`review`.`rating`/2)), REPEAT('☆', `review`.`rating`%2))                     AS `ratingStar`,
                `review`.`created_at`                 AS `createdAt`,
                `review`.`modified_at`                AS `modifiedAt`,
                `review`.`is_reported`                AS `isReported`,
@@ -298,7 +298,7 @@
                `review`.`user_email`                 AS `userEmail`,
                `user`.`nickname`                    AS `nickname`,
                `review`.`content`                    AS `content`,
-               CONCAT(REPEAT('★', `review`.`rating`/2-1), REPEAT('☆', `review`.`rating`%2))     AS `ratingStar`,
+               CONCAT(REPEAT('★', FLOOR(`review`.`rating`/2)), REPEAT('☆', `review`.`rating`%2))     AS `ratingStar`,
                `review`.`created_at`                 AS `createdAt`,
                `review`.`modified_at`                AS `modifiedAt`,
                `review`.`is_reported`                AS `isReported`
@@ -315,4 +315,17 @@
         FROM `worldcup`.`goods_review_image`
         WHERE `goods_review_index` = #{index}
     </select>
+
+    <update id="updateGoodsReview" parameterType="dev.hcs.mytournament.entities.GoodsReviewEntity">
+        UPDATE `worldcup`.`goods_review`
+        SET `goods_index`           = #{goodsIndex},
+            `goods_order_index`     = #{goodsOrderIndex},
+            `user_email`            = #{userEmail},
+            `content`               = #{content},
+            `created_at`            = #{createdAt},
+            `modified_at`           = #{modifiedAt},
+            `is_reported`           = #{isReported}
+        WHERE `index` = #{index}
+        LIMIT 1
+    </update>
 </mapper>

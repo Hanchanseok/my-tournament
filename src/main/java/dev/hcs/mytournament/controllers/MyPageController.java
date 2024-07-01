@@ -264,11 +264,27 @@ public class MyPageController {
     @RequestMapping(value = "/myGoodsOrder/myGoodsReview", method = RequestMethod.GET, produces = MediaType.TEXT_HTML_VALUE)
     public ModelAndView getMyGoodsReview(@RequestParam("index") int index) {
         GoodsReviewDto goodsReview = this.myPageService.getGoodsReviewByGoodsOrderIndex(index);
-        GoodsReviewImageEntity[] goodsReviewImages = this.myPageService.getGoodsReviewImages(goodsReview.getIndex());
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("goodsReview", goodsReview);
-        modelAndView.addObject("goodsReviewImages", goodsReviewImages);
-        modelAndView.setViewName("/myPage/myGoodsReview");
+        if (goodsReview != null) {
+            GoodsReviewImageEntity[] goodsReviewImages = this.myPageService.getGoodsReviewImages(goodsReview.getIndex());
+            modelAndView.addObject("goodsReviewImages", goodsReviewImages);
+        }
+        modelAndView.setViewName("/myPage/goodsReviewInfo");
         return modelAndView;
+    }
+
+    // 내 토너먼트 삭제
+    @RequestMapping(value = "/deleteTournament", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public String deleteTournament(
+            @RequestParam("index") int index,
+            HttpSession session
+    ) {
+        UserEntity user = (UserEntity) session.getAttribute("user");
+        Result result = this.myPageService.deleteTournament(index, user);
+        JSONObject responseObject = new JSONObject();
+        responseObject.put("result", result.name().toLowerCase());
+        return responseObject.toString();
     }
 }

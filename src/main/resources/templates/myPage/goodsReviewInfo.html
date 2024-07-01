@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -13,8 +13,12 @@
         alert('잘못된 접근입니다.');
         window.close();
     </script>
+    <script th:if="${goodsReview == null}">
+        alert('해당 리뷰는 삭제처리 되었습니다.');
+        window.close();
+    </script>
 </head>
-<body>
+<body th:if="${goodsReview != null}">
     <main class="review-main">
         <section class="review-container">
             <table class="review-table">

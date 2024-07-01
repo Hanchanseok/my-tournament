@@ -232,11 +232,29 @@ public class MyPageService {
 
     // 해당 주문의 굿즈 리뷰
     public GoodsReviewDto getGoodsReviewByGoodsOrderIndex(int index) {
+        if (this.myPageMapper.selectGoodsReviewByGoodsOrderIndex(index) == null) {
+            return null;
+        }
         return this.myPageMapper.selectGoodsReviewByGoodsOrderIndex(index);
     }
 
     // 해당 리뷰의 이미지들
     public GoodsReviewImageEntity[] getGoodsReviewImages(int index) {
+        if (this.storeMapper.selectGoodsReviewImageByReview(index) == null) {
+            return null;
+        }
         return this.storeMapper.selectGoodsReviewImageByReview(index);
+    }
+
+    // 토너먼트 삭제
+    public Result deleteTournament(int index, UserEntity user) {
+        if (user == null) return CommonResult.FAILURE;
+        TournamentEntity dbTournament = this.tournamentMapper.selectTournamentByIndex(index);
+        if (!user.getEmail().equals(dbTournament.getUserEmail())) {
+            return CommonResult.FAILURE;
+        }
+        return this.tournamentMapper.deleteTournamentByIndex(index) > 0
+                ? CommonResult.SUCCESS
+                : CommonResult.FAILURE;
     }
 }

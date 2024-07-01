@@ -11,6 +11,7 @@ import dev.hcs.mytournament.results.store.DeleteOrderResult;
 import dev.hcs.mytournament.results.store.OrderResult;
 import dev.hcs.mytournament.results.store.UploadGoodsResult;
 import dev.hcs.mytournament.results.store.WishlistResult;
+import dev.hcs.mytournament.results.tournament.ReportCommentResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -247,5 +248,23 @@ public class StoreService {
     // 각 리뷰별 이미지
     public GoodsReviewImageEntity[] getGoodsReviewImage(int index) {
         return this.storeMapper.selectGoodsReviewImageByReview(index);
+    }
+
+    // 리뷰 신고
+    public Result reportReview(int index, UserEntity user) {
+        GoodsReviewEntity dbGoodsReview = this.storeMapper.selectGoodsReviewByIndex(index);
+        if (dbGoodsReview == null) {
+            return CommonResult.FAILURE;
+        }
+        if (user != null) {
+            // 자신의 코멘트는 신고할 수 없다.
+            if (dbGoodsReview.getUserEmail().equals(user.getEmail())) {
+                return ReportCommentResult.FAILURE_REPORT_OWN_COMMENT;
+            }
+        }
+        dbGoodsReview.setReported(true);
+        return this.storeMapper.updateGoodsReview(dbGoodsReview) > 0
+                ? CommonResult.SUCCESS
+                : CommonResult.FAILURE;
     }
 }

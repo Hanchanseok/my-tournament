@@ -16,6 +16,7 @@ function commentDelete(index) {
         }
         const responseObject = JSON.parse(xhr.responseText);
         if (responseObject['result'] === 'success') {
+            alert('댓글 삭제 완료');
             location.reload();
         } else if (responseObject['result'] === 'failure') {
             alert('댓글 삭제 실패');
@@ -23,6 +24,37 @@ function commentDelete(index) {
 
     }
     xhr.open('DELETE', '/tournament/ranking');
+    xhr.send(formData);
+}
+
+// 내 토너먼트 삭제
+function deleteTournament(index) {
+    if (!confirm('해당 토너먼트를 삭제하시겠습니까?')) {
+        return null;
+    }
+    const xhr = new XMLHttpRequest();
+    const formData = new FormData();
+    formData.append("index", index);
+    xhr.onreadystatechange = function() {
+        if(xhr.readyState !== XMLHttpRequest.DONE) {
+            return;
+        }
+        if(xhr.status < 200 || xhr.status >= 300) {
+            alert('알 수 없는 오류가 발생하였습니다.');
+            return;
+        }
+        const responseObject = JSON.parse(xhr.responseText);
+        if (responseObject['result'] === 'success') {
+            alert('토너먼트 삭제 완료');
+            location.reload();
+        } else if (responseObject['result'] === 'failure') {
+            alert('토너먼트 삭제 실패');
+        } else {
+            alert('서버가 알 수 없는 응답을 반환하였습니다. 잠시 후 다시 시도해 주세요.');
+        }
+
+    }
+    xhr.open('DELETE', '/myPage/deleteTournament');
     xhr.send(formData);
 }
 

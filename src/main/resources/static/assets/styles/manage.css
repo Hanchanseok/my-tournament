@@ -172,6 +172,13 @@ main {
   justify-content: center;
   gap: 0.5rem;
 }
+#shopping-cart > .order-list > a {
+  color: #009fff;
+}
+#shopping-cart > .order-list > a:hover {
+  font-weight: 500;
+  color: #007fcc;
+}
 #shopping-cart > .order-list-count {
   display: none;
 }
@@ -222,9 +229,15 @@ main {
   justify-content: flex-start;
 }
 .manage-main > .manage-table {
-  margin-top: 5rem;
+  margin-top: 4rem;
   border: 1px solid #e0e0e0;
   width: 1000px;
+}
+.manage-main > .manage-table > caption {
+  text-align: left;
+  margin-bottom: 2rem;
+  font-size: 2rem;
+  font-weight: 300;
 }
 .manage-main > .manage-table a {
   color: #e74c3c;

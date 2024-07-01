@@ -52,15 +52,15 @@ function getImage() {
     };
 }
 
-const imageDeleteButton = document.querySelectorAll('.image-delete-button');
-let firstButton = true;
-imageDeleteButton.forEach(e => {
-    if (firstButton === true) {
-        e.parentNode.style.border = '1px solid #009fff';
-        e.remove();
-        firstButton = false;
-    }
-});
+// const imageDeleteButton = document.querySelectorAll('.image-delete-button');
+// let firstButton = true;
+// imageDeleteButton.forEach(e => {
+//     if (firstButton === true) {
+//         e.parentNode.style.border = '1px solid #009fff';
+//         e.remove();
+//         firstButton = false;
+//     }
+// });
 
 const updateGoodsForm = document.querySelector('.update-goods-info-form');
 
