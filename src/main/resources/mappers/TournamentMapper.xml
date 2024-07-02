@@ -103,8 +103,7 @@
 
     <update id="updateTournament" parameterType="dev.hcs.mytournament.entities.TournamentEntity">
         UPDATE `worldcup`.`tournament`
-        SET `user_email`            = #{userEmail},
-            `thumbnail`             = #{thumbnail},
+        SET `thumbnail`             = #{thumbnail},
             `thumbnail_file_name`   = #{thumbnailFileName},
             `thumbnail_content_type`= #{thumbnailContentType},
             `title`                 = #{title},

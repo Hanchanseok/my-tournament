@@ -431,7 +431,7 @@ main {
   background-color: #a82315;
 }
 
-.update-my-info-main {
+.update-my-info-main, .modify-tournament-main {
   margin: 1rem;
   border: 4px solid #747474;
   align-items: center;
@@ -439,20 +439,114 @@ main {
   flex-direction: column;
   justify-content: center;
 }
-.update-my-info-main > .update-my-info-container {
+.update-my-info-main > .update-my-info-container, .update-my-info-main .modify-tournament-section, .modify-tournament-main > .update-my-info-container, .modify-tournament-main .modify-tournament-section {
   align-items: stretch;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
 }
-.update-my-info-main > .update-my-info-container > .delete-my-account-form {
+.update-my-info-main > .update-my-info-container > .close-button, .update-my-info-main .modify-tournament-section > .close-button, .modify-tournament-main > .update-my-info-container > .close-button, .modify-tournament-main .modify-tournament-section > .close-button {
+  margin-bottom: 2rem;
+  background-color: #e74c3c;
+  border: none;
+  font-family: inherit;
+  font-size: 1.2rem;
+  padding: 0.25rem 0;
+  color: #eeeeee;
+  cursor: pointer;
+}
+.update-my-info-main > .update-my-info-container > .close-button:hover, .update-my-info-main .modify-tournament-section > .close-button:hover, .modify-tournament-main > .update-my-info-container > .close-button:hover, .modify-tournament-main .modify-tournament-section > .close-button:hover {
+  background-color: #d62c1a;
+}
+.update-my-info-main > .update-my-info-container > .close-button:active, .update-my-info-main .modify-tournament-section > .close-button:active, .modify-tournament-main > .update-my-info-container > .close-button:active, .modify-tournament-main .modify-tournament-section > .close-button:active {
+  background-color: #a82315;
+}
+.update-my-info-main > .update-my-info-container > .product-ul, .update-my-info-main .modify-tournament-section > .product-ul, .modify-tournament-main > .update-my-info-container > .product-ul, .modify-tournament-main .modify-tournament-section > .product-ul {
+  align-items: stretch;
+  display: flex;
+  flex-direction: column;
+  justify-content: stretch;
+  gap: 1rem;
+  margin: 2rem 0;
+}
+.update-my-info-main > .update-my-info-container > .product-ul > .product-box > a, .update-my-info-main .modify-tournament-section > .product-ul > .product-box > a, .modify-tournament-main > .update-my-info-container > .product-ul > .product-box > a, .modify-tournament-main .modify-tournament-section > .product-ul > .product-box > a {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: stretch;
+  gap: 5rem;
+  background-color: #e0e0e0;
+  padding-right: 5rem;
+  text-decoration: none;
+}
+.update-my-info-main > .update-my-info-container > .product-ul > .product-box > a > .product-name, .update-my-info-main .modify-tournament-section > .product-ul > .product-box > a > .product-name, .modify-tournament-main > .update-my-info-container > .product-ul > .product-box > a > .product-name, .modify-tournament-main .modify-tournament-section > .product-ul > .product-box > a > .product-name {
+  color: #414141;
+}
+.update-my-info-main > .update-my-info-container > .product-ul > .product-box > a:hover, .update-my-info-main .modify-tournament-section > .product-ul > .product-box > a:hover, .modify-tournament-main > .update-my-info-container > .product-ul > .product-box > a:hover, .modify-tournament-main .modify-tournament-section > .product-ul > .product-box > a:hover {
+  background-color: #c7c7c7;
+}
+.update-my-info-main > .update-my-info-container > .product-ul > .product-box > a:hover > .product-name, .update-my-info-main .modify-tournament-section > .product-ul > .product-box > a:hover > .product-name, .modify-tournament-main > .update-my-info-container > .product-ul > .product-box > a:hover > .product-name, .modify-tournament-main .modify-tournament-section > .product-ul > .product-box > a:hover > .product-name {
+  color: #e74c3c;
+}
+.update-my-info-main > .update-my-info-container > .product-ul > .product-box > a:active, .update-my-info-main .modify-tournament-section > .product-ul > .product-box > a:active, .modify-tournament-main > .update-my-info-container > .product-ul > .product-box > a:active, .modify-tournament-main .modify-tournament-section > .product-ul > .product-box > a:active {
+  background-color: #adadad;
+}
+.update-my-info-main > .update-my-info-container > .product-ul > .product-box > a > .product-img, .update-my-info-main .modify-tournament-section > .product-ul > .product-box > a > .product-img, .modify-tournament-main > .update-my-info-container > .product-ul > .product-box > a > .product-img, .modify-tournament-main .modify-tournament-section > .product-ul > .product-box > a > .product-img {
+  width: 5rem;
+  height: 5rem;
+}
+.update-my-info-main > .update-my-info-container > .delete-my-account-form, .update-my-info-main > .update-my-info-container .modify-tournament-form, .update-my-info-main > .update-my-info-container .modify-product-form, .update-my-info-main .modify-tournament-section > .delete-my-account-form, .update-my-info-main .modify-tournament-section .modify-tournament-form, .update-my-info-main .modify-tournament-section .modify-product-form, .modify-tournament-main > .update-my-info-container > .delete-my-account-form, .modify-tournament-main > .update-my-info-container .modify-tournament-form, .modify-tournament-main > .update-my-info-container .modify-product-form, .modify-tournament-main .modify-tournament-section > .delete-my-account-form, .modify-tournament-main .modify-tournament-section .modify-tournament-form, .modify-tournament-main .modify-tournament-section .modify-product-form {
   align-items: stretch;
   display: flex;
   flex-direction: column;
   justify-content: stretch;
   gap: 0.5rem;
 }
-.update-my-info-main > .update-my-info-container > .delete-my-account-form > input[type=submit] {
+.update-my-info-main > .update-my-info-container > .delete-my-account-form > .turn-back, .update-my-info-main > .update-my-info-container .modify-tournament-form > .turn-back, .update-my-info-main > .update-my-info-container .modify-product-form > .turn-back, .update-my-info-main .modify-tournament-section > .delete-my-account-form > .turn-back, .update-my-info-main .modify-tournament-section .modify-tournament-form > .turn-back, .update-my-info-main .modify-tournament-section .modify-product-form > .turn-back, .modify-tournament-main > .update-my-info-container > .delete-my-account-form > .turn-back, .modify-tournament-main > .update-my-info-container .modify-tournament-form > .turn-back, .modify-tournament-main > .update-my-info-container .modify-product-form > .turn-back, .modify-tournament-main .modify-tournament-section > .delete-my-account-form > .turn-back, .modify-tournament-main .modify-tournament-section .modify-tournament-form > .turn-back, .modify-tournament-main .modify-tournament-section .modify-product-form > .turn-back {
+  color: #e74c3c;
+  font-size: 0.85rem;
+}
+.update-my-info-main > .update-my-info-container > .delete-my-account-form > .modify-tournament-label, .update-my-info-main > .update-my-info-container .modify-tournament-form > .modify-tournament-label, .update-my-info-main > .update-my-info-container .modify-product-form > .modify-tournament-label, .update-my-info-main .modify-tournament-section > .delete-my-account-form > .modify-tournament-label, .update-my-info-main .modify-tournament-section .modify-tournament-form > .modify-tournament-label, .update-my-info-main .modify-tournament-section .modify-product-form > .modify-tournament-label, .modify-tournament-main > .update-my-info-container > .delete-my-account-form > .modify-tournament-label, .modify-tournament-main > .update-my-info-container .modify-tournament-form > .modify-tournament-label, .modify-tournament-main > .update-my-info-container .modify-product-form > .modify-tournament-label, .modify-tournament-main .modify-tournament-section > .delete-my-account-form > .modify-tournament-label, .modify-tournament-main .modify-tournament-section .modify-tournament-form > .modify-tournament-label, .modify-tournament-main .modify-tournament-section .modify-product-form > .modify-tournament-label {
+  align-items: stretch;
+  display: flex;
+  flex-direction: column;
+  justify-content: stretch;
+}
+.update-my-info-main > .update-my-info-container > .delete-my-account-form > .modify-tournament-label:focus-within > span, .update-my-info-main > .update-my-info-container .modify-tournament-form > .modify-tournament-label:focus-within > span, .update-my-info-main > .update-my-info-container .modify-product-form > .modify-tournament-label:focus-within > span, .update-my-info-main .modify-tournament-section > .delete-my-account-form > .modify-tournament-label:focus-within > span, .update-my-info-main .modify-tournament-section .modify-tournament-form > .modify-tournament-label:focus-within > span, .update-my-info-main .modify-tournament-section .modify-product-form > .modify-tournament-label:focus-within > span, .modify-tournament-main > .update-my-info-container > .delete-my-account-form > .modify-tournament-label:focus-within > span, .modify-tournament-main > .update-my-info-container .modify-tournament-form > .modify-tournament-label:focus-within > span, .modify-tournament-main > .update-my-info-container .modify-product-form > .modify-tournament-label:focus-within > span, .modify-tournament-main .modify-tournament-section > .delete-my-account-form > .modify-tournament-label:focus-within > span, .modify-tournament-main .modify-tournament-section .modify-tournament-form > .modify-tournament-label:focus-within > span, .modify-tournament-main .modify-tournament-section .modify-product-form > .modify-tournament-label:focus-within > span {
+  color: #009fff;
+}
+.update-my-info-main > .update-my-info-container > .delete-my-account-form > .modify-tournament-label:focus-within > input[type=text], .update-my-info-main > .update-my-info-container .modify-tournament-form > .modify-tournament-label:focus-within > input[type=text], .update-my-info-main > .update-my-info-container .modify-product-form > .modify-tournament-label:focus-within > input[type=text], .update-my-info-main .modify-tournament-section > .delete-my-account-form > .modify-tournament-label:focus-within > input[type=text], .update-my-info-main .modify-tournament-section .modify-tournament-form > .modify-tournament-label:focus-within > input[type=text], .update-my-info-main .modify-tournament-section .modify-product-form > .modify-tournament-label:focus-within > input[type=text], .modify-tournament-main > .update-my-info-container > .delete-my-account-form > .modify-tournament-label:focus-within > input[type=text], .modify-tournament-main > .update-my-info-container .modify-tournament-form > .modify-tournament-label:focus-within > input[type=text], .modify-tournament-main > .update-my-info-container .modify-product-form > .modify-tournament-label:focus-within > input[type=text], .modify-tournament-main .modify-tournament-section > .delete-my-account-form > .modify-tournament-label:focus-within > input[type=text], .modify-tournament-main .modify-tournament-section .modify-tournament-form > .modify-tournament-label:focus-within > input[type=text], .modify-tournament-main .modify-tournament-section .modify-product-form > .modify-tournament-label:focus-within > input[type=text] {
+  border: 1px solid #009fff;
+}
+.update-my-info-main > .update-my-info-container > .delete-my-account-form > .modify-tournament-label:focus-within > textarea, .update-my-info-main > .update-my-info-container .modify-tournament-form > .modify-tournament-label:focus-within > textarea, .update-my-info-main > .update-my-info-container .modify-product-form > .modify-tournament-label:focus-within > textarea, .update-my-info-main .modify-tournament-section > .delete-my-account-form > .modify-tournament-label:focus-within > textarea, .update-my-info-main .modify-tournament-section .modify-tournament-form > .modify-tournament-label:focus-within > textarea, .update-my-info-main .modify-tournament-section .modify-product-form > .modify-tournament-label:focus-within > textarea, .modify-tournament-main > .update-my-info-container > .delete-my-account-form > .modify-tournament-label:focus-within > textarea, .modify-tournament-main > .update-my-info-container .modify-tournament-form > .modify-tournament-label:focus-within > textarea, .modify-tournament-main > .update-my-info-container .modify-product-form > .modify-tournament-label:focus-within > textarea, .modify-tournament-main .modify-tournament-section > .delete-my-account-form > .modify-tournament-label:focus-within > textarea, .modify-tournament-main .modify-tournament-section .modify-tournament-form > .modify-tournament-label:focus-within > textarea, .modify-tournament-main .modify-tournament-section .modify-product-form > .modify-tournament-label:focus-within > textarea {
+  border: 1px solid #009fff;
+}
+.update-my-info-main > .update-my-info-container > .delete-my-account-form > .modify-tournament-label > span, .update-my-info-main > .update-my-info-container .modify-tournament-form > .modify-tournament-label > span, .update-my-info-main > .update-my-info-container .modify-product-form > .modify-tournament-label > span, .update-my-info-main .modify-tournament-section > .delete-my-account-form > .modify-tournament-label > span, .update-my-info-main .modify-tournament-section .modify-tournament-form > .modify-tournament-label > span, .update-my-info-main .modify-tournament-section .modify-product-form > .modify-tournament-label > span, .modify-tournament-main > .update-my-info-container > .delete-my-account-form > .modify-tournament-label > span, .modify-tournament-main > .update-my-info-container .modify-tournament-form > .modify-tournament-label > span, .modify-tournament-main > .update-my-info-container .modify-product-form > .modify-tournament-label > span, .modify-tournament-main .modify-tournament-section > .delete-my-account-form > .modify-tournament-label > span, .modify-tournament-main .modify-tournament-section .modify-tournament-form > .modify-tournament-label > span, .modify-tournament-main .modify-tournament-section .modify-product-form > .modify-tournament-label > span {
+  font-size: 0.75rem;
+  color: #757575;
+}
+.update-my-info-main > .update-my-info-container > .delete-my-account-form > .modify-tournament-label > input[type=text], .update-my-info-main > .update-my-info-container .modify-tournament-form > .modify-tournament-label > input[type=text], .update-my-info-main > .update-my-info-container .modify-product-form > .modify-tournament-label > input[type=text], .update-my-info-main .modify-tournament-section > .delete-my-account-form > .modify-tournament-label > input[type=text], .update-my-info-main .modify-tournament-section .modify-tournament-form > .modify-tournament-label > input[type=text], .update-my-info-main .modify-tournament-section .modify-product-form > .modify-tournament-label > input[type=text], .modify-tournament-main > .update-my-info-container > .delete-my-account-form > .modify-tournament-label > input[type=text], .modify-tournament-main > .update-my-info-container .modify-tournament-form > .modify-tournament-label > input[type=text], .modify-tournament-main > .update-my-info-container .modify-product-form > .modify-tournament-label > input[type=text], .modify-tournament-main .modify-tournament-section > .delete-my-account-form > .modify-tournament-label > input[type=text], .modify-tournament-main .modify-tournament-section .modify-tournament-form > .modify-tournament-label > input[type=text], .modify-tournament-main .modify-tournament-section .modify-product-form > .modify-tournament-label > input[type=text] {
+  height: 1.5rem;
+  font-family: inherit;
+  outline: none;
+  border: 1px solid #e0e0e0;
+}
+.update-my-info-main > .update-my-info-container > .delete-my-account-form > .modify-tournament-label > textarea, .update-my-info-main > .update-my-info-container .modify-tournament-form > .modify-tournament-label > textarea, .update-my-info-main > .update-my-info-container .modify-product-form > .modify-tournament-label > textarea, .update-my-info-main .modify-tournament-section > .delete-my-account-form > .modify-tournament-label > textarea, .update-my-info-main .modify-tournament-section .modify-tournament-form > .modify-tournament-label > textarea, .update-my-info-main .modify-tournament-section .modify-product-form > .modify-tournament-label > textarea, .modify-tournament-main > .update-my-info-container > .delete-my-account-form > .modify-tournament-label > textarea, .modify-tournament-main > .update-my-info-container .modify-tournament-form > .modify-tournament-label > textarea, .modify-tournament-main > .update-my-info-container .modify-product-form > .modify-tournament-label > textarea, .modify-tournament-main .modify-tournament-section > .delete-my-account-form > .modify-tournament-label > textarea, .modify-tournament-main .modify-tournament-section .modify-tournament-form > .modify-tournament-label > textarea, .modify-tournament-main .modify-tournament-section .modify-product-form > .modify-tournament-label > textarea {
+  font-family: inherit;
+  outline: none;
+  border: 1px solid #e0e0e0;
+  resize: none;
+}
+.update-my-info-main > .update-my-info-container > .delete-my-account-form > .modify-tournament-label > .file, .update-my-info-main > .update-my-info-container .modify-tournament-form > .modify-tournament-label > .file, .update-my-info-main > .update-my-info-container .modify-product-form > .modify-tournament-label > .file, .update-my-info-main .modify-tournament-section > .delete-my-account-form > .modify-tournament-label > .file, .update-my-info-main .modify-tournament-section .modify-tournament-form > .modify-tournament-label > .file, .update-my-info-main .modify-tournament-section .modify-product-form > .modify-tournament-label > .file, .modify-tournament-main > .update-my-info-container > .delete-my-account-form > .modify-tournament-label > .file, .modify-tournament-main > .update-my-info-container .modify-tournament-form > .modify-tournament-label > .file, .modify-tournament-main > .update-my-info-container .modify-product-form > .modify-tournament-label > .file, .modify-tournament-main .modify-tournament-section > .delete-my-account-form > .modify-tournament-label > .file, .modify-tournament-main .modify-tournament-section .modify-tournament-form > .modify-tournament-label > .file, .modify-tournament-main .modify-tournament-section .modify-product-form > .modify-tournament-label > .file {
+  font-family: inherit;
+}
+.update-my-info-main > .update-my-info-container > .delete-my-account-form > .modify-tournament-label > img, .update-my-info-main > .update-my-info-container .modify-tournament-form > .modify-tournament-label > img, .update-my-info-main > .update-my-info-container .modify-product-form > .modify-tournament-label > img, .update-my-info-main .modify-tournament-section > .delete-my-account-form > .modify-tournament-label > img, .update-my-info-main .modify-tournament-section .modify-tournament-form > .modify-tournament-label > img, .update-my-info-main .modify-tournament-section .modify-product-form > .modify-tournament-label > img, .modify-tournament-main > .update-my-info-container > .delete-my-account-form > .modify-tournament-label > img, .modify-tournament-main > .update-my-info-container .modify-tournament-form > .modify-tournament-label > img, .modify-tournament-main > .update-my-info-container .modify-product-form > .modify-tournament-label > img, .modify-tournament-main .modify-tournament-section > .delete-my-account-form > .modify-tournament-label > img, .modify-tournament-main .modify-tournament-section .modify-tournament-form > .modify-tournament-label > img, .modify-tournament-main .modify-tournament-section .modify-product-form > .modify-tournament-label > img {
+  cursor: pointer;
+  border: 1px solid #e0e0e0;
+  height: 15rem;
+  width: 20rem;
+}
+.update-my-info-main > .update-my-info-container > .delete-my-account-form > input[type=submit], .update-my-info-main > .update-my-info-container .modify-tournament-form > input[type=submit], .update-my-info-main > .update-my-info-container .modify-product-form > input[type=submit], .update-my-info-main .modify-tournament-section > .delete-my-account-form > input[type=submit], .update-my-info-main .modify-tournament-section .modify-tournament-form > input[type=submit], .update-my-info-main .modify-tournament-section .modify-product-form > input[type=submit], .modify-tournament-main > .update-my-info-container > .delete-my-account-form > input[type=submit], .modify-tournament-main > .update-my-info-container .modify-tournament-form > input[type=submit], .modify-tournament-main > .update-my-info-container .modify-product-form > input[type=submit], .modify-tournament-main .modify-tournament-section > .delete-my-account-form > input[type=submit], .modify-tournament-main .modify-tournament-section .modify-tournament-form > input[type=submit], .modify-tournament-main .modify-tournament-section .modify-product-form > input[type=submit] {
   font-family: inherit;
   padding: 0.3rem 0;
   font-size: 1.1rem;
@@ -462,20 +556,20 @@ main {
   color: #eeeeee;
   border-radius: 0.25rem;
 }
-.update-my-info-main > .update-my-info-container > .delete-my-account-form > input[type=submit]:hover {
+.update-my-info-main > .update-my-info-container > .delete-my-account-form > input[type=submit]:hover, .update-my-info-main > .update-my-info-container .modify-tournament-form > input[type=submit]:hover, .update-my-info-main > .update-my-info-container .modify-product-form > input[type=submit]:hover, .update-my-info-main .modify-tournament-section > .delete-my-account-form > input[type=submit]:hover, .update-my-info-main .modify-tournament-section .modify-tournament-form > input[type=submit]:hover, .update-my-info-main .modify-tournament-section .modify-product-form > input[type=submit]:hover, .modify-tournament-main > .update-my-info-container > .delete-my-account-form > input[type=submit]:hover, .modify-tournament-main > .update-my-info-container .modify-tournament-form > input[type=submit]:hover, .modify-tournament-main > .update-my-info-container .modify-product-form > input[type=submit]:hover, .modify-tournament-main .modify-tournament-section > .delete-my-account-form > input[type=submit]:hover, .modify-tournament-main .modify-tournament-section .modify-tournament-form > input[type=submit]:hover, .modify-tournament-main .modify-tournament-section .modify-product-form > input[type=submit]:hover {
   background-color: #d62c1a;
 }
-.update-my-info-main > .update-my-info-container > .delete-my-account-form > input[type=submit]:active {
+.update-my-info-main > .update-my-info-container > .delete-my-account-form > input[type=submit]:active, .update-my-info-main > .update-my-info-container .modify-tournament-form > input[type=submit]:active, .update-my-info-main > .update-my-info-container .modify-product-form > input[type=submit]:active, .update-my-info-main .modify-tournament-section > .delete-my-account-form > input[type=submit]:active, .update-my-info-main .modify-tournament-section .modify-tournament-form > input[type=submit]:active, .update-my-info-main .modify-tournament-section .modify-product-form > input[type=submit]:active, .modify-tournament-main > .update-my-info-container > .delete-my-account-form > input[type=submit]:active, .modify-tournament-main > .update-my-info-container .modify-tournament-form > input[type=submit]:active, .modify-tournament-main > .update-my-info-container .modify-product-form > input[type=submit]:active, .modify-tournament-main .modify-tournament-section > .delete-my-account-form > input[type=submit]:active, .modify-tournament-main .modify-tournament-section .modify-tournament-form > input[type=submit]:active, .modify-tournament-main .modify-tournament-section .modify-product-form > input[type=submit]:active {
   background-color: #a82315;
 }
-.update-my-info-main > .update-my-info-container > .update-my-info-form {
+.update-my-info-main > .update-my-info-container > .update-my-info-form, .update-my-info-main .modify-tournament-section > .update-my-info-form, .modify-tournament-main > .update-my-info-container > .update-my-info-form, .modify-tournament-main .modify-tournament-section > .update-my-info-form {
   align-items: stretch;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   gap: 1rem;
 }
-.update-my-info-main > .update-my-info-container > .update-my-info-form > input[type=submit] {
+.update-my-info-main > .update-my-info-container > .update-my-info-form > input[type=submit], .update-my-info-main .modify-tournament-section > .update-my-info-form > input[type=submit], .modify-tournament-main > .update-my-info-container > .update-my-info-form > input[type=submit], .modify-tournament-main .modify-tournament-section > .update-my-info-form > input[type=submit] {
   border: none;
   font-family: inherit;
   background-color: #e74c3c;
@@ -484,23 +578,23 @@ main {
   font-size: 1.1rem;
   cursor: pointer;
 }
-.update-my-info-main > .update-my-info-container > .update-my-info-form > input[type=submit]:hover {
+.update-my-info-main > .update-my-info-container > .update-my-info-form > input[type=submit]:hover, .update-my-info-main .modify-tournament-section > .update-my-info-form > input[type=submit]:hover, .modify-tournament-main > .update-my-info-container > .update-my-info-form > input[type=submit]:hover, .modify-tournament-main .modify-tournament-section > .update-my-info-form > input[type=submit]:hover {
   background-color: #d62c1a;
 }
-.update-my-info-main > .update-my-info-container > .update-my-info-form > input[type=submit]:active {
+.update-my-info-main > .update-my-info-container > .update-my-info-form > input[type=submit]:active, .update-my-info-main .modify-tournament-section > .update-my-info-form > input[type=submit]:active, .modify-tournament-main > .update-my-info-container > .update-my-info-form > input[type=submit]:active, .modify-tournament-main .modify-tournament-section > .update-my-info-form > input[type=submit]:active {
   background-color: #a82315;
 }
-.update-my-info-main > .update-my-info-container > .update-my-info-form input[type=text], .update-my-info-main > .update-my-info-container > .update-my-info-form input[type=password] {
+.update-my-info-main > .update-my-info-container > .update-my-info-form input[type=text], .update-my-info-main > .update-my-info-container > .update-my-info-form input[type=password], .update-my-info-main .modify-tournament-section > .update-my-info-form input[type=text], .update-my-info-main .modify-tournament-section > .update-my-info-form input[type=password], .modify-tournament-main > .update-my-info-container > .update-my-info-form input[type=text], .modify-tournament-main > .update-my-info-container > .update-my-info-form input[type=password], .modify-tournament-main .modify-tournament-section > .update-my-info-form input[type=text], .modify-tournament-main .modify-tournament-section > .update-my-info-form input[type=password] {
   font-family: inherit;
   outline: none;
   border: 1px solid #e0e0e0;
   height: 2rem;
   width: 25rem;
 }
-.update-my-info-main > .update-my-info-container > .update-my-info-form input[type=text]:focus-within, .update-my-info-main > .update-my-info-container > .update-my-info-form input[type=password]:focus-within {
+.update-my-info-main > .update-my-info-container > .update-my-info-form input[type=text]:focus-within, .update-my-info-main > .update-my-info-container > .update-my-info-form input[type=password]:focus-within, .update-my-info-main .modify-tournament-section > .update-my-info-form input[type=text]:focus-within, .update-my-info-main .modify-tournament-section > .update-my-info-form input[type=password]:focus-within, .modify-tournament-main > .update-my-info-container > .update-my-info-form input[type=text]:focus-within, .modify-tournament-main > .update-my-info-container > .update-my-info-form input[type=password]:focus-within, .modify-tournament-main .modify-tournament-section > .update-my-info-form input[type=text]:focus-within, .modify-tournament-main .modify-tournament-section > .update-my-info-form input[type=password]:focus-within {
   border: 1px solid #009fff;
 }
-.update-my-info-main > .update-my-info-container > .update-my-info-form > .nickname-box {
+.update-my-info-main > .update-my-info-container > .update-my-info-form > .nickname-box, .update-my-info-main .modify-tournament-section > .update-my-info-form > .nickname-box, .modify-tournament-main > .update-my-info-container > .update-my-info-form > .nickname-box, .modify-tournament-main .modify-tournament-section > .update-my-info-form > .nickname-box {
   align-items: center;
   display: flex;
   flex-direction: row;
@@ -508,7 +602,7 @@ main {
   gap: 0.75rem;
   overflow: hidden;
 }
-.update-my-info-main > .update-my-info-container > .update-my-info-form > .nickname-box > label > input[type=button] {
+.update-my-info-main > .update-my-info-container > .update-my-info-form > .nickname-box > label > input[type=button], .update-my-info-main .modify-tournament-section > .update-my-info-form > .nickname-box > label > input[type=button], .modify-tournament-main > .update-my-info-container > .update-my-info-form > .nickname-box > label > input[type=button], .modify-tournament-main .modify-tournament-section > .update-my-info-form > .nickname-box > label > input[type=button] {
   height: 2rem;
   border: none;
   background-color: #747474;
@@ -516,10 +610,10 @@ main {
   color: #eeeeee;
   cursor: pointer;
 }
-.update-my-info-main > .update-my-info-container > .update-my-info-form > .nickname-box > label > input[type=button]:hover {
+.update-my-info-main > .update-my-info-container > .update-my-info-form > .nickname-box > label > input[type=button]:hover, .update-my-info-main .modify-tournament-section > .update-my-info-form > .nickname-box > label > input[type=button]:hover, .modify-tournament-main > .update-my-info-container > .update-my-info-form > .nickname-box > label > input[type=button]:hover, .modify-tournament-main .modify-tournament-section > .update-my-info-form > .nickname-box > label > input[type=button]:hover {
   background-color: #5b5b5b;
 }
-.update-my-info-main > .update-my-info-container > .update-my-info-form > .nickname-box > label > input[type=button]:active {
+.update-my-info-main > .update-my-info-container > .update-my-info-form > .nickname-box > label > input[type=button]:active, .update-my-info-main .modify-tournament-section > .update-my-info-form > .nickname-box > label > input[type=button]:active, .modify-tournament-main > .update-my-info-container > .update-my-info-form > .nickname-box > label > input[type=button]:active, .modify-tournament-main .modify-tournament-section > .update-my-info-form > .nickname-box > label > input[type=button]:active {
   background-color: #414141;
 }
 

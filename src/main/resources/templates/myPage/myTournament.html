@@ -28,6 +28,7 @@
                 <th>업로드 날짜</th>
                 <th>상세 보기</th>
                 <th>승인 여부</th>
+                <th>수정</th>
                 <th>삭제</th>
             </tr>
             </thead>
@@ -41,12 +42,15 @@
                     <span th:if="${tournament.isRecognized()}">O</span>
                     <span th:if="${!tournament.isRecognized()}">X</span>
                 </td>
+                <td>
+                    <a onclick="window.open(this.href, '_blank', 'width=600, height=800'); return false;" th:href="@{/myPage/myTournament/modify (index=${tournament.getIndex()})}">수정</a>
+                </td>
                 <td><input th:onclick=" 'deleteTournament(' + ${tournament.getIndex()} + ');' " value="삭제" type="button"></td>
             </tr>
             </tbody>
             <tfoot th:if="${paging.getTotalPage() > 1}">
             <tr>
-                <td colspan="6">
+                <td colspan="7">
                     <input class="currentPageHidden" th:value="${paging.getRequestPage()}" type="hidden">
                     <section th:if="${paging.getTotalPage() > 1}" class="paging-container">
                         <ul th:if="${paging.isShowPrev()}" class="front-back-ul">

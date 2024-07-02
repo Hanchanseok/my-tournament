@@ -318,10 +318,7 @@
 
     <update id="updateGoodsReview" parameterType="dev.hcs.mytournament.entities.GoodsReviewEntity">
         UPDATE `worldcup`.`goods_review`
-        SET `goods_index`           = #{goodsIndex},
-            `goods_order_index`     = #{goodsOrderIndex},
-            `user_email`            = #{userEmail},
-            `content`               = #{content},
+        SET `content`               = #{content},
             `created_at`            = #{createdAt},
             `modified_at`           = #{modifiedAt},
             `is_reported`           = #{isReported}

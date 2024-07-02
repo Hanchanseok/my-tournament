@@ -281,7 +281,7 @@
   }
 }
 
-.update-my-info-main {
+.update-my-info-main, .modify-tournament-main {
   margin: 1rem;
   border: 4px solid #747474;
   align-items: center;
@@ -289,18 +289,138 @@
   flex-direction: column;
   justify-content: center;
 
-  > .update-my-info-container {
+  > .update-my-info-container, .modify-tournament-section {
     align-items: stretch;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
 
-    > .delete-my-account-form {
+    > .close-button {
+      margin-bottom: 2rem;
+      background-color: #e74c3c;
+      border: none;
+      font-family: inherit;
+      font-size: 1.2rem;
+      padding: 0.25rem 0;
+      color: #eeeeee;
+      cursor: pointer;
+
+      &:hover {
+        background-color: darken(#e74c3c, 10);
+      }
+
+      &:active {
+        background-color: darken(#e74c3c, 20);
+      }
+    }
+
+    > .product-ul {
+      align-items: stretch;
+      display: flex;
+      flex-direction: column;
+      justify-content: stretch;
+      gap: 1rem;
+      margin: 2rem 0;
+
+      > .product-box {
+
+        > a {
+          align-items: center;
+          display: flex;
+          flex-direction: row;
+          justify-content: stretch;
+          gap: 5rem;
+          background-color: #e0e0e0;
+          padding-right: 5rem;
+          text-decoration: none;
+
+          > .product-name {
+            color: #414141;
+          }
+
+          &:hover {
+            background-color: #c7c7c7;
+
+            > .product-name {
+              color: #e74c3c;
+            }
+          }
+
+          &:active {
+            background-color: #adadad;
+          }
+
+          > .product-img {
+            width: 5rem;
+            height: 5rem;
+          }
+        }
+      }
+    }
+
+    > .delete-my-account-form, .modify-tournament-form, .modify-product-form {
       align-items: stretch;
       display: flex;
       flex-direction: column;
       justify-content: stretch;
       gap: 0.5rem;
+
+      > .turn-back {
+        color: #e74c3c;
+        font-size: 0.85rem;
+      }
+
+      > .modify-tournament-label {
+        align-items: stretch;
+        display: flex;
+        flex-direction: column;
+        justify-content: stretch;
+
+        &:focus-within {
+          > span {
+            color: #009fff;
+          }
+
+          > input[type="text"] {
+            border: 1px solid #009fff;
+          }
+
+          > textarea {
+            border: 1px solid #009fff;
+          }
+        }
+
+        > span {
+          font-size: 0.75rem;
+          color: #757575;
+        }
+
+        > input[type="text"] {
+          height: 1.5rem;
+          font-family: inherit;
+          outline: none;
+          border: 1px solid #e0e0e0;
+        }
+
+        > textarea {
+          font-family: inherit;
+          outline: none;
+          border: 1px solid #e0e0e0;
+          resize: none;
+        }
+
+        > .file {
+          font-family: inherit;
+        }
+
+        > img {
+          cursor: pointer;
+          border: 1px solid #e0e0e0;
+          height: 15rem;
+          width: 20rem;
+        }
+
+      }
 
       > input[type='submit'] {
         font-family: inherit;

@@ -257,4 +257,67 @@ public class MyPageService {
                 ? CommonResult.SUCCESS
                 : CommonResult.FAILURE;
     }
+
+    // 토너먼트 타이틀 불러오기
+    public TournamentEntity getTournamentByIndex(int index) {
+        return this.tournamentMapper.selectTournamentByIndex(index);
+    }
+
+    // 토너먼트 타이틀 수정
+    public Result modifyTournament(TournamentEntity tournament, MultipartFile file, UserEntity user) throws IOException {
+        if (user == null) return CommonResult.FAILURE;
+        TournamentEntity dbTournament = this.tournamentMapper.selectTournamentByIndex(tournament.getIndex());
+        if (!dbTournament.getUserEmail().equals(user.getEmail())) return CommonResult.FAILURE;
+
+        if (tournament.getTitle().length() > 50 || tournament.getTitle().length() < 2) {
+            return CommonResult.FAILURE;
+        }
+        if (tournament.getContent().length() > 1000 || tournament.getContent().isEmpty()) {
+            return CommonResult.FAILURE;
+        }
+
+        dbTournament.setTitle(tournament.getTitle());
+        dbTournament.setContent(tournament.getContent());
+        if (file != null) {
+            dbTournament.setThumbnail(file.getBytes());
+            dbTournament.setThumbnailFileName(file.getOriginalFilename());
+            dbTournament.setThumbnailContentType(file.getContentType());
+        }
+        return this.tournamentMapper.updateTournament(dbTournament) > 0
+                ? CommonResult.SUCCESS
+                : CommonResult.FAILURE;
+    }
+
+    // 토너먼트 요소 불러오기
+    public TournamentProductEntity[] getProductByTournamentIndex(int index) {
+        return this.tournamentMapper.selectTournamentProducts(index);
+    }
+
+    // 토너먼트 해당 요소 불러오기
+    public TournamentProductEntity getProductByIndex(int index) {
+        return this.tournamentMapper.selectTournamentProductByIndex(index);
+    }
+
+    // 토너먼트 요소 수정
+    public Result modifyProduct(TournamentProductEntity product, MultipartFile file, UserEntity user) throws IOException {
+        if (user == null) return CommonResult.FAILURE;
+        TournamentEntity dbTournament = this.tournamentMapper.selectTournamentByIndex(product.getTournamentIndex());
+        if (!dbTournament.getUserEmail().equals(user.getEmail())) return CommonResult.FAILURE;
+
+        TournamentProductEntity dbProduct = this.tournamentMapper.selectTournamentProductByIndex(product.getIndex());
+
+        if (product.getName().length() > 50 || product.getName().isEmpty()) {
+            return CommonResult.FAILURE;
+        }
+
+        dbProduct.setName(product.getName());
+        if (file != null) {
+            dbProduct.setProductThumbnail(file.getBytes());
+            dbProduct.setProductThumbnailFileName(file.getOriginalFilename());
+            dbProduct.setProductThumbnailContentType(file.getContentType());
+        }
+        return this.tournamentMapper.updateTournamentProduct(dbProduct) > 0
+                ? CommonResult.SUCCESS
+                : CommonResult.FAILURE;
+    }
 }

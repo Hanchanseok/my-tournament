@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title th:text="${tournament.getTitle()}"></title>
+    <link rel="stylesheet" type="text/css" th:href="@{/assets/styles/manage.css}">
+    <script defer type="text/javascript" th:src="@{/assets/scripts/modifyTournament.js}"></script>
+    <script th:if="${session.get('user') == null}">
+        alert('잘못된 접근입니다.');
+        window.close();
+    </script>
+</head>
+<body>
+    <main class="modify-tournament-main">
+        <section class="modify-tournament-section">
+            <form class="modify-tournament-form">
+                <input name="index" th:value="${tournament.getIndex()}" type="hidden">
+                <label class="modify-tournament-label">
+                    <span>대회 이름</span>
+                    <input th:value="${tournament.getTitle()}" autofocus required name="title" minlength="2" maxlength="50" type="text" placeholder="2자 이상 50자 이하">
+                </label>
+                <label class="modify-tournament-label">
+                    <span>대회 설명</span>
+                    <textarea th:text="${tournament.getContent()}" required name="content" minlength="1" maxlength="1000" id="" cols="30" rows="10" placeholder="1자 이상 1000자 이하"></textarea>
+                </label>
+                <label class="modify-tournament-label">
+                    <span>썸네일 변경</span>
+                    <img class="file-image" th:src="@{/tournament/thumbnail (index=${tournament.getIndex()})}" alt="">
+                    <input hidden class="file" accept=".jpg, .jpeg, .png" type="file">
+                </label>
+                <input value="다음" type="submit">
+            </form>
+        </section>
+    </main>
+</body>
+</html>

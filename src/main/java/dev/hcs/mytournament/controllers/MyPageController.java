@@ -2,9 +2,7 @@ package dev.hcs.mytournament.controllers;
 
 import dev.hcs.mytournament.dtos.GoodsReviewDto;
 import dev.hcs.mytournament.dtos.SearchDto;
-import dev.hcs.mytournament.entities.GoodsReviewEntity;
-import dev.hcs.mytournament.entities.GoodsReviewImageEntity;
-import dev.hcs.mytournament.entities.UserEntity;
+import dev.hcs.mytournament.entities.*;
 import dev.hcs.mytournament.results.CommonResult;
 import dev.hcs.mytournament.results.Result;
 import dev.hcs.mytournament.results.user.UpdatePasswordResult;
@@ -283,6 +281,69 @@ public class MyPageController {
     ) {
         UserEntity user = (UserEntity) session.getAttribute("user");
         Result result = this.myPageService.deleteTournament(index, user);
+        JSONObject responseObject = new JSONObject();
+        responseObject.put("result", result.name().toLowerCase());
+        return responseObject.toString();
+    }
+
+    // 토너먼트 수정 페이지로
+    @RequestMapping(value = "/myTournament/modify", method = RequestMethod.GET, produces = MediaType.TEXT_HTML_VALUE)
+    public ModelAndView getModify(
+            @RequestParam("index") int index
+    ) {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("tournament", this.myPageService.getTournamentByIndex(index));
+        modelAndView.setViewName("/myPage/modifyTournamentTitle");
+        return modelAndView;
+    }
+
+    // 토너먼트 타이틀 수정
+    @RequestMapping(value = "/myTournament/modify", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public String postModify(
+            TournamentEntity tournament,
+            @RequestParam(value = "file", required = false) MultipartFile file,
+            HttpSession session
+    ) throws IOException {
+        UserEntity user = (UserEntity) session.getAttribute("user");
+        Result result = this.myPageService.modifyTournament(tournament, file, user);
+        JSONObject responseObject = new JSONObject();
+        responseObject.put("result", result.name().toLowerCase());
+        return responseObject.toString();
+    }
+
+    // 토너먼트 요소 페이지로
+    @RequestMapping(value = "/myTournament/product", method = RequestMethod.GET, produces = MediaType.TEXT_HTML_VALUE)
+    public ModelAndView getProduct(
+            @RequestParam("index") int index
+    ) {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("products", this.myPageService.getProductByTournamentIndex(index));
+        modelAndView.setViewName("/myPage/tournamentProduct");
+        return modelAndView;
+    }
+
+    // 토너먼트 요소 수정 페이지로
+    @RequestMapping(value = "/myTournament/product/modify", method = RequestMethod.GET, produces = MediaType.TEXT_HTML_VALUE)
+    public ModelAndView getProductModify(
+            @RequestParam("index") int index
+    ) {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("product", this.myPageService.getProductByIndex(index));
+        modelAndView.setViewName("/myPage/modifyTournamentProduct");
+        return modelAndView;
+    }
+
+    // 토너먼트 요소 수정
+    @RequestMapping(value = "/myTournament/product/modify", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public String postProductModify(
+            TournamentProductEntity product,
+            @RequestParam(value = "file", required = false) MultipartFile file,
+            HttpSession session
+    ) throws IOException {
+        UserEntity user = (UserEntity) session.getAttribute("user");
+        Result result = this.myPageService.modifyProduct(product, file, user);
         JSONObject responseObject = new JSONObject();
         responseObject.put("result", result.name().toLowerCase());
         return responseObject.toString();

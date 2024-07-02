@@ -77,6 +77,10 @@
           padding: 0.5rem 0.5rem;
 
           > .goods-name {
+            width: 160px;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
             padding-bottom: 0.25rem;
             color: #212121;
             font-weight: 700;

@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>토너먼트 요소들</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/assets/styles/manage.css}">
+    <script defer type="text/javascript" th:src="@{/assets/scripts/modifyTournament.js}"></script>
+    <script th:if="${session.get('user') == null}">
+        alert('잘못된 접근입니다.');
+        window.close();
+    </script>
+</head>
+<body>
+    <main class="modify-tournament-main">
+        <section class="modify-tournament-section">
+            <ul class="product-ul">
+                <li class="product-box" th:each="product : ${products}">
+                    <a th:href="@{/myPage/myTournament/product/modify (index=${product.getIndex()})}">
+                        <img class="product-img" th:src="@{/tournament/productThumbnail (index=${product.getIndex()})}" alt="">
+                        <span class="product-name" th:text="${product.getName()}"></span>
+                    </a>
+                </li>
+            </ul>
+            <input class="close-button" value="닫기" type="button">
+        </section>
+    </main>
+</body>
+</html>
